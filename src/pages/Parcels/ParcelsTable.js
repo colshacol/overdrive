@@ -10,6 +10,7 @@ import styled from "styled-components"
 import { TextInput } from "../../components/TextInput"
 import { Spacer } from "../../components/Spacer"
 import { Grid, Cell } from "styled-css-grid"
+import { Modal } from "../../components/Modal"
 
 export const ParcelsTable = (props) => {
   const [location, setLocation] = useLocation()
@@ -74,6 +75,7 @@ export const ParcelsTable = (props) => {
   return (
     <>
       <Table
+        isLoading={props.isLoading}
         title="Parcels"
         columns={columns.current}
         data={props.data}
@@ -85,18 +87,7 @@ export const ParcelsTable = (props) => {
             justifyContent="flex-end"
             alignItems="center"
           >
-            <Popup
-              trigger={
-                <Button small onClick={() => setIsModalShown(true)}>
-                  <Plus size="18px" style={{ marginRight: 6 }} />
-                  Add Parcel
-                </Button>
-              }
-              modal
-              closeOnDocumentClick
-            >
-              {(close) => <AddParcelModal close={close} />}
-            </Popup>
+            <AddParcelModal />
           </Box>
         )}
       />
@@ -105,16 +96,40 @@ export const ParcelsTable = (props) => {
 }
 
 const STATE_LABEL_MAP = {
-  ParcelNumber: { label: "Parcel Number", width: 2 },
-  ParcelID: { label: "Parcel ID", width: 1 },
-  Acres: { label: "Acres", width: 1 },
-  StateCode: { label: "State", width: 1 },
-  County: { label: "County", width: 1 },
-  TownshipName: { label: "Township Name", width: 2 },
-  AssignedTo: { label: "Assigned To", width: 2 },
-  DateAssigned: { label: "Date Assigned", width: 2 },
-  DateCompleted: { label: "Date Completed", width: 2 },
-  APN: { label: "APN", width: 2 },
+  StateCode: { label: "State", width: 2, type: "text", isRequired: true },
+  County: { label: "County", width: 4, type: "text", isRequired: true },
+  TownshipName: {
+    label: "Township Name",
+    width: 3,
+    type: "text",
+    isRequired: true,
+  },
+  Acres: { label: "Acres", width: 3, type: "number", isRequired: true },
+  ParcelNumber: {
+    label: "Parcel Number",
+    width: 6,
+    type: "number",
+    isRequired: true,
+  },
+  APN: { label: "APN", width: 6, type: "text", isRequired: true },
+  AssignedTo: {
+    label: "Assigned To",
+    width: 6,
+    type: "text",
+    isRequired: true,
+  },
+  DateAssigned: {
+    label: "Date Assigned",
+    width: 3,
+    type: "date",
+    isRequired: true,
+  },
+  DateCompleted: {
+    label: "Date Completed",
+    width: 3,
+    type: "date",
+    isRequired: true,
+  },
 }
 
 const StyledModal = styled.div`
@@ -142,16 +157,15 @@ const StyledForm = styled.div`
 
 const AddParcelModal = (props) => {
   const [state, setState] = React.useState({
-    ParcelNumber: "",
-    ParcelID: "",
-    Acres: "",
     StateCode: "",
     County: "",
     TownshipName: "",
+    Acres: "",
+    ParcelNumber: "",
+    APN: "",
     AssignedTo: "",
     DateAssigned: "",
     DateCompleted: "",
-    APN: "",
   })
 
   const onChange = (key) => (event) => {
@@ -163,15 +177,28 @@ const AddParcelModal = (props) => {
   }
 
   return (
-    <StyledModal>
-      <h2>Add Parcel</h2>
+    <Modal
+      title="Add Parcel"
+      text="Create a parcel."
+      triggerElement={
+        <Button small>
+          <Plus size="18px" style={{ marginRight: 6 }} />
+          Add Parcel
+        </Button>
+      }
+      actions={(modalState) => (
+        <Button onClick={modalState.close}>Submit</Button>
+      )}
+    >
       <StyledForm>
-        <Grid columns={2} gap="24px" style={{ width: "100%" }}>
+        <Grid columns={6} gap="24px" style={{ width: "100%" }}>
           {Object.entries(state).map(([key, value]) => (
             <Cell width={STATE_LABEL_MAP[key].width}>
               <TextInput
                 width="100%"
                 label={STATE_LABEL_MAP[key].label}
+                type={STATE_LABEL_MAP[key].type}
+                isRequired={STATE_LABEL_MAP[key].isRequired}
                 value={value}
                 onChange={onChange(key)}
               />
@@ -179,17 +206,6 @@ const AddParcelModal = (props) => {
           ))}
         </Grid>
       </StyledForm>
-      <StyledActionsRow>
-        <Button.Ghost onClick={props.close}>Cancel</Button.Ghost>
-        <Spacer size="24px" />
-        <Button onClick={props.close}>Submit</Button>
-      </StyledActionsRow>
-    </StyledModal>
+    </Modal>
   )
 }
-
-const StyledActionsRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-`

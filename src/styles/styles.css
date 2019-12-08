@@ -200,8 +200,19 @@ div::-webkit-scrollbar {
 div::-webkit-scrollbar-thumb:horizontal,
 div::-webkit-scrollbar-thumb {
   background-color: #bfb3c4;
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar:horizontal {
   height: 8px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type="date"]::-webkit-clear-button {
+  display: none;
 }

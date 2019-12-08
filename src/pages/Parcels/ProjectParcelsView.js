@@ -85,7 +85,7 @@ const ParcelsView = (props) => {
         <ParcelDataCards parcels={parcels} />
       </Box>
       <Spacer size="32px" />
-      <ParcelsTable data={parcels} />
+      <ParcelsTable data={parcels} isLoading={!parcels.length} />
     </>
   )
 }

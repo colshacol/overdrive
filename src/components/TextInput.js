@@ -73,8 +73,21 @@ SelectInput.defaultProps = {
   onBlur: () => {},
 }
 
+const useRequiredModifiers = (props) => {
+  const labelIndicator = React.useRef("")
+
+  React.useEffect(() => {
+    if (props.isRequired) {
+      labelIndicator.current = "*"
+    }
+  }, [props.isRequired])
+
+  return { labelIndicator: labelIndicator.current }
+}
+
 export const TextInput = (props) => {
   const [isSelectBoxOpen, setIsSelectBoxOpen] = React.useState(false)
+  const { labelIndicator } = useRequiredModifiers(props)
   const width = props.fillWidth ? "100%" : "280px"
   const inputPaddingY = props.slim ? "8px" : "12px"
 
@@ -84,6 +97,8 @@ export const TextInput = (props) => {
     paddingBottom: inputPaddingY,
   }
 
+  const requiredLabelIndicator = props.isRequired ? "*" : ""
+
   return (
     <StyledTextInput
       className="TextInput"
@@ -92,7 +107,10 @@ export const TextInput = (props) => {
     >
       {props.label && (
         <>
-          <label htmlFor={props.id}>{props.label}</label>
+          <label htmlFor={props.id}>
+            {props.label}
+            {requiredLabelIndicator}
+          </label>
         </>
       )}
       <input
@@ -125,6 +143,7 @@ export const TextInput = (props) => {
 
 TextInput.defaultProps = {
   isSelectable: undefined,
+  isRequired: false,
 }
 
 const StyledTextInput = styled.div`
