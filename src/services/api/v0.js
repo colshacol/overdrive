@@ -128,4 +128,17 @@ export const getStateCountiesWithParcels = (stateCode) => {
     })
 }
 
+export const getTitlesForCounty = (county) => {
+  return wretch(window.__env.serverUrl + "/api/v0/getTitlesForCounty")
+    .post({ county })
+    .json((response) => {
+      if (response.isSuccess) {
+        console.log("getTitlesForCounty: ", response)
+        return response.titles
+      }
+
+      return response
+    })
+}
+
 // getStateCountiesWithParcels
