@@ -10,7 +10,7 @@ import { useStatesWithParcels } from "../../hooks/useStatesWithParcels"
 import { useStateCountiesWithParcels } from "../../hooks/useStateCountiesWithParcels"
 import * as apiV0 from "../../services/api/v0"
 
-const NAVIGATION = [["Title Plant", "/accounting"]]
+const NAVIGATION = [["Title Plant", "/titlePlant"]]
 
 export const TitlePlant = (props) => {
   return (
