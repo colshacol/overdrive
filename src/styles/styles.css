@@ -161,7 +161,7 @@ h4 {
 }
 
 .virtualizedTable::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
   position: absolute;
   background-color: hsla(300, 15%, 98%, 1);
 }

@@ -4,6 +4,7 @@ import ReactDOM from "react-dom"
 
 import "@servicetitan/anvil-fonts/dist/css/anvil-fonts.css"
 import "@servicetitan/design-system/dist/system.min.css"
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import "./styles/variables.css"
 import "./styles/fonts.css"

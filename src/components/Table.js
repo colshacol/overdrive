@@ -1,6 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 import { FixedSizeList } from "react-window"
+import Loader from "react-loader-spinner"
 
 import {
   useTable,
@@ -19,12 +20,15 @@ import { ChevronDown } from "react-feather"
 import { Spacer } from "./Spacer"
 
 import { useUID } from "../hooks/useUID"
+import { Box } from "./Box"
 
 // TODO: Dynamic tbody height.
 
 // TODO: Column overrides.
 
 // TODO: Custom columns from level 3 usage.
+
+// TODO: Loading state.
 
 // NOTE: Tables come in 3 levels.
 // - Level 1 is this component, the core table component.
@@ -224,9 +228,8 @@ export const Table = (props) => {
     useAbsoluteLayout
   )
 
-  console.log({ tableState })
-
-  const height = useAvailableHeight(uid, tableState.rows.length)
+  const tableHeight = useAvailableHeight(uid, tableState.rows.length)
+  const height = props.isLoading ? 160 : tableHeight
 
   const RenderRow = React.useCallback(
     ({ index, style }) => {
@@ -296,15 +299,32 @@ export const Table = (props) => {
             tableHeight={height}
             className="tbody"
           >
-            <FixedSizeList
-              className="virtualizedTable"
-              height={height || 300}
-              itemCount={tableState.rows.length}
-              itemSize={45}
-              width="100%"
-            >
-              {RenderRow}
-            </FixedSizeList>
+            {props.isLoading ? (
+              <Box
+                width="100%"
+                height="100%"
+                justifyContent="center"
+                alignItems="center"
+                paddingTop="12px"
+              >
+                <Loader
+                  type="Rings"
+                  color="var(--brandDarkPurple)"
+                  height={80}
+                  width={80}
+                />
+              </Box>
+            ) : (
+              <FixedSizeList
+                className="virtualizedTable"
+                height={height || 300}
+                itemCount={tableState.rows.length}
+                itemSize={45}
+                width="100%"
+              >
+                {RenderRow}
+              </FixedSizeList>
+            )}
           </TableBody>
         </StyledTable>
       </StyledTableWrapper>

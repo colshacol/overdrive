@@ -104,6 +104,7 @@ export const TitleTable = (props) => {
 
   return (
     <Table
+      isLoading={props.isLoading}
       height={props.data.length * 45}
       title="Titles"
       columns={columns || []}

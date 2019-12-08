@@ -79,9 +79,9 @@ const TitlePlantView = (props) => {
           </>
         )}
       </Box>
-      <Spacer size="16px" />
-      {selectedState && selectedCounty && titles.length && (
-        <TitleTable data={titles} />
+      <Spacer size="24px" />
+      {selectedState && selectedCounty && (
+        <TitleTable data={titles} isLoading={!titles.length} />
       )}
     </>
   )

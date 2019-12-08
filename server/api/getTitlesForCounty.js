@@ -3,7 +3,9 @@ import { titles } from "../../states.json"
 
 export default async (app) => {
   app.post("/api/v0/getTitlesForCounty", async (request, response) => {
-    return response.send({ isSuccess: true, titles })
+    return setTimeout(() => {
+      response.send({ isSuccess: true, titles })
+    }, 30000)
 
     const [sql, pool, procedures] = await mysql
     const invokeProcedure = procedures.getTitlesForCounty(request.body)
