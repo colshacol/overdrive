@@ -1,5 +1,7 @@
 import sql from "mssql"
 
+import { titles } from "../states.json"
+
 const createProcedures = (sql, pool) => {
   const getUserByEmail = (parameters) => {
     return pool
@@ -49,6 +51,15 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.ProjectsForEmployeeIDSEL")
   }
 
+  const getTitlesForCounty = (parameters) => {
+    // const response = await sql.query`select * from Title where  = ${value}`
+    // return pool
+    // .request()
+    // .input("EmployeeID", sql.VarChar(50), parameters.employeeID)
+    // .execute("dbo.ProjectsForEmployeeIDSEL")
+    return titles
+  }
+
   // TODO: This shit.
   const getTitlesForParcel = (parameters) => {
     return pool
@@ -75,6 +86,7 @@ const createProcedures = (sql, pool) => {
     getParcel,
     getTitle,
     getUserByEmail,
+    getTitlesForCounty,
     getParcelsForProject,
     getProjectsForEmployee,
     getTitlesForParcel,
