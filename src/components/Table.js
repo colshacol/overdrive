@@ -83,6 +83,8 @@ const TD = styled.div`
 
 const TableBody = styled.div`
   width: 100% !important;
+  max-height: 500px;
+  overflow-y: scroll;
 
   .tr {
     background: hsla(300, 15%, 98%, 1);
