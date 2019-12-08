@@ -12,11 +12,41 @@ import { Spacer } from "../../components/Spacer"
 import { Grid, Cell } from "styled-css-grid"
 import truncate from "truncate"
 
+// Use props.columnOverrides to use default columns
+// with unique properties.
+
+// Use props.columns to provide completely custom
+// column selection / properties.
+
+const useMergedColuns = (props, columns) => {
+  const ref = React.useRef(columns)
+
+  if (props.columnOverrides) {
+    ref.current = columns.reduce((column, final) => {
+      const override = props.columnOverrides[column.Header]
+
+      if (override) {
+        return [
+          ...final,
+          {
+            ...column,
+            ...override,
+          },
+        ]
+      }
+
+      return final
+    }, [])
+  }
+
+  return ref.current
+}
+
 export const TitleTable = (props) => {
   const globalStore = useGlobalStore()
   const [location, setLocation] = useLocation()
 
-  const columns = React.useRef([
+  const columns = useMergedColuns(props, [
     {
       Header: "ID",
       accessor: "TitleID",
@@ -62,7 +92,7 @@ export const TitleTable = (props) => {
     <Table
       height={props.data.length * 45}
       title="Titles"
-      columns={columns.current}
+      columns={columns || []}
       data={props.data}
       renderTopRow={(props, tableState) => (
         <Box inline width="100%" justifyContent="flex-end" alignItems="center">
