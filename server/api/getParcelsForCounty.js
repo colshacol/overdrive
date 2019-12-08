@@ -1,14 +1,9 @@
 import mysql from "../mysql"
-import { titles } from "../../states.json"
 
 export default async (app) => {
-  app.post("/api/v0/getTitlesForCounty", async (request, response) => {
-    return setTimeout(() => {
-      response.send({ isSuccess: true, titles })
-    }, 750)
-
+  app.post("/api/v0/getParcelsForCounty", async (request, response) => {
     const [sql, pool, procedures] = await mysql
-    const invokeProcedure = procedures.getTitlesForCounty(request.body)
+    const invokeProcedure = procedures.getParcelsForCounty(request.body)
 
     const handleSuccess = (data) => {
       const parcels = data.recordset
@@ -16,7 +11,7 @@ export default async (app) => {
     }
 
     const handleError = (error) => {
-      console.log("[ERROR] /api/v0/getTitlesForCounty", error)
+      console.log("[ERROR] /api/v0/getParcelsForCounty", error)
       return response.status(400).send({ isSuccess: false, error })
     }
 

@@ -51,12 +51,12 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.ProjectsForEmployeeIDSEL")
   }
 
-  const getTitlesForCounty = (parameters) => {
-    // const response = await sql.query`select * from Title where  = ${value}`
-    // return pool
-    // .request()
-    // .input("EmployeeID", sql.VarChar(50), parameters.employeeID)
-    // .execute("dbo.ProjectsForEmployeeIDSEL")
+  const getParcelsForCounty = async (parameters) => {
+    return pool
+      .request()
+      .input("StateCode", sql.VarChar(50), parameters.stateCode)
+      .input("County", sql.VarChar(50), parameters.county)
+      .execute("dbo.ParcelsForStateAndCountySEL")
     return titles
   }
 
@@ -86,7 +86,7 @@ const createProcedures = (sql, pool) => {
     getParcel,
     getTitle,
     getUserByEmail,
-    getTitlesForCounty,
+    getParcelsForCounty,
     getParcelsForProject,
     getProjectsForEmployee,
     getTitlesForParcel,

@@ -7,10 +7,10 @@ import addGetTitlesRoute from "./getTitlesForParcel"
 import getParcel from "./getParcel"
 import getTitle from "./getTitle"
 import getProject from "./getProject"
-import getTitlesForCounty from "./getTitlesForCounty"
+import getParcelsForCounty from "./getParcelsForCounty"
 
 export default async (app) => {
-  getTitlesForCounty(app)
+  getParcelsForCounty(app)
   getParcel(app)
   getTitle(app)
   getProject(app)

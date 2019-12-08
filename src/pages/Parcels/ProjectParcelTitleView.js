@@ -96,6 +96,11 @@ export const ProjectParcelTitleView = (props) => {
       <Box width="100%" padding="24px" justifyContent="flex-end">
         <Button>
           <Link size="21px" style={{ marginRight: 12 }} />
+          Edit
+        </Button>
+        <Spacer size="24px" />
+        <Button>
+          <Link size="21px" style={{ marginRight: 12 }} />
           Link to GIS
         </Button>
         <Spacer size="24px" />

@@ -40,6 +40,7 @@ export const SelectInput = (props) => {
           icon={
             <>
               <ChevronDown
+                style={{ cursor: "pointer" }}
                 size="24px"
                 color={"var(--grayscale6)"}
                 onClick={() => {
@@ -47,6 +48,7 @@ export const SelectInput = (props) => {
                 }}
               />
               <X
+                style={{ cursor: "pointer" }}
                 size="24px"
                 color={"var(--grayscale6)"}
                 onClick={() => {
