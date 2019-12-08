@@ -7,11 +7,7 @@ import { ChevronDown } from "react-feather"
 import { Box } from "./Box"
 import { Spacer } from "./Spacer"
 
-const StyledOptions = styled.div`
-  width: 100%;
-  max-height: 200px;
-  overflow-y: scroll;
-`
+const StyledOptions = styled.div``
 
 const StyledOption = styled.div`
   width: 280px;

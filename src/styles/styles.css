@@ -174,7 +174,12 @@ div.SelectInputOptions-content {
   width: 100% !important;
   padding: 0 !important;
   max-width: 280px !important;
+  max-height: 280px !important;
   overflow-x: hidden !important;
+
+  z-index: 100 !important;
+  background-color: #fff !important;
+  box-shadow: 0px 2px 12px -2px rgba(0, 0, 0, 0.25) !important;
 }
 
 div {
