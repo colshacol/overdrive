@@ -55,7 +55,8 @@ export const TitleTable = (props) => {
       maxWidth: 200,
       collapse: true,
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
     {
@@ -65,7 +66,8 @@ export const TitleTable = (props) => {
       maxWidth: 200,
       collapse: true,
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
     {
@@ -76,7 +78,8 @@ export const TitleTable = (props) => {
       collapse: true,
       Cell: ({ cell: { value } }) => truncate(value, 23),
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
     {
@@ -87,7 +90,8 @@ export const TitleTable = (props) => {
       maxWidth: 200,
       collapse: true,
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
     {
@@ -97,7 +101,8 @@ export const TitleTable = (props) => {
       maxWidth: 250,
       collapse: true,
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
     {
@@ -107,7 +112,8 @@ export const TitleTable = (props) => {
       maxWidth: 250,
       collapse: true,
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
     {
@@ -117,7 +123,8 @@ export const TitleTable = (props) => {
       maxWidth: 250,
       collapse: true,
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
     {
@@ -127,7 +134,8 @@ export const TitleTable = (props) => {
       maxWidth: 100,
       collapse: true,
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
     {
@@ -137,7 +145,8 @@ export const TitleTable = (props) => {
       maxWidth: 100,
       collapse: true,
       onClick: (cell) => {
-        globalStore.setCurrentTitleID(cell.value)
+        const id = cell.row.values.TitleID
+        globalStore.setCurrentTitleID(id)
       },
     },
   ])
