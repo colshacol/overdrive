@@ -1,5 +1,4 @@
 import * as React from "react"
-// import * as ReactTable from 'react-table'
 import styled from "styled-components"
 import { FixedSizeList } from "react-window"
 
@@ -18,6 +17,26 @@ import {
 import { ChevronUp } from "react-feather"
 import { ChevronDown } from "react-feather"
 import { Spacer } from "./Spacer"
+
+// TODO: Dynamic tbody height.
+
+// TODO: Column overrides.
+
+// TODO: Custom columns from level 3 usage.
+
+// NOTE: Tables come in 3 levels.
+
+// Level 1 is this component, the core table component.
+// It houses all basic functionality to allow tables to
+// be created.
+
+// Level 2 consists of tables created to be reused in Overdrive's
+// web properties, providing the added layer of logic needed to
+// handle specific table cases. (i.e Title table, Parcel table.)
+
+// Level 3 consists of custom level 2 tables. These tables are,
+// essentially, level 2 tables with custom column definitions and
+// capabilities. (i.e Title table with only ID and Grantor columns.)
 
 const Styles = styled.div`
   width: 100%;
@@ -154,8 +173,6 @@ export const Table = (props) => {
       const trProps = row.getRowProps({
         style,
       })
-
-      // console.log(row, trProps);
 
       return (
         <div {...trProps} className="tr">
