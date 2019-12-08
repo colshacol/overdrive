@@ -177,6 +177,10 @@ div.SelectInputOptions-content {
   overflow-x: hidden !important;
 }
 
+div {
+  scrollbar-width: thin !important;
+}
+
 div::-webkit-scrollbar-track:horizontal,
 div::-webkit-scrollbar-track {
   background-color: transparent;

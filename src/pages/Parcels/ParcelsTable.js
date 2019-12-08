@@ -77,7 +77,7 @@ export const ParcelsTable = (props) => {
         title="Parcels"
         columns={columns.current}
         data={props.data}
-        height={500}
+        height={400}
         renderTopRow={(props, tableState) => (
           <Box
             inline

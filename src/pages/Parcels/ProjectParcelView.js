@@ -7,6 +7,7 @@ import { Spacer } from "../../components/Spacer"
 import { ParcelDataCards } from "./ParcelDataCards"
 import { Box } from "../../components/Box"
 import truncate from "truncate"
+import Collapse, { Panel } from "rc-collapse"
 
 import styled from "styled-components"
 import theme from "../../theme"
@@ -161,16 +162,21 @@ export const ProjectParcelView = (props) => {
 
 const ParcelView = (props) => {
   const titles = useTitles()
-  const [, route] = useRoute("/project/:projectID/parcels/:parcelID")
+  const [isDataOpen, setIsDataOpen] = React.useState(false)
   const parcel = useParcel(Number(props.params.parcelID))
 
   return (
     <>
-      <h1>
-        Parcel <MutedText>ID: {props.params.parcelID}</MutedText>
-      </h1>
+      <Box justifyContent="space-between" alignItems="center">
+        <h1>
+          Parcel <MutedText>ID: {props.params.parcelID}</MutedText>
+        </h1>
+        <a href="#" onClick={() => setIsDataOpen(!isDataOpen)}>
+          Show Parcel Information
+        </a>
+      </Box>
       <Spacer size="32px" />
-      {parcel.ParcelID && <ParcelData parcel={parcel} />}
+      {parcel.ParcelID && isDataOpen && <ParcelData parcel={parcel} />}
       <TitleTable data={titles} />
     </>
   )

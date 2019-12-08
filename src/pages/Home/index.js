@@ -32,7 +32,7 @@ export const Home = (props) => {
   const projects = useProjectsForUser()
 
   return (
-    <Page title="Dashboard">
+    <Page.SimplePage title="Dashboard">
       <div>
         <h2>Welcome back,</h2>
         <h1>{user.FullName}</h1>
@@ -82,7 +82,7 @@ export const Home = (props) => {
           ))}
         </Box>
       </Box>
-    </Page>
+    </Page.SimplePage>
   )
 }
 

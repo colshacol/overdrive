@@ -46,12 +46,8 @@ const AuthWrapper = (props) => {
 }
 
 const App = (props) => {
-  const user = useUser()
   const [ready, setReady] = React.useState(false)
   const [location, setLocation] = useLocation()
-  const router = useRouter()
-
-  console.log({ user })
 
   React.useLayoutEffect(() => {
     setLocation("/")

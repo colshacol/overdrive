@@ -61,6 +61,7 @@ export const ProjectParcelTitleView = (props) => {
         text={`Title (${props.params.titleID})`}
       />
       <h1>Title</h1>
+      <Spacer size="12px" />
       <Box
         width="100%"
         padding="24px"

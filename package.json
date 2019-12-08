@@ -42,6 +42,7 @@
     "morgan": "^1.9.1",
     "mssql": "^6.0.1",
     "nanoid": "2.1.7",
+    "rc-collapse": "^1.11.8",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-feather": "2.0.3",

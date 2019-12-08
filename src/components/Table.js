@@ -18,6 +18,8 @@ import { ChevronUp } from "react-feather"
 import { ChevronDown } from "react-feather"
 import { Spacer } from "./Spacer"
 
+import { useUID } from "../hooks/useUID"
+
 // TODO: Dynamic tbody height.
 
 // TODO: Column overrides.
@@ -25,20 +27,21 @@ import { Spacer } from "./Spacer"
 // TODO: Custom columns from level 3 usage.
 
 // NOTE: Tables come in 3 levels.
-
-// Level 1 is this component, the core table component.
+// - Level 1 is this component, the core table component.
 // It houses all basic functionality to allow tables to
 // be created.
-
-// Level 2 consists of tables created to be reused in Overdrive's
+// - Level 2 consists of tables created to be reused in Overdrive's
 // web properties, providing the added layer of logic needed to
 // handle specific table cases. (i.e Title table, Parcel table.)
-
-// Level 3 consists of custom level 2 tables. These tables are,
+// - Level 3 consists of custom level 2 tables. These tables are,
 // essentially, level 2 tables with custom column definitions and
 // capabilities. (i.e Title table with only ID and Grantor columns.)
 
+// NOTE: Tables are always the last render of the parent/page.
+
 const Styles = styled.div`
+  display: block;
+  max-width: 100%;
   width: 100%;
   height: fit-content;
   background: #fff;
@@ -50,25 +53,26 @@ const Styles = styled.div`
   border-bottom: 2px solid var(--grayscale4);
 `
 
-const THead = styled.div`
+const StyledTHead = styled.div`
+  width: 100%;
   padding: 24px 0 24px;
-  /* border-radius: 6px; */
   border-bottom: 1px solid var(--grayscale2);
   box-shadow: 0px -2px 8px 0px var(--lightPurple2);
   border-top: 1px solid var(--grayscale2);
+
   .th:first-of-type {
     padding-left: 24px;
   }
 `
 
-const TH = styled.div`
+const StyledTH = styled.div`
   font-weight: 600;
   user-select: none;
   font-size: 14px;
 `
 
 const StyledTable = styled.div`
-  display: inline-block;
+  width: fit-content;
   width: 100%;
 
   .tr {
@@ -78,7 +82,7 @@ const StyledTable = styled.div`
 `
 
 const StyledTableTitle = styled.h3`
-  min-width: 250px;
+  width: 100%;
 `
 
 const StyledTopRow = styled.div`
@@ -89,21 +93,28 @@ const StyledTopRow = styled.div`
   position: relative;
   z-index: 50;
   background: #fff;
+  width: 100%;
 `
 
-const TD = styled.div`
+const StyledTD = styled.div`
   height: 45px;
   display: flex;
   align-items: center;
   font-weight: ${(props) => (props.onClick ? "500" : "400")};
   color: ${(props) => (props.onClick ? "var(--brandLightPurple)" : "inherit")};
   cursor: ${(props) => (props.onClick ? "pointer" : "inherit")};
+
+  width: 1%;
+
+  /* But "collapsed" cells should be as small as possible */
+  &.collapse {
+    width: 0.0000000001%;
+  }
 `
 
 const TableBody = styled.div`
   width: 100% !important;
-  max-height: 500px;
-  overflow-y: scroll;
+  height: ${(props) => props.tableHeight}px;
 
   .tr {
     background: hsla(300, 15%, 98%, 1);
@@ -155,7 +166,55 @@ const SortIcons = (props) => {
   )
 }
 
+const StyledTableWrapper = styled.div`
+  display: block;
+  max-width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+`
+
+const TOPBAR_HEIGHT = 68
+const TABLE_TITLE_BAR_HEIGHT = 82
+const TABLE_COLUMNS_HEADER_HEIGHT = 66
+const PAGE_Y_PADDING_HEIGHT = 64
+
+const TOTAL_ANCESTRY_HEIGHT =
+  TOPBAR_HEIGHT +
+  TABLE_TITLE_BAR_HEIGHT +
+  TABLE_COLUMNS_HEADER_HEIGHT +
+  PAGE_Y_PADDING_HEIGHT
+
+const useAvailableHeight = (uid, rowCount) => {
+  const [tableHeight, setTableHeight] = React.useState(0)
+
+  React.useEffect(() => {
+    console.log("getting height...")
+    const rowsHeight = rowCount * 45
+    const { innerHeight } = window
+
+    const table = document.querySelector(`[data-uid="${uid}"]`)
+    const parent = table.parentNode
+    const children = Array.from(parent.children)
+
+    const tableHeight = children.reduce((final, child) => {
+      if (child === table) {
+        return final
+      }
+
+      return final - Number(child.offsetHeight)
+    }, innerHeight)
+
+    const newTableHeight = tableHeight - TOTAL_ANCESTRY_HEIGHT
+    console.log({ newTableHeight, rowsHeight })
+    setTableHeight(newTableHeight < rowsHeight ? newTableHeight : rowsHeight)
+  }, [rowCount])
+
+  return tableHeight
+}
+
 export const Table = (props) => {
+  const uid = useUID()
+
   const tableState = useTable(
     {
       columns: props.columns,
@@ -164,6 +223,10 @@ export const Table = (props) => {
     useSortBy,
     useAbsoluteLayout
   )
+
+  console.log({ tableState })
+
+  const height = useAvailableHeight(uid, tableState.rows.length)
 
   const RenderRow = React.useCallback(
     ({ index, style }) => {
@@ -177,17 +240,21 @@ export const Table = (props) => {
       return (
         <div {...trProps} className="tr">
           {row.cells.map((cell) => {
-            const cellProps = cell.getCellProps()
+            const cellProps = {
+              ...cell.getCellProps({
+                className: cell.column.collapse ? "collapse td" : "td",
+              }),
+            }
+
             const { onClick } = cell.column
 
             return (
-              <TD
+              <StyledTD
                 {...cellProps}
                 onClick={onClick ? () => onClick(cell) : undefined}
-                className="td"
               >
                 {cell.render("Cell")}
-              </TD>
+              </StyledTD>
             )
           })}
         </div>
@@ -197,42 +264,50 @@ export const Table = (props) => {
   )
 
   return (
-    <Styles>
+    <Styles data-common-component="Table" data-uid={uid}>
       <StyledTopRow>
         <StyledTableTitle>{props.title}</StyledTableTitle>
         {props.renderTopRow && props.renderTopRow(props, tableState)}
       </StyledTopRow>
-      <StyledTable {...tableState.getTableProps()} className="table">
-        <THead className="thead">
-          {tableState.headerGroups.map((headerGroup) => (
-            <div {...headerGroup.getHeaderGroupProps()} className="tr">
-              {headerGroup.headers.map((column) => (
-                <TH
-                  className="th"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}{" "}
-                  <span>
-                    <SortIcons {...column} />
-                  </span>
-                </TH>
-              ))}
-            </div>
-          ))}
-        </THead>
+      <StyledTableWrapper>
+        <StyledTable {...tableState.getTableProps()} className="table">
+          <StyledTHead className="thead">
+            {tableState.headerGroups.map((headerGroup) => (
+              <div {...headerGroup.getHeaderGroupProps()} className="tr">
+                {headerGroup.headers.map((column) => (
+                  <StyledTH
+                    {...column.getHeaderProps({
+                      ...column.getSortByToggleProps(),
+                      className: column.collapse ? "collapse th" : "th",
+                    })}
+                  >
+                    {column.render("Header")}{" "}
+                    <span>
+                      <SortIcons {...column} />
+                    </span>
+                  </StyledTH>
+                ))}
+              </div>
+            ))}
+          </StyledTHead>
 
-        <TableBody {...tableState.getTableBodyProps()} className="tbody">
-          <FixedSizeList
-            className="virtualizedTable"
-            height={props.height || 450}
-            itemCount={tableState.rows.length}
-            itemSize={45}
-            width="100%"
+          <TableBody
+            {...tableState.getTableBodyProps()}
+            tableHeight={height}
+            className="tbody"
           >
-            {RenderRow}
-          </FixedSizeList>
-        </TableBody>
-      </StyledTable>
+            <FixedSizeList
+              className="virtualizedTable"
+              height={height || 300}
+              itemCount={tableState.rows.length}
+              itemSize={45}
+              width="100%"
+            >
+              {RenderRow}
+            </FixedSizeList>
+          </TableBody>
+        </StyledTable>
+      </StyledTableWrapper>
     </Styles>
   )
 }

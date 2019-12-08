@@ -26,7 +26,7 @@ export const SceneHeader = (props) => {
   const [isAvatarOpen, setAvatarOpen] = React.useState(false)
 
   return (
-    <Stack direction="column">
+    <Stack direction="column" data-component="SceneHeader">
       <Stack
         direction="row"
         alignItems="center"

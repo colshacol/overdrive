@@ -12,16 +12,21 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 68px);
+  overflow-y: hidden;
 `
 
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1550px;
+  padding: 32px calc(((100% - 1550px) / 2) + 32px);
   margin: 0 auto;
-  padding: 32px;
+  overflow: scroll;
+
+  @media screen and (max-width: 1550px) {
+    padding: 32px;
+  }
 `
 
 const NestedLinksContainer = styled.div`
@@ -63,9 +68,17 @@ const NavigationLinks = (props) => {
   })
 }
 
+const SimplePage = (props) => {
+  return (
+    <PageContainer data-component="SimplePage">
+      <BodyContainer>{props.children}</BodyContainer>
+    </PageContainer>
+  )
+}
+
 export const Page = (props) => {
   return (
-    <PageContainer>
+    <PageContainer data-component="Page">
       {props.navigation && (
         <StyledPageNavigation>
           <Link href="/">{"<"} Back to Dashboard</Link>
@@ -118,6 +131,8 @@ Page.Navigation = (props) => {
     </Box>
   )
 }
+
+Page.SimplePage = SimplePage
 
 const NavigationItem = (props) => {
   const [location, setLocation] = useLocation()

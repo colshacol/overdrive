@@ -51,6 +51,8 @@ export const TitleTable = (props) => {
       Header: "ID",
       accessor: "TitleID",
       width: 80,
+      maxWidth: 200,
+      collapse: true,
       onClick: (cell) => {
         globalStore.setCurrentTitleID(cell.value)
       },
@@ -59,32 +61,44 @@ export const TitleTable = (props) => {
       Header: "Status",
       accessor: "status",
       width: 120,
+      maxWidth: 200,
+      collapse: true,
     },
     {
       Header: "Grantor",
       accessor: "Grantor",
       width: 230,
+      maxWidth: 300,
+      collapse: true,
       Cell: ({ cell: { value } }) => truncate(value, 23),
     },
     {
       Header: "Grantee",
       accessor: "Grantee",
       width: 150,
+      maxWidth: 200,
+      collapse: true,
     },
     {
       Header: "Recorded Date",
       accessor: "RecordedDate",
       width: 200,
+      maxWidth: 250,
+      collapse: true,
     },
     {
       Header: "Effective Date",
       accessor: "EffectiveDate",
       width: 200,
+      maxWidth: 250,
+      collapse: true,
     },
     {
       Header: "Document Type",
       accessor: "DocumentType",
       width: 200,
+      maxWidth: 250,
+      collapse: true,
     },
   ])
 
