@@ -2,7 +2,7 @@ import styled, { css } from "styled-components"
 import * as React from "react"
 import Popover from "react-tiny-popover"
 import Popup from "reactjs-popup"
-import { ChevronDown } from "react-feather"
+import { ChevronDown, X } from "react-feather"
 
 import { Box } from "./Box"
 import { Spacer } from "./Spacer"
@@ -10,6 +10,7 @@ import { Spacer } from "./Spacer"
 const StyledOptions = styled.div``
 
 const StyledOption = styled.div`
+  cursor: pointer;
   width: 280px;
   max-width: 280px;
   background: #fff;
@@ -36,15 +37,29 @@ export const SelectInput = (props) => {
       trigger={
         <TextInput
           {...otherProps}
-          icon={<ChevronDown size="24px" color={"var(--grayscale6)"} />}
+          icon={
+            <>
+              <ChevronDown
+                size="24px"
+                color={"var(--grayscale6)"}
+                onClick={() => {
+                  setIsOpen(!isOpen)
+                }}
+              />
+              <X
+                size="24px"
+                color={"var(--grayscale6)"}
+                onClick={() => {
+                  onSelection({ text: "" })
+                }}
+              />
+            </>
+          }
           onInputFocus={(e) => {
             setIsOpen(true)
-            console.log("focused")
             props.onFocus(e)
           }}
           onInputBlur={(e) => {
-            // setIsOpen(false)
-            console.log("blurred")
             props.onBlur(e)
           }}
           {...otherProps}
