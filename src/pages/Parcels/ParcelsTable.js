@@ -32,6 +32,9 @@ export const ParcelsTable = (props) => {
       Header: "Parcel Number",
       accessor: "ParcelNumber",
       width: 320,
+      onClick: (cell) => {
+        globalStore.setCurrentParcelID(cell.value)
+      },
       // key: "parcelNumber",
       // isSortable: true
     },
@@ -39,6 +42,9 @@ export const ParcelsTable = (props) => {
       Header: "APN",
       accessor: "APN",
       width: 200,
+      onClick: (cell) => {
+        globalStore.setCurrentParcelID(cell.value)
+      },
       // key: "apn",
       // isSortable: true
     },
@@ -46,6 +52,9 @@ export const ParcelsTable = (props) => {
       Header: "Acres",
       accessor: "Acres",
       width: 100,
+      onClick: (cell) => {
+        globalStore.setCurrentParcelID(cell.value)
+      },
       // key: "age",
       // isSortable: true
     },
@@ -53,6 +62,9 @@ export const ParcelsTable = (props) => {
       Header: "Assigned To",
       accessor: "AssignedTo",
       width: 180,
+      onClick: (cell) => {
+        globalStore.setCurrentParcelID(cell.value)
+      },
       // key: "age",
       // isSortable: true
     },
@@ -62,11 +74,17 @@ export const ParcelsTable = (props) => {
       // key: "dateAssigned",
       // isSortable: true,
       width: 160,
+      onClick: (cell) => {
+        globalStore.setCurrentParcelID(cell.value)
+      },
     },
     {
       Header: "Date Completed",
       accessor: "DateCompleted",
       width: 160,
+      onClick: (cell) => {
+        globalStore.setCurrentParcelID(cell.value)
+      },
       // key: "dateCompleted",
       // isSortable: true
     },

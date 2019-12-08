@@ -104,4 +104,4 @@ export default (async () => {
   return [sql, pool, procedures]
 })()
 
-// mssql -s plmland.database.windows.net -u username@plmweb -p Global3404 -d landdev -e
+// mssql -s plmland.database.windows.net -u plmweb -p Global3404 -d landdev -e

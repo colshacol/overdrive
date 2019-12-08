@@ -64,6 +64,9 @@ export const TitleTable = (props) => {
       width: 120,
       maxWidth: 200,
       collapse: true,
+      onClick: (cell) => {
+        globalStore.setCurrentTitleID(cell.value)
+      },
     },
     {
       Header: "Grantor",
@@ -79,6 +82,9 @@ export const TitleTable = (props) => {
       width: 150,
       maxWidth: 200,
       collapse: true,
+      onClick: (cell) => {
+        globalStore.setCurrentTitleID(cell.value)
+      },
     },
     {
       Header: "Recorded Date",
@@ -86,6 +92,9 @@ export const TitleTable = (props) => {
       width: 200,
       maxWidth: 250,
       collapse: true,
+      onClick: (cell) => {
+        globalStore.setCurrentTitleID(cell.value)
+      },
     },
     {
       Header: "Effective Date",
@@ -93,6 +102,9 @@ export const TitleTable = (props) => {
       width: 200,
       maxWidth: 250,
       collapse: true,
+      onClick: (cell) => {
+        globalStore.setCurrentTitleID(cell.value)
+      },
     },
     {
       Header: "Document Type",
@@ -100,6 +112,9 @@ export const TitleTable = (props) => {
       width: 200,
       maxWidth: 250,
       collapse: true,
+      onClick: (cell) => {
+        globalStore.setCurrentTitleID(cell.value)
+      },
     },
   ])
 
