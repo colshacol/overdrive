@@ -8,6 +8,7 @@ import { Box } from "../../components/Box"
 import { TextInput, SelectInput } from "../../components/TextInput"
 import { useStatesWithParcels } from "../../hooks/useStatesWithParcels"
 import { useStateCountiesWithParcels } from "../../hooks/useStateCountiesWithParcels"
+import * as apiV0 from "../../services/api/v0"
 
 const NAVIGATION = [["Title Plant", "/accounting"]]
 
@@ -28,6 +29,7 @@ const TitlePlantView = (props) => {
   const [countyValue, setCountyValue] = React.useState("")
   const [selectedState, setSelectedState] = React.useState()
   const [selectedCounty, setSelectedCounty] = React.useState()
+  const [titles, setTitles] = React.useState([])
 
   const setState = (state) => {
     setCountyValue("")
@@ -40,6 +42,14 @@ const TitlePlantView = (props) => {
     setSelectedCounty(county)
     setCountyValue(county.text)
   }
+
+  React.useEffect(() => {
+    if (selectedCounty) {
+      apiV0.getTitlesForCounty(selectedCounty).then((titles) => {
+        setTitles(titles)
+      })
+    }
+  }, [selectedCounty])
 
   return (
     <>
@@ -69,7 +79,10 @@ const TitlePlantView = (props) => {
           </>
         )}
       </Box>
-      {/* <TitleTable /> */}
+      <Spacer size="16px" />
+      {selectedState && selectedCounty && titles.length && (
+        <TitleTable data={titles} />
+      )}
     </>
   )
 }
