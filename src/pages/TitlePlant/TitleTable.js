@@ -79,6 +79,7 @@ export const TitleTable = (props) => {
     {
       Header: "Grantee",
       accessor: "Grantee",
+      Cell: ({ cell: { value } }) => truncate(value, 23),
       width: 150,
       maxWidth: 200,
       collapse: true,

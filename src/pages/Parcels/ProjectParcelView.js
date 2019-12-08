@@ -87,7 +87,7 @@ export const ProjectParcelView = (props) => {
 }
 
 const ParcelView = (props) => {
-  const titles = useTitles()
+  const titles = useTitles(props.params.parcelID)
   const [isDataOpen, setIsDataOpen] = React.useState(false)
   const parcel = useParcel(Number(props.params.parcelID))
 

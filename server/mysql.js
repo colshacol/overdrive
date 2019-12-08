@@ -36,11 +36,13 @@ const createProcedures = (sql, pool) => {
 
   // "ParcelsForProjectEmployeeSEL" @EmployeeID = 1, @ProjectID = 1
   const getParcelsForProject = (parameters) => {
-    return pool
-      .request()
-      .input("ProjectID", sql.VarChar(50), parameters.projectID)
-      .input("EmployeeID", sql.VarChar(50), parameters.employeeID)
-      .execute("dbo.ParcelsForProjectEmployeeSEL")
+    return (
+      pool
+        .request()
+        .input("ProjectID", sql.VarChar(50), parameters.projectID)
+        // .input("EmployeeID", sql.VarChar(50), parameters.employeeID)
+        .execute("dbo.ParcelsForProjectEmployeeSEL")
+    )
   }
 
   // "ProjectsForEmployeeIDSEL" @EmployeeID = 1
@@ -65,7 +67,7 @@ const createProcedures = (sql, pool) => {
     return pool
       .request()
       .input("ParcelID", sql.VarChar(50), parameters.parcelID)
-      .execute("dbo.TK")
+      .execute("dbo.TitleDetailForParcelSEL")
   }
 
   // "ParcelStatesSEL"

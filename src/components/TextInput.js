@@ -8,6 +8,25 @@ import { Box } from "./Box"
 import { Spacer } from "./Spacer"
 
 const StyledOptions = styled.div``
+const StyledIcons = styled.div`
+  .downArrow {
+    cursor: pointer;
+    color: var(--grayscale6);
+  }
+
+  .downArrow:hover {
+    color: var(--brandDarkPurple);
+  }
+
+  .clearIcon {
+    cursor: pointer;
+    color: var(--grayscale6);
+  }
+
+  .clearIcon:hover {
+    color: var(--brandDarkPurple);
+  }
+`
 
 const StyledOption = styled.div`
   cursor: pointer;
@@ -38,24 +57,22 @@ export const SelectInput = (props) => {
         <TextInput
           {...otherProps}
           icon={
-            <>
+            <StyledIcons>
               <ChevronDown
-                style={{ cursor: "pointer" }}
+                className="downArrow"
                 size="24px"
-                color={"var(--grayscale6)"}
                 onClick={() => {
                   setIsOpen(!isOpen)
                 }}
               />
               <X
-                style={{ cursor: "pointer" }}
+                className="clearIcon"
                 size="24px"
-                color={"var(--grayscale6)"}
                 onClick={() => {
                   onSelection({ text: "" })
                 }}
               />
-            </>
+            </StyledIcons>
           }
           onInputFocus={(e) => {
             setIsOpen(true)

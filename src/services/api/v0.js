@@ -71,15 +71,15 @@ export const getTitle = (titleID) => {
     })
 }
 
-export const getTitlesForPacel = (employeeID) => {
+export const getTitlesForPacel = (parcelID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getTitlesForPacel")
     .post({
-      employeeID: Number(employeeID),
+      parcelID: Number(parcelID),
     })
     .json((response) => {
       if (response.isSuccess) {
         console.log("getTitlesForPacel: ", response)
-        return response.projects
+        return response.titles
       }
 
       return response

@@ -19,11 +19,12 @@ export const ParcelsTable = (props) => {
 
   const columns = React.useRef([
     {
-      Header: "ID",
+      Header: " ",
       accessor: "ParcelID",
-      width: 80,
+      width: 24,
       onClick: (cell) => {
-        globalStore.setCurrentParcelID(cell.value)
+        const id = cell.row.values.ParcelID
+        globalStore.setCurrentParcelID(id)
       },
       // key: "id",
       // isSortable: true
@@ -33,7 +34,8 @@ export const ParcelsTable = (props) => {
       accessor: "ParcelNumber",
       width: 320,
       onClick: (cell) => {
-        globalStore.setCurrentParcelID(cell.value)
+        const id = cell.row.values.ParcelID
+        globalStore.setCurrentParcelID(id)
       },
       // key: "parcelNumber",
       // isSortable: true
@@ -43,7 +45,8 @@ export const ParcelsTable = (props) => {
       accessor: "APN",
       width: 200,
       onClick: (cell) => {
-        globalStore.setCurrentParcelID(cell.value)
+        const id = cell.row.values.ParcelID
+        globalStore.setCurrentParcelID(id)
       },
       // key: "apn",
       // isSortable: true
@@ -53,7 +56,8 @@ export const ParcelsTable = (props) => {
       accessor: "Acres",
       width: 100,
       onClick: (cell) => {
-        globalStore.setCurrentParcelID(cell.value)
+        const id = cell.row.values.ParcelID
+        globalStore.setCurrentParcelID(id)
       },
       // key: "age",
       // isSortable: true
@@ -63,7 +67,8 @@ export const ParcelsTable = (props) => {
       accessor: "AssignedTo",
       width: 180,
       onClick: (cell) => {
-        globalStore.setCurrentParcelID(cell.value)
+        const id = cell.row.values.ParcelID
+        globalStore.setCurrentParcelID(id)
       },
       // key: "age",
       // isSortable: true
@@ -75,7 +80,8 @@ export const ParcelsTable = (props) => {
       // isSortable: true,
       width: 160,
       onClick: (cell) => {
-        globalStore.setCurrentParcelID(cell.value)
+        const id = cell.row.values.ParcelID
+        globalStore.setCurrentParcelID(id)
       },
     },
     {
@@ -83,7 +89,8 @@ export const ParcelsTable = (props) => {
       accessor: "DateCompleted",
       width: 160,
       onClick: (cell) => {
-        globalStore.setCurrentParcelID(cell.value)
+        const id = cell.row.values.ParcelID
+        globalStore.setCurrentParcelID(id)
       },
       // key: "dateCompleted",
       // isSortable: true
