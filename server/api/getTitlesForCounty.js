@@ -5,7 +5,7 @@ export default async (app) => {
   app.post("/api/v0/getTitlesForCounty", async (request, response) => {
     return setTimeout(() => {
       response.send({ isSuccess: true, titles })
-    }, 30000)
+    }, 750)
 
     const [sql, pool, procedures] = await mysql
     const invokeProcedure = procedures.getTitlesForCounty(request.body)
