@@ -49,9 +49,9 @@ export const TitleTable = (props) => {
 
   const columns = useMergedColuns(props, [
     {
-      Header: "ID",
+      Header: "",
       accessor: "TitleID",
-      width: 80,
+      width: 24,
       maxWidth: 200,
       collapse: true,
       onClick: (cell) => {
@@ -75,6 +75,9 @@ export const TitleTable = (props) => {
       maxWidth: 300,
       collapse: true,
       Cell: ({ cell: { value } }) => truncate(value, 23),
+      onClick: (cell) => {
+        globalStore.setCurrentTitleID(cell.value)
+      },
     },
     {
       Header: "Grantee",
@@ -112,6 +115,26 @@ export const TitleTable = (props) => {
       accessor: "DocumentType",
       width: 200,
       maxWidth: 250,
+      collapse: true,
+      onClick: (cell) => {
+        globalStore.setCurrentTitleID(cell.value)
+      },
+    },
+    {
+      Header: "Instrument Path",
+      accessor: "InstrumentPath",
+      width: 100,
+      maxWidth: 100,
+      collapse: true,
+      onClick: (cell) => {
+        globalStore.setCurrentTitleID(cell.value)
+      },
+    },
+    {
+      Header: "Map Path",
+      accessor: "MapPath",
+      width: 100,
+      maxWidth: 100,
       collapse: true,
       onClick: (cell) => {
         globalStore.setCurrentTitleID(cell.value)
