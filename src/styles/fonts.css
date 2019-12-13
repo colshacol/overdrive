@@ -1,0 +1,62 @@
+/* @font-face {
+  font-family: "Sofia Pro Medium Italic";
+  src: url("fonts/Sofia Pro Medium Italic.otf");
+}
+
+@font-face {
+  font-family: "Modelica";
+  src: url("fonts/BwModelicaSS01-Bold.woff2");
+}
+
+@font-face {
+  font-family: "Sanz";
+  src: url("fonts/RNSSanz-Bold.woff");
+} */
+
+@import url("https://fonts.googleapis.com/css?family=Red+Hat+Text:400,400i,500,500i,700,700i&display=swap");
+
+@font-face {
+  font-family: "Visby";
+  src: url("fonts/VisbyCF-Bold.otf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Visby";
+  src: url("fonts/VisbyCF-Regular.otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Visby";
+  src: url("fonts/VisbyCF-Thin.otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Visby";
+  src: url("fonts/VisbyCF-Medium.otf");
+  font-weight: 600;
+}
+
+/* 
+@font-face {
+  font-family: "Sofia Pro Bold";
+  src: url("fonts/SofiaProBold.woff");
+}
+
+@font-face {
+  font-family: "Sofia Pro Ultra Light Italic";
+  src: url("fonts/Sofia Pro Ultra Light Italic.otf");
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("fonts/SofiaPro/SofiaProBold.eot");
+  src: local("Sofia Pro Bold"), local("SofiaProBold"),
+    url("fonts/SofiaPro/SofiaProBold.eot?#iefix") format("embedded-opentype"),
+    url("fonts/SofiaPro/SofiaProBold.woff") format("woff"),
+    url("fonts/SofiaPro/SofiaProBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+} */

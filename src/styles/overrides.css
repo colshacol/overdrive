@@ -1,0 +1,68 @@
+.Page__sidebar {
+  max-width: 240px;
+}
+
+.Sidebar.Sidebar--collapsible {
+  height: 100%;
+}
+
+table thead th.atlaskitTableHeader {
+  font-size: 16px;
+  background: #f2f2f3;
+}
+
+table thead th.atlaskitTableHeader:focus {
+  outline: none;
+}
+
+table thead th.atlaskitTableHeader:hover {
+  background: #f2f2f3;
+}
+
+table thead th.atlaskitTableHeader > span {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 5px;
+}
+
+table thead th.atlaskitTableHeader > span::before {
+  border-bottom: 3px solid #8c9ca5;
+  bottom: 13px;
+}
+
+table thead th.atlaskitTableHeader > span::after {
+  border-top: 3px solid #8c9ca5;
+  bottom: 3px;
+}
+
+table .atlaskitTableCaption {
+  margin-bottom: 16px;
+}
+
+table .atlaskitTableRow {
+}
+
+table .atlaskitTableRow:hover {
+  background: #eee3fc;
+}
+
+table .atlaskitTableRow {
+  background: #f2f2f388;
+}
+
+table .atlaskitTableRow p:first-of-type {
+  padding-left: 8px;
+}
+
+tr th:first-of-type {
+  padding-left: 10px !important;
+}
+
+tbody {
+  border-radius: 0 0 6px 6px;
+  overflow: hidden;
+}
+
+.popup-content {
+  background: transparent !important;
+}
