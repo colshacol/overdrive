@@ -32,7 +32,20 @@ const [UserProvider, useUser] = createContextStore(() => {
           register(response.user)
         }
       })
-  })
+  }, [])
+
+  const getProjects = React.useCallback(() => {
+    return wretch(window.__env.serverUrl + "/api/v0/getEmployeeProjects")
+      .post({
+        employeeID: user.EmployeeID,
+      })
+      .json((response) => {
+        if (response.isSuccess) {
+          console.log("PROJECTS", response)
+          return response.projects
+        }
+      })
+  }, [user.EmployeeID])
 
   const FullName = `${user.FirstName} ${user.LastName}`
 
@@ -42,6 +55,7 @@ const [UserProvider, useUser] = createContextStore(() => {
     register,
     unregister,
     authenticate,
+    getProjects,
   }
 })
 

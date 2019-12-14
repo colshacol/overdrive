@@ -3,14 +3,7 @@ import { useLocation } from "wouter"
 import { Button } from "./components/Button"
 import { useUser } from "./stores/userStore"
 
-import {
-  Text,
-  Stack,
-  Icon,
-  Avatar,
-  Breadcrumb,
-  Popover,
-} from "@servicetitan/design-system"
+import { Stack, Avatar, Popover } from "@servicetitan/design-system"
 
 import theme from "./theme.json"
 import { Link } from "./components/Link"
@@ -46,7 +39,6 @@ export const SceneHeader = (props) => {
           onClick={() => setLocation("/")}
           style={{ cursor: "pointer" }}
         >
-          {/* <OverdriveIcon /> */}
           <OverdriveLogo />
         </Stack>
         <Stack direction="row">
@@ -84,53 +76,6 @@ export const SceneHeader = (props) => {
           </Stack>
         </Stack>
       </Stack>
-      {/* <CurrentProjectBar /> */}
-      {/* <SecondaryBar /> */}
-      {/* <Crumbs /> */}
-    </Stack>
-  )
-}
-
-const Breadcrumbs = (props) => {
-  const [location, setLocation] = useLocation()
-
-  return (
-    <Breadcrumb>
-      <Breadcrumb.Link label="Home" onClick={() => setLocation("/")} />
-      {/* <Breadcrumb.Link label="Current page" /> */}
-    </Breadcrumb>
-  )
-}
-
-const CurrentProjectIndicator = (props) => {
-  return (
-    <>
-      <Icon name="work" className="m-r-1" size="16px" />
-      <Text size={2} bold>
-        <Text subdued inline>
-          Current Project:
-        </Text>{" "}
-        Project: Demo
-      </Text>
-    </>
-  )
-}
-
-const SecondaryBar = (props) => {
-  return (
-    <Stack
-      direction="row"
-      alignItems="center"
-      className="p-x-4 p-y-1"
-      style={{
-        overflowWrap: "break-word",
-        border: "1px solid #eee",
-        // background: "#6954c0"
-      }}
-    >
-      {/* <CurrentProjectIndicator /> */}
-      {/* <Breadcrumbs /> */}
-      {/* <BreadcrumbsBar /> */}
     </Stack>
   )
 }

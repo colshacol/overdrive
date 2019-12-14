@@ -27,13 +27,19 @@ import Card from "../../components/Card"
 
 export const Home = (props) => {
   const user = useUser()
-  const projectsStore = ProjectsStore.useProjects()
+  const [projects, setProjects] = React.useState([])
+
+  React.useEffect(() => {
+    user.getProjects().then((projects) => {
+      setProjects(projects)
+    })
+  }, [user.EmployeeID])
 
   return (
     <Page title="Dashboard">
       <div>
         <h2>Welcome back,</h2>
-        <h1>{user.FirstName + " " + user.LastName}</h1>
+        <h1>{user.FullName}</h1>
       </div>
       <Spacer size="32px" />
       <Box paddingX="24px" paddingY="16px" flexDirection="column">
@@ -68,7 +74,9 @@ export const Home = (props) => {
         </Box>
         <Spacer size="16px" />
         <Box padding="16px" flexWrap="wrap">
-          {projectsStore.projects.map(ProjectCard)}
+          {projects.map((project) => (
+            <ProjectCard {...project} key={project.ProjectID} />
+          ))}
         </Box>
       </Box>
     </Page>
@@ -78,7 +86,7 @@ export const Home = (props) => {
 const ProjectCard = (props) => {
   const [location, setLocation] = useLocation()
   const globalStore = useGlobalStore()
-  const projectsStore = ProjectsStore.useProjects()
+
   return (
     <Card
       onClick={() => {
@@ -90,7 +98,7 @@ const ProjectCard = (props) => {
     >
       <Box flexDirection="column">
         <h3>{props.ProjectName}</h3>
-        <small>O 150 / X 150 / T 500</small>
+        {/* <small>O 150 / X 150 / T 500</small> */}
       </Box>
     </Card>
   )

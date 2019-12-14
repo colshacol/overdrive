@@ -21,7 +21,7 @@ const createProcedures = (sql, pool) => {
     return pool
       .request()
       .input("EmployeeID", sql.VarChar(50), parameters.employeeID)
-      .execute("dbo.TK")
+      .execute("dbo.ProjectsForEmployeeIDSEL")
   }
 
   const getTitlesForParcel = (parameters) => {
@@ -45,6 +45,5 @@ export default (async () => {
   )
 
   const procedures = createProcedures(sql, pool)
-
   return [sql, pool, procedures]
 })()
