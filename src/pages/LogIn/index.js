@@ -1,18 +1,19 @@
-import * as React from "react";
-import { Box } from "../../components/Box";
+import * as React from "react"
+import { Box } from "../../components/Box"
 
-import theme from "../../theme";
-import { TextInput } from "../../components/TextInput";
-import { Spacer } from "../../components/Spacer";
-import { Logo } from "../../components/Logo";
-import { Button } from "../../components/Button";
+import theme from "../../theme"
+import { TextInput } from "../../components/TextInput"
+import { Spacer } from "../../components/Spacer"
+import { Logo } from "../../components/Logo"
+import { Button } from "../../components/Button"
 
-const INPUT_STYLE = {
-  background: "rgba(255, 255, 255, 0.05)",
-  border: "2px solid white"
-};
+import { useUser } from "../../stores/userStore"
 
-const Form = props => {
+const Form = (props) => {
+  const user = useUser()
+  const [emailAddress, setEmailAddress] = React.useState("")
+  const [password, setPassword] = React.useState("")
+
   return (
     <Box
       paddingBottom="48px"
@@ -33,6 +34,8 @@ const Form = props => {
         id="email"
         label="Email Address"
         placeholder="dave@foo.com"
+        value={emailAddress}
+        onChange={({ target: { value } }) => setEmailAddress(value)}
       />
       <Spacer size="16px" />
       <TextInput
@@ -40,16 +43,22 @@ const Form = props => {
         id="password"
         label="Password"
         placeholder=""
+        type="password"
+        value={password}
+        onChange={({ target: { value } }) => setPassword(value)}
       />
       <Spacer size="24px" />
-      <Button.White variant="white" onClick={props.logIn}>
+      <Button.White
+        variant="white"
+        onClick={() => user.authenticate(emailAddress, password)}
+      >
         Log In
       </Button.White>
     </Box>
-  );
-};
+  )
+}
 
-export const LogIn = props => {
+export const LogIn = (props) => {
   return (
     <Box
       width="100%"
@@ -62,5 +71,5 @@ export const LogIn = props => {
     >
       <Form logIn={props.logIn} />
     </Box>
-  );
-};
+  )
+}

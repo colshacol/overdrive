@@ -1,71 +1,40 @@
-import * as React from "react";
-import { Box } from "../../components/Box";
-import styled from "styled-components";
-import { useGlobalStore } from "../../global.store";
-import * as ProjectsStore from "../../projects.store";
+import * as React from "react"
+import { Box } from "../../components/Box"
+import styled from "styled-components"
+import { useGlobalStore } from "../../global.store"
+import * as ProjectsStore from "../../projects.store"
 
-import { TextInput } from "../../components/TextInput";
-import { Spacer } from "../../components/Spacer";
-import { Logo } from "../../components/Logo";
-import { Button } from "../../components/Button";
-import { Page } from "../../components/Page";
-import { Search } from "react-feather";
-import { useLocation, Route, Switch } from "wouter";
-import { useBreadcrumb } from "../../hooks/useBreadcrumbs";
-import { Parcels } from "../Parcels";
+import { TextInput } from "../../components/TextInput"
+import { Spacer } from "../../components/Spacer"
+import { Logo } from "../../components/Logo"
+import { Button } from "../../components/Button"
+import { Page } from "../../components/Page"
+import { Search } from "react-feather"
+import { useLocation, Route, Switch } from "wouter"
+import { useBreadcrumb } from "../../hooks/useBreadcrumbs"
+import { Parcels } from "../Parcels"
 
-import { Home as HomeIcon, Users as UsersIcon, TrendingUp, DollarSign } from "react-feather";
-import { Project } from "../Project";
-import * as Breadcrumbs from "../../components/Breadcrumbs";
-import Card from "../../components/Card";
+import { useUser } from "../../stores/userStore"
 
-const ProjectBox = (props) => {
-  const globalStore = useGlobalStore();
-  const [location, setLocation] = useLocation();
+import {
+  Home as HomeIcon,
+  Users as UsersIcon,
+  TrendingUp,
+  DollarSign,
+} from "react-feather"
 
-  const onClick = () => {
-    globalStore.setCurrentProjectID(props.ProjectID);
-    setLocation(`/project/${props.ProjectID}/parcels`);
-  };
-
-  return (
-    <Box
-      inline
-      cursor="pointer"
-      margin="8px"
-      marginRight="40px"
-      marginBottom="16px"
-      color="var(--brandLightPurple)"
-      fontWeight="500"
-      onClick={onClick}
-    >
-      <p>{props.ProjectName}</p>
-    </Box>
-  );
-};
-
-const WelcomeText = (props) => {
-  return (
-    <div>
-      <h2>Welcome back,</h2>
-      <h1>{props.userFullName}</h1>
-    </div>
-  );
-};
+import Card from "../../components/Card"
 
 export const Home = (props) => {
-  const [location, setLocation] = useLocation();
-  const globalStore = useGlobalStore();
-  const projectsStore = ProjectsStore.useProjects();
-  const [searchQuery, setSearchQuery] = React.useState("");
-
-  const filteredProjects = projectsStore.projects.filter((project) => {
-    return project.ProjectName.toLowerCase().includes(searchQuery);
-  });
+  const user = useUser()
+  const projectsStore = ProjectsStore.useProjects()
 
   return (
     <Page title="Dashboard">
-      <WelcomeText userFullName="John May" />
+      <div>
+        <h2>Welcome back,</h2>
+        <h1>{user.FirstName + " " + user.LastName}</h1>
+      </div>
       <Spacer size="32px" />
       <Box paddingX="24px" paddingY="16px" flexDirection="column">
         <h2>Apps</h2>
@@ -99,22 +68,22 @@ export const Home = (props) => {
         </Box>
         <Spacer size="16px" />
         <Box padding="16px" flexWrap="wrap">
-          {filteredProjects.map(ProjectCard)}
+          {projectsStore.projects.map(ProjectCard)}
         </Box>
       </Box>
     </Page>
-  );
-};
+  )
+}
 
 const ProjectCard = (props) => {
-  const [location, setLocation] = useLocation();
-  const globalStore = useGlobalStore();
-  const projectsStore = ProjectsStore.useProjects();
+  const [location, setLocation] = useLocation()
+  const globalStore = useGlobalStore()
+  const projectsStore = ProjectsStore.useProjects()
   return (
     <Card
       onClick={() => {
-        globalStore.setCurrentProjectID(props.ProjectID);
-        setLocation(`/project/${props.ProjectID}/parcels`);
+        globalStore.setCurrentProjectID(props.ProjectID)
+        setLocation(`/project/${props.ProjectID}/parcels`)
       }}
       key={props.ProjectID}
       style={{ minWidth: "30%", margin: "0 24px 24px 0" }}
@@ -124,8 +93,8 @@ const ProjectCard = (props) => {
         <small>O 150 / X 150 / T 500</small>
       </Box>
     </Card>
-  );
-};
+  )
+}
 
 const StyledPortalCard = styled.div`
   position: relative;
@@ -152,10 +121,10 @@ const StyledPortalCard = styled.div`
     /* box-shadow: 0px 2px 8px -2px var(--brandLightPurple); */
     box-shadow: 0px 8px 16px -6px var(--darkPurple2);
   }
-`;
+`
 
 const PortalCard = (props) => {
-  const [, setLocation] = useLocation();
+  const [, setLocation] = useLocation()
 
   return (
     <StyledPortalCard onClick={() => setLocation(props.href)}>
@@ -166,5 +135,5 @@ const PortalCard = (props) => {
         <p>{props.description}</p>
       </div>
     </StyledPortalCard>
-  );
-};
+  )
+}

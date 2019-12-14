@@ -1,52 +1,36 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { useLocation } from "wouter";
-import { Crumbs } from "./components/Breadcrumbs";
-import { Button } from "./components/Button";
-
-import { BreadcrumbsBar } from "./components/BreadcrumbsBar";
+import React from "react"
+import { useLocation } from "wouter"
+import { Button } from "./components/Button"
+import { useUser } from "./stores/userStore"
 
 import {
   Text,
-  Page,
   Stack,
-  Sidebar,
-  Card,
-  Layout,
-  Frame,
   Icon,
   Avatar,
-  SideNav,
   Breadcrumb,
-  Popover
-} from "@servicetitan/design-system";
+  Popover,
+} from "@servicetitan/design-system"
 
-import theme from "./theme.json";
-import { Link } from "./components/Link";
-import { Box } from "./components/Box";
+import theme from "./theme.json"
+import { Link } from "./components/Link"
+import { Box } from "./components/Box"
 
 const sceneHeaderStyles = {
   backgroundImage: `url(${theme.brandBackgroundImage})`,
   backgroundSize: "cover",
   backgroundRepeat: "repeat",
-  height: 68
-};
+  height: 68,
+}
 
 const OverdriveLogo = () => (
   <img src="/overdrive.png" style={{ maxWidth: 136, marginBottom: 4 }} />
-);
+)
 
-const OverdriveIcon = () => (
-  <img
-    src="https://i.imgur.com/z34u7Di.png"
-    style={{ maxWidth: 40, marginRight: "16px" }}
-    alt="Overdrive Icon"
-  />
-);
-
-export const SceneHeader = props => {
-  const [location, setLocation] = useLocation();
-  const [isAvatarOpen, setAvatarOpen] = React.useState(false);
+export const SceneHeader = (props) => {
+  const [location, setLocation] = useLocation()
+  const user = useUser()
+  const [isAvatarOpen, setAvatarOpen] = React.useState(false)
 
   return (
     <Stack direction="column">
@@ -68,12 +52,12 @@ export const SceneHeader = props => {
         <Stack direction="row">
           <Stack justifyContent="center">
             <Popover
-              header={"John May"}
+              header={user.FullName}
               headerAlign="space-between"
               trigger={
                 <Avatar
                   style={{ cursor: "pointer" }}
-                  name="John May"
+                  name={user.FullName}
                   size="m"
                   color="#f7f5f9"
                   onClick={() => setAvatarOpen(!isAvatarOpen)}
@@ -104,21 +88,21 @@ export const SceneHeader = props => {
       {/* <SecondaryBar /> */}
       {/* <Crumbs /> */}
     </Stack>
-  );
-};
+  )
+}
 
-const Breadcrumbs = props => {
-  const [location, setLocation] = useLocation();
+const Breadcrumbs = (props) => {
+  const [location, setLocation] = useLocation()
 
   return (
     <Breadcrumb>
       <Breadcrumb.Link label="Home" onClick={() => setLocation("/")} />
       {/* <Breadcrumb.Link label="Current page" /> */}
     </Breadcrumb>
-  );
-};
+  )
+}
 
-const CurrentProjectIndicator = props => {
+const CurrentProjectIndicator = (props) => {
   return (
     <>
       <Icon name="work" className="m-r-1" size="16px" />
@@ -129,10 +113,10 @@ const CurrentProjectIndicator = props => {
         Project: Demo
       </Text>
     </>
-  );
-};
+  )
+}
 
-const SecondaryBar = props => {
+const SecondaryBar = (props) => {
   return (
     <Stack
       direction="row"
@@ -140,7 +124,7 @@ const SecondaryBar = props => {
       className="p-x-4 p-y-1"
       style={{
         overflowWrap: "break-word",
-        border: "1px solid #eee"
+        border: "1px solid #eee",
         // background: "#6954c0"
       }}
     >
@@ -148,5 +132,5 @@ const SecondaryBar = props => {
       {/* <Breadcrumbs /> */}
       {/* <BreadcrumbsBar /> */}
     </Stack>
-  );
-};
+  )
+}

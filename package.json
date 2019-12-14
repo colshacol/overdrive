@@ -4,6 +4,14 @@
   "description": "",
   "keywords": [],
   "main": "src/index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/babel-node ./server",
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "dev-server": "./node_modules/.bin/babel-node ./server"
+  },
   "dependencies": {
     "@atlaskit/dynamic-table": "13.5.1",
     "@babel/cli": "^7.6.0",
@@ -54,18 +62,11 @@
     "then-sleep": "^1.0.1",
     "truncate": "2.1.0",
     "ui-box": "3.0.2",
-    "wouter": "2.4.0"
+    "wouter": "2.4.0",
+    "wretch": "^1.6.0"
   },
   "devDependencies": {
     "typescript": "3.3.3"
-  },
-  "scripts": {
-    "start": "./node_modules/.bin/babel-node ./server",
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "dev-server": "./node_modules/.bin/babel-node ./server"
   },
   "browserslist": [
     ">0.2%",

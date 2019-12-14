@@ -1,21 +1,25 @@
-import styled from "styled-components";
-import * as React from "react";
+import styled, { css } from "styled-components"
+import * as React from "react"
 
-import { Box } from "./Box";
-import { Spacer } from "./Spacer";
+import { Box } from "./Box"
+import { Spacer } from "./Spacer"
 
-export const TextInput = props => {
-  const width = props.fillWidth ? "100%" : "280px";
-  const inputPaddingY = props.slim ? "8px" : "12px";
+export const TextInput = (props) => {
+  const width = props.fillWidth ? "100%" : "280px"
+  const inputPaddingY = props.slim ? "8px" : "12px"
 
   const inputStyle = {
     ...props.inputStyle,
     paddingTop: inputPaddingY,
-    paddingBottom: inputPaddingY
-  };
+    paddingBottom: inputPaddingY,
+  }
 
   return (
-    <StyledTextInput width={props.width || width} className="TextInput">
+    <StyledTextInput
+      className="TextInput"
+      {...props}
+      width={props.width || width}
+    >
       {props.label && (
         <>
           <label htmlFor={props.id}>{props.label}</label>
@@ -28,6 +32,7 @@ export const TextInput = props => {
         onChange={props.onChange}
         className={props.inputClassName}
         style={inputStyle}
+        type={props.type}
       />
       {props.icon && (
         <Box
@@ -41,13 +46,13 @@ export const TextInput = props => {
         </Box>
       )}
     </StyledTextInput>
-  );
-};
+  )
+}
 
 const StyledTextInput = styled.div`
   position: relative;
   display: inline-flex;
-  width: ${props => props.width};
+  width: ${(props) => props.width};
   flex-direction: column;
 
   label {
@@ -66,6 +71,7 @@ const StyledTextInput = styled.div`
     border: 2px solid var(--grayscale4);
     outline: none;
     background: #fff;
+    max-height: 47px;
   }
 
   input:focus {
@@ -88,4 +94,14 @@ const StyledTextInput = styled.div`
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
   }
-`;
+
+  input {
+    ${(props) => (props.type === "password" ? passwordInputStyles : "")}
+  }
+`
+
+const passwordInputStyles = css`
+  font-size: 22px;
+  letter-spacing: 6px;
+  font-weight: 900;
+`

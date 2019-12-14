@@ -1,19 +1,19 @@
-import * as React from "react";
+import * as React from "react"
 
-import { Box } from "./Box";
-import { Spacer } from "./Spacer";
-import { useLocation } from "wouter";
-import styled from "styled-components";
-import { Crumbs } from "./Breadcrumbs";
-import { SmallLabel } from "./SmallLabel";
-import { Link } from "./Link";
+import { Box } from "./Box"
+import { Spacer } from "./Spacer"
+import { useLocation } from "wouter"
+import styled from "styled-components"
+import { Crumbs } from "./Breadcrumbs"
+import { SmallLabel } from "./SmallLabel"
+import { Link } from "./Link"
 
 const PageContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
-`;
+`
 
 const BodyContainer = styled.div`
   display: flex;
@@ -22,18 +22,17 @@ const BodyContainer = styled.div`
   max-width: 1550px;
   margin: 0 auto;
   padding: 32px;
-  padding-top: 32px;
-`;
+`
 
 const NestedLinksContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 16px;
-`;
+`
 
 const NavLink = styled(Link)`
   margin-left: 8px;
-`;
+`
 
 const NavigationLinks = (props) => {
   return props.navigation.map(([label, routeOrNested]) => {
@@ -47,20 +46,22 @@ const NavigationLinks = (props) => {
           <NavigationLinks navigation={routeOrNested} />
           {/* </NestedLinksContainer> */}
         </React.Fragment>
-      );
+      )
     }
 
     const href =
-      routeOrNested === props.baseRoute ? props.baseRoute : `${props.baseRoute}${routeOrNested}`;
+      routeOrNested === props.baseRoute
+        ? props.baseRoute
+        : `${props.baseRoute}${routeOrNested}`
 
     return (
       <React.Fragment key={`${href}-${label}`}>
         <NavLink href={href}>{label}</NavLink>
         <Spacer size="24px" />
       </React.Fragment>
-    );
-  });
-};
+    )
+  })
+}
 
 export const Page = (props) => {
   return (
@@ -71,22 +72,19 @@ export const Page = (props) => {
           <Spacer size="48px" />
           <SmallLabel>NAVIGATION</SmallLabel>
           <Spacer size="24px" />
-          <NavigationLinks navigation={props.navigation} baseRoute={props.baseRoute} />
+          <NavigationLinks
+            navigation={props.navigation}
+            baseRoute={props.baseRoute}
+          />
         </StyledPageNavigation>
       )}
       <BodyContainer>
         <Crumbs />
-        {/* <Box alignItems="center" justifyContent="space-between">
-          <Box className="PageTitle" inline minWidth="500px">
-            <h4>{props.title}</h4>
-          </Box>
-          {props.titleRowData ? props.titleRowData() : null}
-        </Box> */}
         {props.children}
       </BodyContainer>
     </PageContainer>
-  );
-};
+  )
+}
 
 const StyledPageNavigation = styled.div`
   display: flex;
@@ -99,7 +97,7 @@ const StyledPageNavigation = styled.div`
   background: var(--grayscale0);
   border-right: 1px solid var(--darkPurple2);
   box-shadow: 2px 0px 12px -4px var(--darkPurple2);
-`;
+`
 
 Page.Navigation = (props) => {
   return (
@@ -118,15 +116,15 @@ Page.Navigation = (props) => {
       <SmallLabel>NAVIGATION</SmallLabel>
       {props.children}
     </Box>
-  );
-};
+  )
+}
 
 const NavigationItem = (props) => {
-  const [location, setLocation] = useLocation();
+  const [location, setLocation] = useLocation()
 
-  return <Link href={props.href}>{props.children}</Link>;
-};
+  return <Link href={props.href}>{props.children}</Link>
+}
 
-Page.NavigationItem = NavigationItem;
+Page.NavigationItem = NavigationItem
 
-Page.Container = PageContainer;
+Page.Container = PageContainer
