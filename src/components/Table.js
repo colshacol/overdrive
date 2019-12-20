@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from "react"
 // import * as ReactTable from 'react-table'
-import styled from "styled-components";
-import { FixedSizeList } from "react-window";
+import styled from "styled-components"
+import { FixedSizeList } from "react-window"
 
 import {
   useTable,
@@ -12,12 +12,12 @@ import {
   usePagination,
   useBlockLayout,
   useResizeColumns,
-  useAbsoluteLayout
-} from "react-table";
+  useAbsoluteLayout,
+} from "react-table"
 
-import { ChevronUp } from "react-feather";
-import { ChevronDown } from "react-feather";
-import { Spacer } from "./Spacer";
+import { ChevronUp } from "react-feather"
+import { ChevronDown } from "react-feather"
+import { Spacer } from "./Spacer"
 
 const Styles = styled.div`
   width: 100%;
@@ -29,7 +29,7 @@ const Styles = styled.div`
   transition: all 0.25s;
   border: 1px solid var(--darkPurple2);
   border-bottom: 2px solid var(--grayscale4);
-`;
+`
 
 const THead = styled.div`
   padding: 24px 0 24px;
@@ -40,13 +40,13 @@ const THead = styled.div`
   .th:first-of-type {
     padding-left: 24px;
   }
-`;
+`
 
 const TH = styled.div`
   font-weight: 600;
   user-select: none;
   font-size: 14px;
-`;
+`
 
 const StyledTable = styled.div`
   display: inline-block;
@@ -56,11 +56,11 @@ const StyledTable = styled.div`
     padding: 8px 0;
     width: 100%;
   }
-`;
+`
 
 const StyledTableTitle = styled.h3`
   min-width: 250px;
-`;
+`
 
 const StyledTopRow = styled.div`
   display: flex;
@@ -70,16 +70,16 @@ const StyledTopRow = styled.div`
   position: relative;
   z-index: 50;
   background: #fff;
-`;
+`
 
 const TD = styled.div`
   height: 45px;
   display: flex;
   align-items: center;
-  font-weight: ${props => (props.onClick ? "500" : "400")};
-  color: ${props => (props.onClick ? "var(--brandLightPurple)" : "inherit")};
-  cursor: ${props => (props.onClick ? "pointer" : "inherit")};
-`;
+  font-weight: ${(props) => (props.onClick ? "500" : "400")};
+  color: ${(props) => (props.onClick ? "var(--brandLightPurple)" : "inherit")};
+  cursor: ${(props) => (props.onClick ? "pointer" : "inherit")};
+`
 
 const TableBody = styled.div`
   width: 100% !important;
@@ -112,9 +112,9 @@ const TableBody = styled.div`
   > div {
     overflow-x: hidden !important;
   }
-`;
+`
 
-const SortIcons = props => {
+const SortIcons = (props) => {
   return props.isSorted ? (
     props.isSortedDesc ? (
       <ChevronDown
@@ -131,35 +131,35 @@ const SortIcons = props => {
     )
   ) : (
     ""
-  );
-};
+  )
+}
 
-export const Table = props => {
+export const Table = (props) => {
   const tableState = useTable(
     {
       columns: props.columns,
-      data: props.data
+      data: props.data || [],
     },
     useSortBy,
     useAbsoluteLayout
-  );
+  )
 
   const RenderRow = React.useCallback(
     ({ index, style }) => {
-      const row = tableState.rows[index];
-      tableState.prepareRow(row);
+      const row = tableState.rows[index]
+      tableState.prepareRow(row)
 
       const trProps = row.getRowProps({
-        style
-      });
+        style,
+      })
 
       // console.log(row, trProps);
 
       return (
         <div {...trProps} className="tr">
-          {row.cells.map(cell => {
-            const cellProps = cell.getCellProps();
-            const { onClick } = cell.column;
+          {row.cells.map((cell) => {
+            const cellProps = cell.getCellProps()
+            const { onClick } = cell.column
 
             return (
               <TD
@@ -169,13 +169,13 @@ export const Table = props => {
               >
                 {cell.render("Cell")}
               </TD>
-            );
+            )
           })}
         </div>
-      );
+      )
     },
     [tableState.prepareRow, tableState.rows]
-  );
+  )
 
   return (
     <Styles>
@@ -185,9 +185,9 @@ export const Table = props => {
       </StyledTopRow>
       <StyledTable {...tableState.getTableProps()} className="table">
         <THead className="thead">
-          {tableState.headerGroups.map(headerGroup => (
+          {tableState.headerGroups.map((headerGroup) => (
             <div {...headerGroup.getHeaderGroupProps()} className="tr">
-              {headerGroup.headers.map(column => (
+              {headerGroup.headers.map((column) => (
                 <TH
                   className="th"
                   {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -215,5 +215,5 @@ export const Table = props => {
         </TableBody>
       </StyledTable>
     </Styles>
-  );
-};
+  )
+}

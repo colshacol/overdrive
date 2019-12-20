@@ -3,6 +3,7 @@ import { Page } from "../../components/Page"
 import { Spacer } from "../../components/Spacer"
 import { useRoute, useLocation, Route, Switch, Link } from "wouter"
 import * as Breadcrumbs from "../../components/Breadcrumbs"
+import { TitleTable } from "./TitleTable"
 
 const NAVIGATION = [["Title Plant", "/accounting"]]
 
@@ -22,6 +23,7 @@ const TitlePlantView = (props) => {
   return (
     <>
       <p>howdy</p>
+      {/* <TitleTable /> */}
     </>
   )
 }
