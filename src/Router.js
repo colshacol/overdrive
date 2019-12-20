@@ -6,6 +6,7 @@ import { ProjectView } from "./pages/Parcels/ProjectView"
 import { People } from "./pages/People"
 import { Marketing } from "./pages/Marketing"
 import { Accounting } from "./pages/Accounting"
+import { TitlePlant } from "./pages/TitlePlant"
 import { LogIn } from "./pages/LogIn"
 
 // const getParcelsForProject = async () => {
@@ -38,6 +39,7 @@ export const AuthenticatedRouter = (props) => {
       <Route path="/people/:rest*" component={People} />
       <Route path="/marketing/:rest*" component={Marketing} />
       <Route path="/accounting/:rest*" component={Accounting} />
+      <Route path="/titlePlant/:rest*" component={TitlePlant} />
       <Route path="/:rest*">404, not found!</Route>
     </Switch>
   )
