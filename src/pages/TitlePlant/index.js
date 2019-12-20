@@ -40,7 +40,7 @@ const TitlePlantView = (props) => {
           placeholder="Choose a State"
           onChange={(event) => setStateValue(event.target.value)}
           isSelectable
-          onSelectiob={setSelectedState}
+          onSelection={setSelectedState}
         />
         {selectedState && (
           <CountySelectInput
@@ -50,7 +50,7 @@ const TitlePlantView = (props) => {
             placeholder="Choose a County"
             onChange={(event) => setCountyValue(event.target.value)}
             isSelectable
-            onSelectiob={setSelectedCounty}
+            onSelection={setSelectedCounty}
           />
         )}
       </Box>
