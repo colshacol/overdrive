@@ -84,7 +84,7 @@ const ParcelsView = (props) => {
         <ParcelDataCards {...props} />
       </Box>
       <Spacer size="32px" />
-      <ParcelsTable data={projectParcels} />
+      <ParcelsTable data={parcels} />
     </>
   )
 }
