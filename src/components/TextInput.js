@@ -17,47 +17,46 @@ export const TextInput = (props) => {
   }
 
   return (
-    <StyledTextInput
-      className="TextInput"
-      {...props}
-      width={props.width || width}
+    <Popover
+      position="bottom"
+      isOpen={props.isSelecable && isSelectBoxOpen}
+      content={<div style={{ background: "white" }}>HOWDY DUDE</div>}
     >
-      {props.label && (
-        <>
-          <label htmlFor={props.id}>{props.label}</label>
-        </>
-      )}
-      <Popover
-        position="bottom"
-        isOpen={props.isSelecable && isSelectBoxOpen}
-        content={<div style={{ background: "white" }}>HOWDY DUDE</div>}
+      <StyledTextInput
+        className="TextInput"
+        {...props}
+        width={props.width || width}
       >
-        <>
-          <input
-            id={props.id}
-            value={props.value}
-            placeholder={props.placeholder}
-            onChange={props.onChange}
-            className={props.inputClassName}
-            onFocus={() => props.isSelecable && setIsSelectBoxOpen(true)}
-            onBlur={() => props.isSelecable && setIsSelectBoxOpen(false)}
-            style={inputStyle}
-            type={props.type}
-          />
-          {props.icon && (
-            <Box
-              inline
-              position="absolute"
-              right="12px"
-              alignItems="center"
-              height="100%"
-            >
-              {props.icon}
-            </Box>
-          )}
-        </>
-      </Popover>
-    </StyledTextInput>
+        {props.label && (
+          <>
+            <label htmlFor={props.id}>{props.label}</label>
+          </>
+        )}
+
+        <input
+          id={props.id}
+          value={props.value}
+          placeholder={props.placeholder}
+          onChange={props.onChange}
+          className={props.inputClassName}
+          onFocus={() => props.isSelecable && setIsSelectBoxOpen(true)}
+          onBlur={() => props.isSelecable && setIsSelectBoxOpen(false)}
+          style={inputStyle}
+          type={props.type}
+        />
+        {props.icon && (
+          <Box
+            inline
+            position="absolute"
+            right="12px"
+            alignItems="center"
+            height="100%"
+          >
+            {props.icon}
+          </Box>
+        )}
+      </StyledTextInput>
+    </Popover>
   )
 }
 
