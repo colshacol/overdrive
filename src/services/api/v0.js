@@ -26,11 +26,9 @@ export const getProjectsForEmployee = (employeeID) => {
     })
 }
 
-export const getParcel = (employeeID, projectID, parcelID) => {
+export const getParcel = (parcelID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getParcel")
     .post({
-      employeeID,
-      projectID,
       parcelID,
     })
     .json((response) => {

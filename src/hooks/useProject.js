@@ -6,7 +6,7 @@ export const useProject = (projectID) => {
   const [project, setProject] = React.useState({})
 
   React.useEffect(() => {
-    apiV0.getParcel(projectID).then((project) => {
+    apiV0.getProject(projectID).then((project) => {
       setProject(project)
     })
   }, [projectID])
