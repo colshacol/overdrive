@@ -5,7 +5,7 @@ import { useUser } from "../stores/userStore"
 import { useGlobalStore } from "../global.store"
 
 export const useParcelsForProject = () => {
-  const [parcels, setParcels] = React.useState()
+  const [parcels, setParcels] = React.useState([])
   const { currentProjectID } = useGlobalStore()
   const user = useUser()
 
