@@ -7,7 +7,7 @@ export default async (app) => {
 
     const handleSuccess = (data) => {
       const titles = data.recordset
-      return response.send({ isSuccess: true, parcel: titles[0] })
+      return response.send({ isSuccess: true, title: titles[0] })
     }
 
     const handleError = (error) => {
