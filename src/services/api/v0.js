@@ -14,7 +14,7 @@ export const authenticate = (emailAddress, password) => {
 export const getProjectsForEmployee = (employeeID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getProjectsForEmployee")
     .post({
-      employeeID,
+      employeeID: Number(employeeID),
     })
     .json((response) => {
       if (response.isSuccess) {
@@ -29,7 +29,7 @@ export const getProjectsForEmployee = (employeeID) => {
 export const getParcel = (parcelID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getParcel")
     .post({
-      parcelID,
+      parcelID: Number(parcelID),
     })
     .json((response) => {
       if (response.isSuccess) {
@@ -44,7 +44,7 @@ export const getParcel = (parcelID) => {
 export const getProject = (projectID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getProject")
     .post({
-      projectID,
+      projectID: Number(projectID),
     })
     .json((response) => {
       if (response.isSuccess) {
@@ -59,7 +59,7 @@ export const getProject = (projectID) => {
 export const getTitle = (titleID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getTitle")
     .post({
-      titleID,
+      titleID: Number(titleID),
     })
     .json((response) => {
       if (response.isSuccess) {
@@ -74,7 +74,7 @@ export const getTitle = (titleID) => {
 export const getTitlesForPacel = (employeeID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getTitlesForPacel")
     .post({
-      employeeID,
+      employeeID: Number(employeeID),
     })
     .json((response) => {
       if (response.isSuccess) {
@@ -89,8 +89,8 @@ export const getTitlesForPacel = (employeeID) => {
 export const getParcelsForProject = (employeeID, projectID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getParcelsForProject")
     .post({
-      employeeID,
-      projectID,
+      employeeID: Number(employeeID),
+      projectID: Number(projectID),
     })
     .json((response) => {
       if (response.isSuccess) {

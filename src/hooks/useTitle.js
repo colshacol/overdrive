@@ -6,7 +6,7 @@ export const useTitle = (titleID) => {
   const [title, setTitle] = React.useState({})
 
   React.useEffect(() => {
-    apiV0.getTitle(Number(titleID)).then((title) => {
+    apiV0.getTitle(titleID).then((title) => {
       setTitle(title)
     })
   }, [titleID])

@@ -76,7 +76,6 @@ export const ProjectParcelsView = (props) => {
 }
 
 const ParcelsView = (props) => {
-  const project = useProject(props.params.projectID)
   const parcels = useParcelsForProject()
 
   return (
