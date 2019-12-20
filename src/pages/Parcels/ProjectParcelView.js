@@ -169,7 +169,7 @@ const ParcelView = (props) => {
   return (
     <>
       <h1>
-        Parcel <MutedText>ID: {parcel.ParcelID}</MutedText>
+        Parcel <MutedText>ID: {props.params.parcelID}</MutedText>
       </h1>
       <Spacer size="32px" />
       <ParcelData parcel={parcel} />
