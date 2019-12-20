@@ -122,6 +122,7 @@ const StyledPortalCard = styled.div`
   box-shadow: 0px 2px 12px -4px var(--darkPurple2);
   transition: all 0.25s;
   border: 1px solid var(--darkPurple2);
+  margin-bottom: 24px;
 
   h3 {
     display: inline;
