@@ -29,9 +29,6 @@ export const TitleTable = (props) => {
       Header: "Status",
       accessor: "status",
       width: 120,
-      // onClick: cell => {
-      //   setLocation(`${location}/${cell.value}`);
-      // }
     },
     {
       Header: "Grantor",
@@ -64,7 +61,7 @@ export const TitleTable = (props) => {
   return (
     <Table
       height={props.data.length * 45}
-      title="Title Activity"
+      title="Titles"
       columns={columns.current}
       data={props.data}
       renderTopRow={(props, tableState) => (

@@ -43,6 +43,21 @@ export const getParcel = (employeeID, projectID, parcelID) => {
     })
 }
 
+export const getProject = (projectID) => {
+  return wretch(window.__env.serverUrl + "/api/v0/getProject")
+    .post({
+      projectID,
+    })
+    .json((response) => {
+      if (response.isSuccess) {
+        console.log("getProject: ", response)
+        return response.project
+      }
+
+      return response
+    })
+}
+
 export const getTitle = (employeeID, projectID, parcelID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getTitle")
     .post({

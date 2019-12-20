@@ -8,6 +8,14 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.EmployeeDetailByEmailSEL")
   }
 
+  // "ProjectSEL" @ProjectID = 1
+  const getProject = (parameters) => {
+    return pool
+      .request()
+      .input("ProjectID", sql.VarChar(50), parameters.projectID)
+      .execute("dbo.ProjectSEL")
+  }
+
   // "ParcelSEL" @ParcelID = 1
   const getParcel = (parameters) => {
     return pool
@@ -63,6 +71,7 @@ const createProcedures = (sql, pool) => {
   }
 
   return {
+    getProject,
     getParcel,
     getTitle,
     getUserByEmail,
