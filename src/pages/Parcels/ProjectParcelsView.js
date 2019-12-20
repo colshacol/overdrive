@@ -14,6 +14,7 @@ import { ProjectParcelTitleView } from "./ProjectParcelTitleView"
 import { useCurrentProject } from "../../hooks/useCurrentProject"
 import { Box } from "../../components/Box"
 import { useParcelsForProject } from "../../hooks/useParcelsForProject"
+import { useProject } from "../../hooks/useProject"
 
 const projectParcels = sampleData.parcels
 
@@ -75,13 +76,14 @@ export const ProjectParcelsView = (props) => {
 }
 
 const ParcelsView = (props) => {
+  const project = useProject(props.params.projectID)
   const parcels = useParcelsForProject()
 
   return (
     <>
       <Box justifyContent="space-between">
         <h1>Parcels</h1>
-        <ParcelDataCards {...props} />
+        <ParcelDataCards parcels={parcels} />
       </Box>
       <Spacer size="32px" />
       <ParcelsTable data={parcels} />

@@ -1,17 +1,17 @@
-import * as React from "react";
-import { Grid, Cell } from "styled-css-grid";
-import theme from "../../theme";
-import { Box } from "../../components/Box";
-import { SmallLabel } from "../../components/SmallLabel";
-import { Spacer } from "../../components/Spacer";
+import * as React from "react"
+import { Grid, Cell } from "styled-css-grid"
+import theme from "../../theme"
+import { Box } from "../../components/Box"
+import { SmallLabel } from "../../components/SmallLabel"
+import { Spacer } from "../../components/Spacer"
 
 const BG_IMAGES = {
   black: "url(https://i.imgur.com/aMNP2JA.png)",
-  purple: "url(https://i.imgur.com/veWfJkI.png)"
-};
+  purple: "url(https://i.imgur.com/veWfJkI.png)",
+}
 
-const DataCard = props => {
-  const bgImage = BG_IMAGES[props.color];
+const DataCard = (props) => {
+  const bgImage = BG_IMAGES[props.color]
 
   return (
     <Box
@@ -29,39 +29,43 @@ const DataCard = props => {
     >
       <SmallLabel
         style={{
-          color: "white"
+          color: "white",
         }}
       >
         {props.text}
       </SmallLabel>
       <h3 style={{ color: "white" }}>{props.value}</h3>
     </Box>
-  );
-};
+  )
+}
 
-export const ParcelDataCards = props => {
+export const ParcelDataCards = (props) => {
+  const completed = props.parcels.filter((parcel) => {
+    return parcel.DateCompleted
+  })
+
   return (
     <Box>
       <DataCard
         color="purple"
         backgroundPosition="20% 7%"
         text="Total Parcels"
-        value="500"
+        value={props.parcels.length}
       />
       <Spacer size="16px" />
       <DataCard
         color="purple"
         text="Complete Parcels"
-        value="350"
+        value={completed.length}
         backgroundPosition="42% 40%"
       />
       <Spacer size="16px" />
       <DataCard
         color="purple"
         text="Incomplete Parcels"
-        value="150"
+        value={props.parcels.length - completed.length}
         backgroundPosition="55% 70%"
       />
     </Box>
-  );
-};
+  )
+}

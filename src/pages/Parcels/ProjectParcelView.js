@@ -139,8 +139,6 @@ const MutedText = styled.span`
 `
 
 export const ProjectParcelView = (props) => {
-  const project = useProject(props.params.projectID)
-
   return (
     <>
       <Breadcrumbs.Crumb

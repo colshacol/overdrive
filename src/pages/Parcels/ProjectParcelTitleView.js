@@ -23,6 +23,7 @@ import { useTitles } from "../../hooks/useTitles"
 import { useParcel } from "../../hooks/useParcel"
 import { TextInput } from "../../components/TextInput"
 import * as Breadcrumbs from "../../components/Breadcrumbs"
+import { useTitle } from "../../hooks/useTitle"
 
 const StyledDataText = styled.span`
   margin-right: 64px;
@@ -51,20 +52,13 @@ const DataText = (props) => {
 }
 
 export const ProjectParcelTitleView = (props) => {
-  const project = useCurrentProject()
-  const titles = useTitles()
-
-  const [match, route] = useRoute(
-    "/project/:projectID/parcels/:parcelID/title/:titleID"
-  )
-
-  const title = titles.find((title) => title.TitleID === Number(route.titleID))
+  const title = useTitle(props.params.titleID)
 
   return (
     <>
       <Breadcrumbs.Crumb
-        path={`/project/${project.ProjectID}/parcels/${route.parcelID}/title/${route.titleID}`}
-        text={`Title (${route.titleID})`}
+        path={`/project/${props.params.projectID}/parcels/${props.params.parcelID}/title/${props.params.titleID}`}
+        text={`Title (${props.params.titleID})`}
       />
       <h1>Title</h1>
       <Box
