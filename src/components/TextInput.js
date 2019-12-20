@@ -23,11 +23,14 @@ export const TextInput = (props) => {
       position="bottom"
       isOpen={props.isSelectable && isSelectBoxOpen}
       content={<div>HOWDY DUDE</div>}
+      align="start"
     >
       <StyledTextInput
         className="TextInput"
         {...props}
         width={props.width || width}
+        onFocus={() => props.isSelecable && setIsSelectBoxOpen(true)}
+        onBlur={() => props.isSelecable && setIsSelectBoxOpen(false)}
       >
         {props.label && (
           <>
@@ -39,9 +42,8 @@ export const TextInput = (props) => {
           value={props.value}
           placeholder={props.placeholder}
           onChange={props.onChange}
+          autoFocus
           className={props.inputClassName}
-          onFocus={() => props.isSelecable && setIsSelectBoxOpen(true)}
-          onBlur={() => props.isSelecable && setIsSelectBoxOpen(false)}
           style={inputStyle}
           type={props.type}
         />
