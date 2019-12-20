@@ -20,6 +20,7 @@ app.use(bodyParser.json())
 app.use(favicon(path.join(cwd, "favicon.ico")))
 app.use(morgan("tiny"))
 app.use(express.static(path.join(cwd, "build")))
+// app.use(express.static(path.join(cwd, "public")))
 
 app.use(
   session({
