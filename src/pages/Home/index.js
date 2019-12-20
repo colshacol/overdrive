@@ -48,6 +48,7 @@ export const Home = (props) => {
             title="People"
             description="Manage company employees."
           />
+          <Spacer size="24px" />
           <PortalCard
             href="/titlePlant"
             icon={File}

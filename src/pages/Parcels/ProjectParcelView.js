@@ -145,7 +145,7 @@ export const ProjectParcelView = (props) => {
     <>
       <Breadcrumbs.Crumb
         path={`/project/${props.params.projectID}/parcels/${props.params.parcelID}`}
-        text={`Parcel (${props.params.parcelID})`}
+        text={`Parcel`}
       />
       <Switch>
         <Route
