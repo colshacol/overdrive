@@ -15,7 +15,7 @@ export const useParcelsForProject = () => {
       .then((data) => {
         setParcels(data)
       })
-  })
+  }, [currentProjectID])
 
   return parcels
 }

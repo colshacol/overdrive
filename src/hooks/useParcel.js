@@ -9,7 +9,7 @@ export const useParcel = (parcelID) => {
     apiV0.getParcel(parcelID).then((parcel) => {
       setParcel(parcel.parcel)
     })
-  })
+  }, [parcelID])
 
   return parcel
 }

@@ -40,6 +40,10 @@ app.get("/ping", (req, res) => {
 
 api(app)
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(cwd, "build/index.html"))
+})
+
 app.listen(PORT, () => {
   console.log(`Listening @ http://localhost:${PORT}`)
 })
