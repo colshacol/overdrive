@@ -1,16 +1,86 @@
 import styled, { css } from "styled-components"
 import * as React from "react"
 import Popover from "react-tiny-popover"
+import Popup from "reactjs-popup"
+import { ChevronDown } from "react-feather"
 
 import { Box } from "./Box"
 import { Spacer } from "./Spacer"
+
+const StyledOptions = styled.div`
+  width: 100%;
+  max-height: 200px;
+  overflow-y: scroll;
+`
+
+const StyledOption = styled.div`
+  width: 280px;
+  max-width: 280px;
+  background: #fff;
+  padding: 16px;
+
+  :hover {
+    background: var(--grayscale1);
+  }
+`
+
+export const SelectInput = (props) => {
+  const [isOpen, setIsOpen] = React.useState(false)
+  const { onSelection, selectOptions, ...otherProps } = props
+
+  return (
+    <Popup
+      open={isOpen}
+      arrow={false}
+      className="SelectInputOptions"
+      position="bottom left"
+      on="focus"
+      closeOnDocumentClick={true}
+      onClose={() => setIsOpen(false)}
+      trigger={
+        <TextInput
+          {...otherProps}
+          icon={<ChevronDown size="24px" color={"var(--grayscale6)"} />}
+          onInputFocus={(e) => {
+            setIsOpen(true)
+            console.log("focused")
+            props.onFocus(e)
+          }}
+          onInputBlur={(e) => {
+            // setIsOpen(false)
+            console.log("blurred")
+            props.onBlur(e)
+          }}
+          {...otherProps}
+        />
+      }
+    >
+      <StyledOptions>
+        {selectOptions.map((option) => (
+          <StyledOption
+            onClick={() => {
+              onSelection(option)
+              console.log("clickedddd")
+              setIsOpen(false)
+            }}
+          >
+            {option.text}
+          </StyledOption>
+        ))}
+      </StyledOptions>
+    </Popup>
+  )
+}
+
+SelectInput.defaultProps = {
+  onFocus: () => {},
+  onBlur: () => {},
+}
 
 export const TextInput = (props) => {
   const [isSelectBoxOpen, setIsSelectBoxOpen] = React.useState(false)
   const width = props.fillWidth ? "100%" : "280px"
   const inputPaddingY = props.slim ? "8px" : "12px"
-
-  console.log("TEXT INPUT", { props, isSelectBoxOpen })
 
   const inputStyle = {
     ...props.inputStyle,
@@ -19,47 +89,41 @@ export const TextInput = (props) => {
   }
 
   return (
-    <Popover
-      position="bottom"
-      isOpen={props.isSelectable && isSelectBoxOpen}
-      content={<div>HOWDY DUDE</div>}
-      align="start"
+    <StyledTextInput
+      className="TextInput"
+      {...props}
+      width={props.width || width}
     >
-      <StyledTextInput
-        className="TextInput"
-        {...props}
-        width={props.width || width}
-        onFocus={() => props.isSelecable && setIsSelectBoxOpen(true)}
-        onBlur={() => props.isSelecable && setIsSelectBoxOpen(false)}
-      >
-        {props.label && (
-          <>
-            <label htmlFor={props.id}>{props.label}</label>
-          </>
-        )}
-        <input
-          id={props.id}
-          value={props.value}
-          placeholder={props.placeholder}
-          onChange={props.onChange}
-          autoFocus
-          className={props.inputClassName}
-          style={inputStyle}
-          type={props.type}
-        />
-        {props.icon && (
-          <Box
-            inline
-            position="absolute"
-            right="12px"
-            alignItems="center"
-            height="100%"
-          >
-            {props.icon}
-          </Box>
-        )}
-      </StyledTextInput>
-    </Popover>
+      {props.label && (
+        <>
+          <label htmlFor={props.id}>{props.label}</label>
+        </>
+      )}
+      <input
+        ref={props.inputRef}
+        id={props.id}
+        value={props.value}
+        placeholder={props.placeholder}
+        onChange={props.onChange}
+        className={props.inputClassName}
+        style={inputStyle}
+        type={props.type}
+        onFocus={props.onInputFocus}
+        onBlur={props.onInputBlur}
+      />
+      {props.icon && (
+        <Box
+          inline
+          position="absolute"
+          right="12px"
+          top="12px"
+          alignItems="center"
+          height="100%"
+        >
+          {props.icon}
+        </Box>
+      )}
+    </StyledTextInput>
   )
 }
 

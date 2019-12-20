@@ -168,3 +168,10 @@ h4 {
 .virtualizedTable::-webkit-scrollbar-thumb {
   background-color: var(--darkPurple2);
 }
+
+div.SelectInputOptions-content {
+  width: 100% !important;
+  padding: 0 !important;
+  max-width: 280px !important;
+  overflow-x: hidden !important;
+}

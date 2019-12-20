@@ -5,7 +5,7 @@ import { useRoute, useLocation, Route, Switch, Link } from "wouter"
 import * as Breadcrumbs from "../../components/Breadcrumbs"
 import { TitleTable } from "./TitleTable"
 import { Box } from "../../components/Box"
-import { TextInput } from "../../components/TextInput"
+import { TextInput, SelectInput } from "../../components/TextInput"
 import { useStatesWithParcels } from "../../hooks/useStatesWithParcels"
 import { useStateCountiesWithParcels } from "../../hooks/useStateCountiesWithParcels"
 
@@ -28,7 +28,19 @@ const TitlePlantView = (props) => {
   const [countyValue, setCountyValue] = React.useState("")
   const [selectedState, setSelectedState] = React.useState()
   const [selectedCounty, setSelectedCounty] = React.useState()
-  // const [titles, setTitles] =
+
+  const setState = (state) => {
+    setCountyValue("")
+    setSelectedCounty()
+    setSelectedState(state)
+    setStateValue(state.text)
+  }
+
+  const setCounty = (county) => {
+    setSelectedCounty(county)
+    setCountyValue(county.text)
+  }
+
   return (
     <>
       <h1>Title Plant</h1>
@@ -40,18 +52,21 @@ const TitlePlantView = (props) => {
           placeholder="Choose a State"
           onChange={(event) => setStateValue(event.target.value)}
           isSelectable
-          onSelection={setSelectedState}
+          onSelection={setState}
         />
         {selectedState && (
-          <CountySelectInput
-            label="County"
-            state={selectedState}
-            value={countyValue}
-            placeholder="Choose a County"
-            onChange={(event) => setCountyValue(event.target.value)}
-            isSelectable
-            onSelection={setSelectedCounty}
-          />
+          <>
+            <Spacer size="16px" />
+            <CountySelectInput
+              label="County"
+              state={selectedState}
+              value={countyValue}
+              placeholder="Choose a County"
+              onChange={(event) => setCountyValue(event.target.value)}
+              isSelectable
+              onSelection={setCounty}
+            />
+          </>
         )}
       </Box>
       {/* <TitleTable /> */}
@@ -59,14 +74,38 @@ const TitlePlantView = (props) => {
   )
 }
 
+const applyInputFilter = (target, input, field) => {
+  return target.filter((item) => {
+    return (item[field] || "").toLowerCase().includes(input.toLowerCase())
+  })
+}
+
 const StateSelectInput = (props) => {
   const states = useStatesWithParcels()
 
-  return <TextInput {...props} selectOptions={states} />
+  const statesOptions = states.map((state) => {
+    return { ...state, text: state.StateName }
+  })
+
+  return (
+    <SelectInput
+      {...props}
+      selectOptions={applyInputFilter(statesOptions, props.value, "StateName")}
+    />
+  )
 }
 
 const CountySelectInput = (props) => {
   const counties = useStateCountiesWithParcels(props.state.StateCode)
 
-  return <TextInput {...props} selectOptions={counties} />
+  const countyOptions = counties.map((county) => {
+    return { ...county, text: county.CountyName }
+  })
+
+  return (
+    <SelectInput
+      {...props}
+      selectOptions={applyInputFilter(countyOptions, props.value, "CountyName")}
+    />
+  )
 }

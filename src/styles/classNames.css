@@ -19,4 +19,8 @@
   justify-content: flex-end;
 }
 
-.row.align-x-center .row.align-x-center .row.align-x-center .row.align-x-center;
+.row.align-x-center
+  .row.align-x-center
+  .row.align-x-center
+  .row.align-x-center {
+}
