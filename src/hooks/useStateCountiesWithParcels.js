@@ -5,7 +5,7 @@ import * as apiV0 from "../services/api/v0"
 export const useStateCountiesWithParcels = () => {
   const [counties, setCounties] = React.useState([])
 
-  React.useCallback(() => {
+  React.useEffect(() => {
     apiV0.getStateCountiesWithParcels().then((counties) => {
       setCounties(counties)
     })

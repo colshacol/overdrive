@@ -7,7 +7,7 @@ export const useProjectsForUser = () => {
   const [projects, setProjects] = React.useState([])
   const user = useUser()
 
-  React.useCallback(() => {
+  React.useEffect(() => {
     apiV0.getProjectsForEmployee(user.EmployeeID).then((projects) => {
       setProjects(projects)
     })

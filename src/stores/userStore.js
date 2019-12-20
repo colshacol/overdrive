@@ -2,6 +2,8 @@ import * as React from "react"
 import wretch from "wretch"
 import createContextStore from "../utilities/createContextStore"
 
+import * as apiV0 from "../services/api/v0"
+
 const INITIAL_USER_STATE = {
   isAuthenticated: false,
 }
@@ -10,11 +12,13 @@ const [UserProvider, useUser] = createContextStore(() => {
   const [user, setUser] = React.useState(INITIAL_USER_STATE)
 
   const register = React.useCallback((userData) => {
-    setUser((user) => ({
-      ...user,
-      isAuthenticated: true,
-      ...userData,
-    }))
+    setUser((user) => {
+      return {
+        ...user,
+        isAuthenticated: true,
+        ...userData,
+      }
+    })
   }, [])
 
   const unregister = React.useCallback(() => {
@@ -22,16 +26,11 @@ const [UserProvider, useUser] = createContextStore(() => {
   }, [])
 
   const authenticate = React.useCallback((emailAddress, password) => {
-    wretch(window.__env.serverUrl + "/api/v0/authenticateUser")
-      .post({
-        emailAddress,
-        password,
-      })
-      .json((response) => {
-        if (response.isSuccess) {
-          register(response.user)
-        }
-      })
+    apiV0.authenticate(emailAddress, password).then((response) => {
+      if (response.isSuccess) {
+        register(response.user)
+      }
+    })
   }, [])
 
   const getProjects = React.useCallback(() => {

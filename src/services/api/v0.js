@@ -1,5 +1,16 @@
 import wretch from "wretch"
 
+export const authenticate = (emailAddress, password) => {
+  wretch(window.__env.serverUrl + "/api/v0/authenticateUser")
+    .post({
+      emailAddress,
+      password,
+    })
+    .json((response) => {
+      return response
+    })
+}
+
 export const getProjectsForEmployee = (employeeID) => {
   return wretch(window.__env.serverUrl + "/api/v0/getProjectsForEmployee")
     .post({
