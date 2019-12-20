@@ -31,7 +31,8 @@ const TitlePlantView = (props) => {
 
   return (
     <>
-      <p>howdy</p>
+      <h1>Title Plant</h1>
+      <Spacer size="16px" />
       <Box>
         <StateSelectInput
           value={stateValue}
