@@ -11,7 +11,7 @@ export const useParcelsForProject = () => {
 
   React.useEffect(() => {
     apiV0
-      .getParcelsForProject(user.employeeID, currentProjectID)
+      .getParcelsForProject(user.EmployeeID, currentProjectID)
       .then((data) => {
         setParcels(data)
       })

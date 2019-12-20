@@ -8,7 +8,7 @@ export const useProjectsForUser = () => {
   const user = useUser()
 
   React.useCallback(() => {
-    apiV0.getEmployeeProjects(user).then((projects) => {
+    apiV0.getProjectsForEmployee(user.EmployeeID).then((projects) => {
       setProjects(projects)
     })
   }, [user.EmployeeID])
