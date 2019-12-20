@@ -62,7 +62,7 @@ export const TextInput = (props) => {
 }
 
 TextInput.defaultProps = {
-  isSelecable: undefined,
+  isSelectable: undefined,
 }
 
 const StyledTextInput = styled.div`
