@@ -83,7 +83,7 @@ const TitleTable = (props) => {
   return (
     <Table
       height={props.data.length * 45}
-      title="Title Activity"
+      title="Titles"
       columns={columns.current}
       data={props.data}
       renderTopRow={(props, tableState) => (

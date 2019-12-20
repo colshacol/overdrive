@@ -256,7 +256,7 @@ export const ParcelsTable = (props) => {
       className="atlaskitTable"
       caption={
         <Text size={6} bold className="atlaskitTableCaption">
-          Parcel Activity
+          Parcels
         </Text>
       }
       head={TABLE_HEADERS}

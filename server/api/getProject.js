@@ -19,5 +19,3 @@ export default async (app) => {
     invokeProcedure.catch(handleError)
   })
 }
-
-ProjectSEL

@@ -46,14 +46,14 @@ export const Home = (props) => {
             href="/people"
             icon={UsersIcon}
             title="People"
-            description="Manage company employees."
+            description="Manage employees."
           />
           <Spacer size="24px" />
           <PortalCard
             href="/titlePlant"
             icon={File}
             title="Title Plant"
-            description="Filter titles directly."
+            description="Search titles."
           />
           <Spacer size="24px" />
           <PortalCard
