@@ -1,5 +1,4 @@
 import sql from "mssql"
-import procedures from "./procedures"
 
 const createProcedures = (sql, pool) => {
   const getUserByEmail = (parameters) => {
@@ -9,6 +8,23 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.EmployeeDetailByEmailSEL")
   }
 
+  // "ParcelSEL" @ParcelID = 1
+  const getParcel = (parameters) => {
+    return pool
+      .request()
+      .input("ParcelID", sql.VarChar(50), parameters.parcelID)
+      .execute("dbo.ParcelSEL")
+  }
+
+  // "TitleSEL" @TitleID = 1
+  const getTitle = (parameters) => {
+    return pool
+      .request()
+      .input("TitleID", sql.VarChar(50), parameters.titleID)
+      .execute("dbo.TitleSEL")
+  }
+
+  // "ParcelsForProjectEmployeeSEL" @EmployeeID = 1, @ProjectID = 1
   const getParcelsForProject = (parameters) => {
     return pool
       .request()
@@ -17,6 +33,7 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.ParcelsForProjectEmployeeSEL")
   }
 
+  // "ProjectsForEmployeeIDSEL" @EmployeeID = 1
   const getProjectsForEmployee = (parameters) => {
     return pool
       .request()
@@ -24,6 +41,7 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.ProjectsForEmployeeIDSEL")
   }
 
+  // TODO: This shit.
   const getTitlesForParcel = (parameters) => {
     return pool
       .request()
@@ -31,11 +49,28 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.TK")
   }
 
+  // "ParcelStatesSEL"
+  const getStatesWithParcels = (parameters) => {
+    return pool.request().execute("dbo.ParcelStatesSEL")
+  }
+
+  // "ParcelCountiesForStateSEL" @StateCode = "DE"
+  const getStateCountiesWithParcels = (parameters) => {
+    return pool
+      .request()
+      .input("StateCode", sql.VarChar(50), parameters.stateCode)
+      .execute("dbo.ParcelCountiesForStateSEL")
+  }
+
   return {
+    getParcel,
+    getTitle,
     getUserByEmail,
     getParcelsForProject,
     getProjectsForEmployee,
     getTitlesForParcel,
+    getStatesWithParcels,
+    getStateCountiesWithParcels,
   }
 }
 
@@ -47,3 +82,5 @@ export default (async () => {
   const procedures = createProcedures(sql, pool)
   return [sql, pool, procedures]
 })()
+
+// mssql -s plmland.database.windows.net -u username@plmweb -p Global3404 -d landdev -e

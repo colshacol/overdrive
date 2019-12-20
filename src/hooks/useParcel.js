@@ -1,13 +1,15 @@
-import * as React from "react";
+import * as React from "react"
 
-import { parcels } from "../sampleData.json";
+import * as apiV0 from "../services/api/v0"
 
-export const useParcel = parcelID => {
-  const [parcel, setParcel] = React.useState(
-    parcels.find(parcel => {
-      return parcel.ParcelID === parcelID;
+export const useParcel = (parcelID) => {
+  const [parcel, setParcel] = React.useState()
+
+  React.useEffect(() => {
+    apiV0.getParcel(parcelID).then((parcel) => {
+      setParcel(parcel.parcel)
     })
-  );
+  })
 
-  return parcel;
-};
+  return parcel
+}

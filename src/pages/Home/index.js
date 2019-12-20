@@ -24,16 +24,11 @@ import {
 } from "react-feather"
 
 import Card from "../../components/Card"
+import { useProjectsForUser } from "../../hooks/useProjectsForUser"
 
 export const Home = (props) => {
   const user = useUser()
-  const [projects, setProjects] = React.useState([])
-
-  React.useEffect(() => {
-    user.getProjects().then((projects) => {
-      setProjects(projects)
-    })
-  }, [user.EmployeeID])
+  const projects = useProjectsForUser()
 
   return (
     <Page title="Dashboard">

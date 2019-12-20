@@ -1,0 +1,153 @@
+{
+  "states": [
+    { "StateID": 1, "StateCode": "AL", "StateName": "Alabama" },
+    { "StateID": 2, "StateCode": "AK", "StateName": "Alaska" },
+    { "StateID": 3, "StateCode": "AZ", "StateName": "Arizona" },
+    { "StateID": 4, "StateCode": "AR", "StateName": "Arkansas" },
+    { "StateID": 5, "StateCode": "CA", "StateName": "California" },
+    { "StateID": 6, "StateCode": "CO", "StateName": "Colorado" },
+    { "StateID": 7, "StateCode": "CT", "StateName": "Connecticut" },
+    { "StateID": 8, "StateCode": "DE", "StateName": "Delaware" },
+    { "StateID": 9, "StateCode": "DC", "StateName": "District of Columbia" },
+    { "StateID": 10, "StateCode": "FL", "StateName": "Florida" },
+    { "StateID": 11, "StateCode": "GA", "StateName": "Georgia" },
+    { "StateID": 12, "StateCode": "HI", "StateName": "Hawaii" },
+    { "StateID": 13, "StateCode": "ID", "StateName": "Idaho" },
+    { "StateID": 14, "StateCode": "IL", "StateName": "Illinois" },
+    { "StateID": 15, "StateCode": "IN", "StateName": "Indiana" },
+    { "StateID": 16, "StateCode": "IA", "StateName": "Iowa" },
+    { "StateID": 17, "StateCode": "KS", "StateName": "Kansas" },
+    { "StateID": 18, "StateCode": "KY", "StateName": "Kentucky" },
+    { "StateID": 19, "StateCode": "LA", "StateName": "Louisiana" },
+    { "StateID": 20, "StateCode": "ME", "StateName": "Maine" },
+    { "StateID": 21, "StateCode": "MD", "StateName": "Maryland" },
+    { "StateID": 22, "StateCode": "MA", "StateName": "Massachusetts" },
+    { "StateID": 23, "StateCode": "MI", "StateName": "Michigan" },
+    { "StateID": 24, "StateCode": "MN", "StateName": "Minnesota" },
+    { "StateID": 25, "StateCode": "MS", "StateName": "Mississippi" },
+    { "StateID": 26, "StateCode": "MO", "StateName": "Missouri" },
+    { "StateID": 27, "StateCode": "MT", "StateName": "Montana" },
+    { "StateID": 28, "StateCode": "NE", "StateName": "Nebraska" },
+    { "StateID": 29, "StateCode": "NV", "StateName": "Nevada" },
+    { "StateID": 30, "StateCode": "NH", "StateName": "New Hampshire" },
+    { "StateID": 31, "StateCode": "NJ", "StateName": "New Jersey" },
+    { "StateID": 32, "StateCode": "NM", "StateName": "New Mexico" },
+    { "StateID": 33, "StateCode": "NY", "StateName": "New York" },
+    { "StateID": 34, "StateCode": "NC", "StateName": "North Carolina" },
+    { "StateID": 35, "StateCode": "ND", "StateName": "North Dakota" },
+    { "StateID": 36, "StateCode": "OH", "StateName": "Ohio" },
+    { "StateID": 37, "StateCode": "OK", "StateName": "Oklahoma" },
+    { "StateID": 38, "StateCode": "OR", "StateName": "Oregon" },
+    { "StateID": 39, "StateCode": "PA", "StateName": "Pennsylvania" },
+    { "StateID": 40, "StateCode": "PR", "StateName": "Puerto Rico" },
+    { "StateID": 41, "StateCode": "RI", "StateName": "Rhode Island" },
+    { "StateID": 42, "StateCode": "SC", "StateName": "South Carolina" },
+    { "StateID": 43, "StateCode": "SD", "StateName": "South Dakota" },
+    { "StateID": 44, "StateCode": "TN", "StateName": "Tennessee" },
+    { "StateID": 45, "StateCode": "TX", "StateName": "Texas" },
+    { "StateID": 46, "StateCode": "UT", "StateName": "Utah" },
+    { "StateID": 47, "StateCode": "VT", "StateName": "Vermont" },
+    { "StateID": 48, "StateCode": "VA", "StateName": "Virginia" },
+    { "StateID": 49, "StateCode": "WA", "StateName": "Washington" },
+    { "StateID": 50, "StateCode": "WV", "StateName": "West Virginia" },
+    { "StateID": 51, "StateCode": "WI", "StateName": "Wisconsin" },
+    { "StateID": 52, "StateCode": "WY", "StateName": "Wyoming" }
+  ],
+  "counties": [
+    {
+      "CountyID": 81601,
+      "CountyName": "Albany County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81605,
+      "CountyName": "Big Horn County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81616,
+      "CountyName": "Campbell County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81620,
+      "CountyName": "Carbon County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81632,
+      "CountyName": "Converse County",
+      "StateName": "Wyoming"
+    },
+    { "CountyID": 81638, "CountyName": "Crook County", "StateName": "Wyoming" },
+    {
+      "CountyID": 81644,
+      "CountyName": "Fremont County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81652,
+      "CountyName": "Goshen County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81659,
+      "CountyName": "Hot Springs County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81664,
+      "CountyName": "Johnson County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81668,
+      "CountyName": "Laramie County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81674,
+      "CountyName": "Lincoln County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81685,
+      "CountyName": "Natrona County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81693,
+      "CountyName": "Niobrara County",
+      "StateName": "Wyoming"
+    },
+    { "CountyID": 81698, "CountyName": "Park County", "StateName": "Wyoming" },
+    {
+      "CountyID": 81704,
+      "CountyName": "Platte County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81711,
+      "CountyName": "Sheridan County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81717,
+      "CountyName": "Sublette County",
+      "StateName": "Wyoming"
+    },
+    {
+      "CountyID": 81722,
+      "CountyName": "Sweetwater County",
+      "StateName": "Wyoming"
+    },
+    { "CountyID": 81730, "CountyName": "Teton County", "StateName": "Wyoming" },
+    { "CountyID": 81733, "CountyName": "Uinta County", "StateName": "Wyoming" },
+    {
+      "CountyID": 81739,
+      "CountyName": "Washakie County",
+      "StateName": "Wyoming"
+    },
+    { "CountyID": 81743, "CountyName": "Weston County", "StateName": "Wyoming" }
+  ]
+}

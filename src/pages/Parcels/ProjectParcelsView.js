@@ -1,23 +1,24 @@
-import * as React from "react";
-import { Page } from "../../components/Page";
-import { Spacer } from "../../components/Spacer";
-import { ParcelDataCards } from "./ParcelDataCards";
-import { useRoute, useLocation, Route, Switch, Link } from "wouter";
-import * as ProjectsStore from "../../projects.store";
-import { useGlobalStore } from "../../global.store";
-import { ParcelsTable } from "./ParcelsTable";
-import sampleData from "../../sampleData.json";
-import * as Breadcrumbs from "../../components/Breadcrumbs";
+import * as React from "react"
+import { Page } from "../../components/Page"
+import { Spacer } from "../../components/Spacer"
+import { ParcelDataCards } from "./ParcelDataCards"
+import { useRoute, useLocation, Route, Switch, Link } from "wouter"
+import * as ProjectsStore from "../../projects.store"
+import { useGlobalStore } from "../../global.store"
+import { ParcelsTable } from "./ParcelsTable"
+import sampleData from "../../sampleData.json"
+import * as Breadcrumbs from "../../components/Breadcrumbs"
 
-import { ProjectParcelView } from "./ProjectParcelView";
-import { ProjectParcelTitleView } from "./ProjectParcelTitleView";
-import { useCurrentProject } from "../../hooks/useCurrentProject";
-import { Box } from "../../components/Box";
+import { ProjectParcelView } from "./ProjectParcelView"
+import { ProjectParcelTitleView } from "./ProjectParcelTitleView"
+import { useCurrentProject } from "../../hooks/useCurrentProject"
+import { Box } from "../../components/Box"
+import { useParcelsForProject } from "../../hooks/useParcelsForProject"
 
-const projectParcels = sampleData.parcels;
+const projectParcels = sampleData.parcels
 
-const Navigation = props => {
-  const currentProject = useCurrentProject();
+const Navigation = (props) => {
+  const currentProject = useCurrentProject()
 
   return (
     <Page.Navigation>
@@ -35,16 +36,16 @@ const Navigation = props => {
         Stuff
       </Page.NavigationItem>
     </Page.Navigation>
-  );
-};
+  )
+}
 
 const PROJECT_NAVIGATION = [
-  ["Parcels", "/parcels"]
+  ["Parcels", "/parcels"],
   // ["Admin", [["Settings", "/admin/settings"], ["Security", "/admin/security"]]]
-];
+]
 
-export const ProjectParcelsView = props => {
-  const project = useCurrentProject();
+export const ProjectParcelsView = (props) => {
+  const project = useCurrentProject()
 
   return (
     <Page
@@ -70,20 +71,19 @@ export const ProjectParcelsView = props => {
         />
       </Switch>
     </Page>
-  );
-};
+  )
+}
 
-const ParcelsView = props => {
+const ParcelsView = (props) => {
+  const parcels = useParcelsForProject()
   return (
     <>
       <Box justifyContent="space-between">
         <h1>Parcels</h1>
         <ParcelDataCards {...props} />
       </Box>
-      {/* <Spacer size="16px" /> */}
-      {/* <ParcelDataCards {...props} /> */}
       <Spacer size="32px" />
       <ParcelsTable data={projectParcels} />
     </>
-  );
-};
+  )
+}

@@ -1,7 +1,7 @@
 import mysql from "../mysql"
 
 export default async (app) => {
-  app.get("/api/v0/getParcels", async (request, response) => {
+  app.post("/api/v0/getTitlesForPacel", async (request, response) => {
     const [sql, pool, procedures] = await mysql
     const invokeProcedure = procedures.getTitlesForParcel(request.body)
 
@@ -11,7 +11,7 @@ export default async (app) => {
     }
 
     const handleError = (error) => {
-      console.log("[ERROR] /api/v0/getTitles", error)
+      console.log("[ERROR] /api/v0/getTitlesForPacel", error)
       return response.status(400).send({ isSuccess: false, error })
     }
 

@@ -8,14 +8,14 @@ import { Marketing } from "./pages/Marketing"
 import { Accounting } from "./pages/Accounting"
 import { LogIn } from "./pages/LogIn"
 
-// const getParcels = async () => {
-//   const response = await fetch("http://localhost:8090/api/v0/getParcels")
+// const getParcelsForProject = async () => {
+//   const response = await fetch("http://localhost:8090/api/v0/getParcelsForProject")
 //   const json = await response.json()
 //   console.log({ json })
 // }
 
-// const getTitles = async () => {
-//   const response = await fetch("http://localhost:8090/api/v0/getTitles")
+// const getTitlesForParcel = async () => {
+//   const response = await fetch("http://localhost:8090/api/v0/getTitlesForParcel")
 //   const json = await response.json()
 //   console.log({ json })
 // }
