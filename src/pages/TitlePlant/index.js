@@ -21,7 +21,7 @@ export const TitlePlant = (props) => {
 const TitlePlantView = (props) => {
   return (
     <>
-      <h1>TitlePlant</h1>
+      <p>howdy</p>
     </>
   )
 }
