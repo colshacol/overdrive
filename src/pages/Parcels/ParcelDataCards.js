@@ -44,6 +44,8 @@ export const ParcelDataCards = (props) => {
     return parcel.DateCompleted
   })
 
+  //
+
   return (
     <Box>
       <DataCard
