@@ -172,7 +172,7 @@ const ParcelView = (props) => {
         Parcel <MutedText>ID: {props.params.parcelID}</MutedText>
       </h1>
       <Spacer size="32px" />
-      <ParcelData parcel={parcel} />
+      {parcel.ParcelID && <ParcelData parcel={parcel} />}
       <TitleTable data={titles} />
     </>
   )

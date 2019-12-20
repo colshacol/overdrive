@@ -7,7 +7,7 @@ export const useParcel = (parcelID) => {
 
   React.useEffect(() => {
     apiV0.getParcel(parcelID).then((parcel) => {
-      setParcel(parcel.parcel)
+      setParcel(parcel)
     })
   }, [parcelID])
 
