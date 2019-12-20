@@ -10,6 +10,8 @@ export const TextInput = (props) => {
   const width = props.fillWidth ? "100%" : "280px"
   const inputPaddingY = props.slim ? "8px" : "12px"
 
+  console.log("TEXT INPUT", { props, isSelectBoxOpen })
+
   const inputStyle = {
     ...props.inputStyle,
     paddingTop: inputPaddingY,
@@ -20,7 +22,7 @@ export const TextInput = (props) => {
     <Popover
       position="bottom"
       isOpen={props.isSelectable && isSelectBoxOpen}
-      content={<div style={{ background: "white" }}>HOWDY DUDE</div>}
+      content={<div>HOWDY DUDE</div>}
     >
       <StyledTextInput
         className="TextInput"
@@ -32,7 +34,6 @@ export const TextInput = (props) => {
             <label htmlFor={props.id}>{props.label}</label>
           </>
         )}
-
         <input
           id={props.id}
           value={props.value}
