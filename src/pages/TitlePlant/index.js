@@ -28,7 +28,7 @@ const TitlePlantView = (props) => {
   const [countyValue, setCountyValue] = React.useState("")
   const [selectedState, setSelectedState] = React.useState()
   const [selectedCounty, setSelectedCounty] = React.useState()
-
+  // const [titles, setTitles] =
   return (
     <>
       <h1>Title Plant</h1>
@@ -36,6 +36,7 @@ const TitlePlantView = (props) => {
       <Box>
         <StateSelectInput
           value={stateValue}
+          label="State"
           placeholder="Choose a State"
           onChange={(event) => setStateValue(event.target.value)}
           isSelectable
@@ -43,6 +44,7 @@ const TitlePlantView = (props) => {
         />
         {selectedState && (
           <CountySelectInput
+            label="County"
             state={selectedState}
             value={countyValue}
             placeholder="Choose a County"
