@@ -29,7 +29,7 @@ export const TextInput = (props) => {
       )}
       <Popover
         position="bottom"
-        isOpen={isSelectBoxOpen}
+        isOpen={props.isSelecable && isSelectBoxOpen}
         content={<div style={{ background: "white" }}>HOWDY DUDE</div>}
       >
         <>
