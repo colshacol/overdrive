@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components"
 import * as React from "react"
+import Popover from "react-tiny-popover"
 
 import { Box } from "./Box"
 import { Spacer } from "./Spacer"
 
 export const TextInput = (props) => {
+  const [isSelectBoxOpen, setIsSelectBoxOpen] = React.useState(false)
   const width = props.fillWidth ? "100%" : "280px"
   const inputPaddingY = props.slim ? "8px" : "12px"
 
@@ -25,28 +27,41 @@ export const TextInput = (props) => {
           <label htmlFor={props.id}>{props.label}</label>
         </>
       )}
-      <input
-        id={props.id}
-        value={props.value}
-        placeholder={props.placeholder}
-        onChange={props.onChange}
-        className={props.inputClassName}
-        style={inputStyle}
-        type={props.type}
-      />
-      {props.icon && (
-        <Box
-          inline
-          position="absolute"
-          right="12px"
-          alignItems="center"
-          height="100%"
-        >
-          {props.icon}
-        </Box>
-      )}
+      <Popover
+        position="bottom"
+        content={<div style={{ background: "white" }}>HOWDY DUDE</div>}
+      >
+        <>
+          <input
+            id={props.id}
+            value={props.value}
+            placeholder={props.placeholder}
+            onChange={props.onChange}
+            className={props.inputClassName}
+            onFocus={() => props.isSelecable && setIsSelectBoxOpen(true)}
+            onBlur={() => props.isSelecable && setIsSelectBoxOpen(false)}
+            style={inputStyle}
+            type={props.type}
+          />
+          {props.icon && (
+            <Box
+              inline
+              position="absolute"
+              right="12px"
+              alignItems="center"
+              height="100%"
+            >
+              {props.icon}
+            </Box>
+          )}
+        </>
+      </Popover>
     </StyledTextInput>
   )
+}
+
+TextInput.defaultProps = {
+  isSelecable: undefined,
 }
 
 const StyledTextInput = styled.div`

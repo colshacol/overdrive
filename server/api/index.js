@@ -5,9 +5,13 @@ import getStateCountiesWithParcels from "./getStateCountiesWithParcels"
 import addGetParcelsRoute from "./getParcelsForProject"
 import addGetTitlesRoute from "./getTitlesForParcel"
 import getParcel from "./getParcel"
+import getTitle from "./getTitle"
+import getProject from "./getProject"
 
 export default async (app) => {
   getParcel(app)
+  getTitle(app)
+  getProject(app)
   addAuthenticateUserRoute(app)
   addGetEmployeeProjectsRoute(app)
   addGetParcelsRoute(app)

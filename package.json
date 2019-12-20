@@ -48,6 +48,7 @@
     "react-hot-loader": "^4.12.18",
     "react-scripts": "3.0.1",
     "react-table": "7.0.0-rc.2",
+    "react-tiny-popover": "^4.0.0",
     "react-window": "1.8.5",
     "reactjs-popup": "1.5.0",
     "styled-components": "4.4.1",
