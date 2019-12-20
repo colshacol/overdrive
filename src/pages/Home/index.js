@@ -21,6 +21,7 @@ import {
   Users as UsersIcon,
   TrendingUp,
   DollarSign,
+  File,
 } from "react-feather"
 
 import Card from "../../components/Card"
@@ -46,6 +47,12 @@ export const Home = (props) => {
             icon={UsersIcon}
             title="People"
             description="Manage company employees."
+          />
+          <PortalCard
+            href="/titlePlant"
+            icon={File}
+            title="Title Plant"
+            description="Filter titles directly."
           />
           <Spacer size="24px" />
           <PortalCard
