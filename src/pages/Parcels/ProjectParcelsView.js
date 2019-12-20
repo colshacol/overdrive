@@ -76,6 +76,7 @@ export const ProjectParcelsView = (props) => {
 
 const ParcelsView = (props) => {
   const parcels = useParcelsForProject()
+
   return (
     <>
       <Box justifyContent="space-between">
