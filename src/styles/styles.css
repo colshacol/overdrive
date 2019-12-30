@@ -151,10 +151,6 @@ h4 {
   border: none !important;
 }
 
-.virtualizedTable {
-  scrollbar-color: red yellow;
-}
-
 .virtualizedTable::-webkit-scrollbar-track {
   background-color: transparent;
   width: 0px;

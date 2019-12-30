@@ -1,17 +1,16 @@
 import * as React from "react"
 
 import * as apiV0 from "../services/api/v0"
-import { useCurrentProject } from "./useCurrentProject"
 
 export const useTitles = (parcelID) => {
-  const [title, setTitles] = React.useState([])
-  const project = useCurrentProject()
+  const [titles, setTitles] = React.useState([])
 
   React.useEffect(() => {
     apiV0.getTitlesForPacel(parcelID).then((titles) => {
       setTitles(titles)
     })
-  }, [])
+  }, [parcelID])
 
-  return title
+  console.log("returning titles", titles)
+  return titles
 }

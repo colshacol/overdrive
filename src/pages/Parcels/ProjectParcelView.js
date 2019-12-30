@@ -18,7 +18,7 @@ import { useRoute, useLocation, Route, Switch } from "wouter"
 
 import { Plus } from "react-feather"
 import Popup from "reactjs-popup"
-import { useCurrentProject } from "../../hooks/useCurrentProject"
+
 import { Table } from "../../components/Table"
 import { Button } from "../../components/Button"
 
@@ -66,33 +66,16 @@ const MutedText = styled.span`
 `
 
 export const ProjectParcelView = (props) => {
-  return (
-    <>
-      <Breadcrumbs.Crumb
-        path={`/project/${props.params.projectID}/parcels/${props.params.parcelID}`}
-        text={`Parcel`}
-      />
-      <Switch>
-        <Route
-          path="/project/:projectID/parcels/:parcelID"
-          component={ParcelView}
-        />
-        <Route
-          path="/project/:projectID/parcels/:parcelID/title/:titleID"
-          component={ProjectParcelTitleView}
-        />
-      </Switch>
-    </>
-  )
-}
-
-const ParcelView = (props) => {
   const titles = useTitles(props.params.parcelID)
   const [isDataOpen, setIsDataOpen] = React.useState(false)
   const parcel = useParcel(Number(props.params.parcelID))
 
   return (
     <>
+      <Breadcrumbs.Crumb
+        path={`/project/${props.params.projectID}/parcels/${props.params.parcelID}`}
+        text="Parcel"
+      />
       <Box justifyContent="space-between" alignItems="center">
         <h1>
           Parcel <MutedText>ID: {props.params.parcelID}</MutedText>
@@ -103,7 +86,7 @@ const ParcelView = (props) => {
       </Box>
       <Spacer size="32px" />
       {parcel.ParcelID && isDataOpen && <ParcelData parcel={parcel} />}
-      <TitleTable data={titles} />
+      <TitleTable parcelID={props.params.parcelID} />
     </>
   )
 }

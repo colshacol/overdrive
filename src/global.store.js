@@ -1,50 +1,52 @@
-import * as React from "react";
-import { useLocation } from "wouter";
+import * as React from "react"
+import { useLocation } from "wouter"
 
-const Context = React.createContext();
+const Context = React.createContext()
 
-export const Provider = props => {
-  const [location, setLocation] = useLocation();
+export const Provider = (props) => {
+  const [location, setLocation] = useLocation()
 
-  const [isUserAuthenticated, setIsUserAuthenticated] = React.useState(false);
-  const [user, setUser] = React.useState();
+  const [isUserAuthenticated, setIsUserAuthenticated] = React.useState(false)
+  const [user, setUser] = React.useState()
 
   const [routerState, setRouterState] = React.useState({
     currentProjectID: undefined,
     currentParcelID: undefined,
-    currentTitleID: undefined
-  });
+    currentTitleID: undefined,
+  })
 
-  const setCurrentParcelID = id => {
-    setRouterState(state => ({
+  const setCurrentParcelID = (id) => {
+    setRouterState((state) => ({
       ...state,
-      currentParcelID: id
-    }));
+      currentParcelID: id,
+    }))
 
-    setLocation(`/project/${routerState.currentProjectID}/parcels/${id}`);
-  };
+    if (!routerState.currentProjectID) {
+      return setLocation(`/parcel/${id}`)
+    }
 
-  const setCurrentProjectID = id => {
-    setRouterState(state => ({
+    setLocation(`/project/${routerState.currentProjectID}/parcels/${id}`)
+  }
+
+  const setCurrentProjectID = (id) => {
+    setRouterState((state) => ({
       ...state,
-      currentProjectID: id
-    }));
+      currentProjectID: id,
+    }))
 
-    setLocation(`/project/${routerState.currentProjectID}/parcels`);
-  };
+    setLocation(`/project/${routerState.currentProjectID}/parcels`)
+  }
 
-  const setCurrentTitleID = id => {
-    setRouterState(state => ({
+  const setCurrentTitleID = (id) => {
+    setRouterState((state) => ({
       ...state,
-      currentTitleID: id
-    }));
+      currentTitleID: id,
+    }))
 
     setLocation(
-      `/project/${routerState.currentProjectID}/parcels/${
-        routerState.currentParcelID
-      }/title/${id}`
-    );
-  };
+      `/project/${routerState.currentProjectID}/parcels/${routerState.currentParcelID}/titles/${id}`
+    )
+  }
 
   const store = {
     isUserAuthenticated,
@@ -57,12 +59,12 @@ export const Provider = props => {
     setCurrentTitleID,
     routerState,
     user,
-    setUser
-  };
+    setUser,
+  }
 
-  return <Context.Provider value={store}>{props.children}</Context.Provider>;
-};
+  return <Context.Provider value={store}>{props.children}</Context.Provider>
+}
 
 export const useGlobalStore = () => {
-  return React.useContext(Context);
-};
+  return React.useContext(Context)
+}

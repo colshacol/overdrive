@@ -58,7 +58,7 @@ const Styles = styled.div`
 `
 
 const StyledTHead = styled.div`
-  width: 100%;
+  width: ${(props) => props.width}px;
   padding: 24px 0 24px;
   border-bottom: 1px solid var(--grayscale2);
   box-shadow: 0px -2px 8px 0px var(--lightPurple2);
@@ -192,7 +192,6 @@ const useAvailableHeight = (uid, rowCount) => {
   const [tableHeight, setTableHeight] = React.useState(0)
 
   React.useEffect(() => {
-    console.log("getting height...")
     const rowsHeight = rowCount * 45
     const { innerHeight } = window
 
@@ -209,7 +208,6 @@ const useAvailableHeight = (uid, rowCount) => {
     }, innerHeight)
 
     const newTableHeight = tableHeight - TOTAL_ANCESTRY_HEIGHT
-    console.log({ newTableHeight, rowsHeight })
     setTableHeight(newTableHeight < rowsHeight ? newTableHeight : rowsHeight)
   }, [rowCount])
 
@@ -219,6 +217,7 @@ const useAvailableHeight = (uid, rowCount) => {
 export const Table = (props) => {
   const uid = useUID()
 
+  console.log("data", props.data)
   const tableState = useTable(
     {
       columns: props.columns,
@@ -227,6 +226,10 @@ export const Table = (props) => {
     useSortBy,
     useAbsoluteLayout
   )
+
+  const gridWidth = props.columns.reduce((final, column) => {
+    return final + column.width
+  }, 0)
 
   const tableHeight = useAvailableHeight(uid, tableState.rows.length)
   const height = props.isLoading ? 160 : tableHeight
@@ -274,7 +277,7 @@ export const Table = (props) => {
       </StyledTopRow>
       <StyledTableWrapper>
         <StyledTable {...tableState.getTableProps()} className="table">
-          <StyledTHead className="thead">
+          <StyledTHead className="thead" width={gridWidth}>
             {tableState.headerGroups.map((headerGroup) => (
               <div {...headerGroup.getHeaderGroupProps()} className="tr">
                 {headerGroup.headers.map((column) => (
@@ -316,11 +319,12 @@ export const Table = (props) => {
               </Box>
             ) : (
               <FixedSizeList
+                onScroll={console.log}
                 className="virtualizedTable"
-                height={height || 300}
+                height={height || 400}
                 itemCount={tableState.rows.length}
                 itemSize={45}
-                width="100%"
+                width={gridWidth}
               >
                 {RenderRow}
               </FixedSizeList>

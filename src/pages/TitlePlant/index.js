@@ -10,6 +10,8 @@ import { useStatesWithParcels } from "../../hooks/useStatesWithParcels"
 import { useStateCountiesWithParcels } from "../../hooks/useStateCountiesWithParcels"
 import * as apiV0 from "../../services/api/v0"
 import { ParcelsTable } from "../Parcels/ParcelsTable"
+import { TitlePlantTitleView } from "./TitlePlantTitleView"
+import { TitlePlantParcelView } from "./TitlePlantParcelView"
 
 const NAVIGATION = [["Title Plant", "/titlePlant"]]
 
@@ -19,13 +21,21 @@ export const TitlePlant = (props) => {
       <Breadcrumbs.Crumb path={`/titlePlant`} text="Title Plant" />
 
       <Switch>
-        <Route path="/titlePlant" component={TitlePlantView} />
+        <Route path="/titlePlant" component={TitlePlantHomeView} />
+        <Route
+          path="/titlePlant/parcel/:parcelID"
+          component={TitlePlantParcelView}
+        />
+        <Route
+          path="/titlePlant/parcel/:parcelID/titles/:titleID"
+          component={TitlePlantTitleView}
+        />
       </Switch>
     </Page>
   )
 }
 
-const TitlePlantView = (props) => {
+const TitlePlantHomeView = (props) => {
   const [stateValue, setStateValue] = React.useState("")
   const [countyValue, setCountyValue] = React.useState("")
   const [selectedState, setSelectedState] = React.useState()

@@ -20,11 +20,6 @@ import { BreadcrumbsProvider } from "./hooks/useBreadcrumbs"
 
 import { Box } from "./components/Box"
 import { SceneHeader } from "./SceneHeader"
-// import { Parcels } from "./pages/Parcels";
-import { LogIn } from "./pages/LogIn"
-import { Home } from "./pages/Home"
-
-import sampleData from "./sampleData.json"
 import { AuthenticatedRouter, UnauthenticatedRouter } from "./Router"
 import { UserProvider, useUser } from "./stores/userStore"
 

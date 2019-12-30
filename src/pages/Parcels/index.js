@@ -1,30 +1,31 @@
-import * as React from "react";
-import { Page } from "../../components/Page";
-import { Spacer } from "../../components/Spacer";
-import { ParcelDataCards } from "./ParcelDataCards";
-import { useRoute, useLocation, Route, Switch, Link } from "wouter";
-import * as ProjectsStore from "../../projects.store";
-import { useGlobalStore } from "../../global.store";
-import { ParcelsTable } from "./ParcelsTable";
-import sampleData from "../../sampleData.json";
-import * as Breadcrumbs from "../../components/Breadcrumbs";
+import * as React from "react"
+import { Page } from "../../components/Page"
+import { Spacer } from "../../components/Spacer"
+import { ParcelDataCards } from "./ParcelDataCards"
+import { useRoute, useLocation, Route, Switch, Link } from "wouter"
+import * as ProjectsStore from "../../projects.store"
+import { useGlobalStore } from "../../global.store"
+import { ParcelsTable } from "./ParcelsTable"
+import sampleData from "../../sampleData.json"
+import * as Breadcrumbs from "../../components/Breadcrumbs"
+import { useProject } from "../../hooks/useProject"
 
-const projectParcels = sampleData.parcels;
+const projectParcels = sampleData.parcels
 
 const useCurrentProject = () => {
-  const globalStore = useGlobalStore();
-  const projectsStore = ProjectsStore.useProjects();
-  const project = projectsStore.getProjectWithID(globalStore.currentProjectID);
-  return project;
-};
+  const globalStore = useGlobalStore()
+  const projectsStore = ProjectsStore.useProjects()
+  const project = projectsStore.getProjectWithID(globalStore.currentProjectID)
+  return project
+}
 
-export const ProjectParcelsView = props => {
-  const project = useCurrentProject();
+export const ProjectParcelsView = (props) => {
+  const project = useProject(props.params.projectID)
 
   return (
     <Page title={`${project.ProjectName}`}>
       <Breadcrumbs.Crumb
-        path={`/project/${project.ProjectID}/parcels`}
+        path={`/project/${props.params.projectID}/parcels`}
         text="Parcels"
       />
       <h1>Parcels</h1>
@@ -33,8 +34,8 @@ export const ProjectParcelsView = props => {
       <Spacer size="32px" />
       <ParcelsTable data={projectParcels} />
     </Page>
-  );
-};
+  )
+}
 
 // const List = props => {
 //   return (

@@ -14,7 +14,6 @@ import { Modal } from "../../components/Modal"
 
 export const ParcelsTable = (props) => {
   const [location, setLocation] = useLocation()
-  const globalStore = useGlobalStore()
   const [isModalShown, setIsModalShown] = React.useState(false)
 
   const columns = React.useRef([
@@ -24,7 +23,7 @@ export const ParcelsTable = (props) => {
       width: 24,
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
-        globalStore.setCurrentParcelID(id)
+        setLocation(`${location}/parcels/${id}`)
       },
       // key: "id",
       // isSortable: true
@@ -35,7 +34,7 @@ export const ParcelsTable = (props) => {
       width: 320,
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
-        globalStore.setCurrentParcelID(id)
+        setLocation(`${location}/parcels/${id}`)
       },
       // key: "parcelNumber",
       // isSortable: true
@@ -46,7 +45,7 @@ export const ParcelsTable = (props) => {
       width: 200,
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
-        globalStore.setCurrentParcelID(id)
+        setLocation(`${location}/parcels/${id}`)
       },
       // key: "apn",
       // isSortable: true
@@ -57,7 +56,7 @@ export const ParcelsTable = (props) => {
       width: 100,
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
-        globalStore.setCurrentParcelID(id)
+        setLocation(`${location}/parcels/${id}`)
       },
       // key: "age",
       // isSortable: true
@@ -68,7 +67,7 @@ export const ParcelsTable = (props) => {
       width: 180,
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
-        globalStore.setCurrentParcelID(id)
+        setLocation(`${location}/parcels/${id}`)
       },
       // key: "age",
       // isSortable: true
@@ -81,7 +80,7 @@ export const ParcelsTable = (props) => {
       width: 160,
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
-        globalStore.setCurrentParcelID(id)
+        setLocation(`${location}/parcels/${id}`)
       },
     },
     {
@@ -90,7 +89,7 @@ export const ParcelsTable = (props) => {
       width: 160,
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
-        globalStore.setCurrentParcelID(id)
+        setLocation(`${location}/parcels/${id}`)
       },
       // key: "dateCompleted",
       // isSortable: true

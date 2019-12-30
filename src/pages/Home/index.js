@@ -11,8 +11,6 @@ import { Button } from "../../components/Button"
 import { Page } from "../../components/Page"
 import { Search } from "react-feather"
 import { useLocation, Route, Switch } from "wouter"
-import { useBreadcrumb } from "../../hooks/useBreadcrumbs"
-import { Parcels } from "../Parcels"
 
 import { useUser } from "../../stores/userStore"
 
@@ -93,8 +91,7 @@ const ProjectCard = (props) => {
   return (
     <Card
       onClick={() => {
-        globalStore.setCurrentProjectID(props.ProjectID)
-        setLocation(`/project/${props.ProjectID}/parcels`)
+        setLocation(`/project/${props.ProjectID}`)
       }}
       key={props.ProjectID}
       style={{ minWidth: "30%", margin: "0 24px 24px 0" }}

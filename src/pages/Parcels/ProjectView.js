@@ -1,47 +1,45 @@
-import * as React from "react";
-import { Box } from "../../components/Box";
+import * as React from "react"
+import { useLocation, Route, Switch } from "wouter"
+import { Crumb } from "../../components/Breadcrumbs"
+import { Page } from "../../components/Page"
+import { ProjectParcelsView } from "./ProjectParcelsView"
+import { useProject } from "../../hooks/useProject"
+import { ProjectParcelTitleView } from "./ProjectParcelTitleView"
+import { ProjectParcelView } from "./ProjectParcelView"
 
-import { useGlobalStore } from "../../global.store";
-import * as ProjectsStore from "../../projects.store";
+const PROJECT_NAVIGATION = [["Parcels", "/parcels"]]
 
-import { TextInput } from "../../components/TextInput";
-import { Spacer } from "../../components/Spacer";
-import { Logo } from "../../components/Logo";
-import { Button } from "../../components/Button";
-import { Page } from "../../components/Page";
-import { Search } from "react-feather";
-import { useLocation, Route, Switch } from "wouter";
-import { useBreadcrumb } from "../../hooks/useBreadcrumbs";
-import { Crumb } from "../../components/Breadcrumbs";
-import { useCurrentProject } from "../../hooks/useCurrentProject";
+export const ProjectView = (props) => {
+  const project = useProject(props.params.projectID)
 
-import { ProjectParcelsView } from "./ProjectParcelsView";
-import { ProjectParcelView } from "./ProjectParcelView";
-import { ProjectReportsView } from "./ProjectRecordsView";
-import { ProjectParcelTitleView } from "./ProjectParcelTitleView";
-
-export const ProjectView = props => {
-  const [location, setLocation] = useLocation();
-  const projectsStore = ProjectsStore.useProjects();
-  const globalStore = useGlobalStore();
-  const project = useCurrentProject();
-
-  return (
+  return !project.ProjectName ? null : (
     <>
-      <Crumb
-        path={`/project/${project.ProjectID}/parcels`}
-        text={`Project (${project.ProjectName})`}
-      />
-      <Switch>
-        <Route
-          path="/project/:projectID/parcels/:rest*"
-          component={ProjectParcelsView}
+      <Page
+        title={`${project.ProjectName}`}
+        baseRoute={`/project/${project.ProjectID}`}
+        navigation={PROJECT_NAVIGATION}
+      >
+        <Crumb
+          path={`/project/${project.ProjectID}`}
+          text={`Project (${project.ProjectName})`}
         />
-        <Route
-          path="/project/:projectID/reports"
-          component={ProjectReportsView}
-        />
-      </Switch>
+        <Switch>
+          <Route path="/project/:projectID" component={ProjectParcelsView} />
+          <Route
+            path="/project/:projectID/parcels/:parcelID/titles/:titleID"
+            component={ProjectParcelTitleView}
+          />
+          <Route
+            path="/project/:projectID/parcels/:parcelID"
+            component={ProjectParcelView}
+          />
+          {/* TODO: Reports view */}
+          <Route
+            path="/project/:projectID/reports"
+            component={ProjectParcelsView}
+          />
+        </Switch>
+      </Page>
     </>
-  );
-};
+  )
+}

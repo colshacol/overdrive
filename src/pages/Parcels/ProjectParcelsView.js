@@ -10,73 +10,12 @@ import sampleData from "../../sampleData.json"
 import * as Breadcrumbs from "../../components/Breadcrumbs"
 
 import { ProjectParcelView } from "./ProjectParcelView"
-import { ProjectParcelTitleView } from "./ProjectParcelTitleView"
-import { useCurrentProject } from "../../hooks/useCurrentProject"
 import { Box } from "../../components/Box"
 import { useParcelsForProject } from "../../hooks/useParcelsForProject"
 import { useProject } from "../../hooks/useProject"
 
-const projectParcels = sampleData.parcels
-
-const Navigation = (props) => {
-  const currentProject = useCurrentProject()
-
-  return (
-    <Page.Navigation>
-      <Page.NavigationItem
-        href={`/project/${currentProject.ProjectID}/parcels`}
-      >
-        Parcels
-      </Page.NavigationItem>
-      <Page.NavigationItem
-        href={`/project/${currentProject.ProjectID}/reports`}
-      >
-        Reports
-      </Page.NavigationItem>
-      <Page.NavigationItem href={`/project/${currentProject.ProjectID}/stuff`}>
-        Stuff
-      </Page.NavigationItem>
-    </Page.Navigation>
-  )
-}
-
-const PROJECT_NAVIGATION = [
-  ["Parcels", "/parcels"],
-  // ["Admin", [["Settings", "/admin/settings"], ["Security", "/admin/security"]]]
-]
-
 export const ProjectParcelsView = (props) => {
-  const project = useCurrentProject()
-
-  return (
-    <Page
-      title={`${project.ProjectName}`}
-      baseRoute={`/project/${project.ProjectID}`}
-      navigation={PROJECT_NAVIGATION}
-    >
-      <Breadcrumbs.Crumb
-        path={`/project/${project.ProjectID}/parcels`}
-        text="Parcels"
-      />
-
-      <Switch>
-        <Route path="/project/:projectID/parcels" component={ParcelsView} />
-
-        <Route
-          path="/project/:projectID/parcels/:parcelID"
-          component={ProjectParcelView}
-        />
-        <Route
-          path="/project/:projectID/parcels/:rest*"
-          component={ProjectParcelView}
-        />
-      </Switch>
-    </Page>
-  )
-}
-
-const ParcelsView = (props) => {
-  const parcels = useParcelsForProject()
+  const parcels = useParcelsForProject(props.params.projectID)
 
   return (
     <>

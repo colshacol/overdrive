@@ -12,11 +12,6 @@ import styled from "styled-components"
 import theme from "../../theme"
 import { SmallLabel } from "../../components/SmallLabel"
 import { Breadcrumb } from "@servicetitan/design-system"
-import { useBreadcrumb } from "../../hooks/useBreadcrumbs"
-import { useRoute, useLocation, Route, Switch } from "wouter"
-
-import { useCurrentProject } from "../../hooks/useCurrentProject"
-import { Table } from "../../components/Table"
 import { Button } from "../../components/Button"
 
 import { useTitles } from "../../hooks/useTitles"
@@ -57,8 +52,12 @@ export const ProjectParcelTitleView = (props) => {
   return (
     <>
       <Breadcrumbs.Crumb
-        path={`/project/${props.params.projectID}/parcels/${props.params.parcelID}/title/${props.params.titleID}`}
-        text={`Title (${props.params.titleID})`}
+        path={`/project/${props.params.projectID}/parcels/${props.params.parcelID}`}
+        text="Parcel"
+      />
+      <Breadcrumbs.Crumb
+        path={`/project/${props.params.projectID}/parcels/${props.params.parcelID}/titles/${props.params.titleID}`}
+        text={`Title`}
       />
       <h1>Title</h1>
       <Spacer size="12px" />

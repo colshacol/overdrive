@@ -8,30 +8,14 @@ import { Marketing } from "./pages/Marketing"
 import { Accounting } from "./pages/Accounting"
 import { TitlePlant } from "./pages/TitlePlant"
 import { LogIn } from "./pages/LogIn"
-
-// const getParcelsForProject = async () => {
-//   const response = await fetch("http://localhost:8090/api/v0/getParcelsForProject")
-//   const json = await response.json()
-//   console.log({ json })
-// }
-
-// const getTitlesForParcel = async () => {
-//   const response = await fetch("http://localhost:8090/api/v0/getTitlesForParcel")
-//   const json = await response.json()
-//   console.log({ json })
-// }
+import { ParcelView } from "./pages/ParcelView"
+import { TitleView } from "./pages/TitleView"
 
 export const UnauthenticatedRouter = (props) => {
   return <LogIn {...props} />
 }
 
 export const AuthenticatedRouter = (props) => {
-  // React.useEffect(() => {
-  //   getParcels()
-  //   getTitles()
-  //   authenticateUser()
-  // }, [])
-
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -40,6 +24,8 @@ export const AuthenticatedRouter = (props) => {
       <Route path="/marketing/:rest*" component={Marketing} />
       <Route path="/accounting/:rest*" component={Accounting} />
       <Route path="/titlePlant/:rest*" component={TitlePlant} />
+      <Route path="/parcels/:parcelID" component={ParcelView} />
+      <Route path="/titles/:titleID" component={TitleView} />
       <Route path="/:rest*">404, not found!</Route>
     </Switch>
   )

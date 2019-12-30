@@ -1,9 +1,9 @@
 import * as React from "react"
 import { Table } from "../../components/Table"
-import { useLocation } from "wouter"
+import { useLocation, Link } from "wouter"
 import { Box } from "../../components/Box"
 import { Button } from "../../components/Button"
-import { Plus, X } from "react-feather"
+import { Plus, X, File, Map } from "react-feather"
 import { useGlobalStore } from "../../global.store"
 import Popup from "reactjs-popup"
 import styled from "styled-components"
@@ -12,6 +12,7 @@ import { Spacer } from "../../components/Spacer"
 import { Grid, Cell } from "styled-css-grid"
 import truncate from "truncate"
 import { Modal } from "../../components/Modal"
+import { useTitles } from "../../hooks/useTitles"
 
 // Use props.columnOverrides to use default columns
 // with unique properties.
@@ -44,7 +45,7 @@ const useMergedColuns = (props, columns) => {
 }
 
 export const TitleTable = (props) => {
-  const globalStore = useGlobalStore()
+  const titles = useTitles(props.parcelID)
   const [location, setLocation] = useLocation()
 
   const columns = useMergedColuns(props, [
@@ -56,7 +57,7 @@ export const TitleTable = (props) => {
       collapse: true,
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
       },
     },
     {
@@ -67,7 +68,7 @@ export const TitleTable = (props) => {
       collapse: true,
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
       },
     },
     {
@@ -79,19 +80,19 @@ export const TitleTable = (props) => {
       Cell: ({ cell: { value } }) => truncate(value, 23),
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
       },
     },
     {
       Header: "Grantee",
       accessor: "Grantee",
       Cell: ({ cell: { value } }) => truncate(value, 23),
-      width: 150,
-      maxWidth: 200,
+      width: 200,
+      maxWidth: 250,
       collapse: true,
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
       },
     },
     {
@@ -102,7 +103,7 @@ export const TitleTable = (props) => {
       collapse: true,
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
       },
     },
     {
@@ -113,7 +114,7 @@ export const TitleTable = (props) => {
       collapse: true,
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
       },
     },
     {
@@ -124,29 +125,43 @@ export const TitleTable = (props) => {
       collapse: true,
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
       },
     },
     {
       Header: "Instrument Path",
       accessor: "InstrumentPath",
-      width: 100,
-      maxWidth: 100,
+      width: 150,
+      maxWidth: 150,
       collapse: true,
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
+      },
+      Cell: (props, columns) => {
+        return props.cell.value && props.cell.value !== "null" ? (
+          <Link href={props.cell.value}>
+            <File size={24} />
+          </Link>
+        ) : null
       },
     },
     {
       Header: "Map Path",
       accessor: "MapPath",
-      width: 100,
-      maxWidth: 100,
+      width: 150,
+      maxWidth: 150,
       collapse: true,
       onClick: (cell) => {
         const id = cell.row.values.TitleID
-        globalStore.setCurrentTitleID(id)
+        setLocation(`${location}/titles/${id}`)
+      },
+      Cell: (props, columns) => {
+        return props.cell.value && props.cell.value !== "null" ? (
+          <Link href={props.cell.value}>
+            <Map size={24} />
+          </Link>
+        ) : null
       },
     },
   ])
@@ -154,10 +169,10 @@ export const TitleTable = (props) => {
   return (
     <Table
       isLoading={props.isLoading}
-      height={props.data.length * 45}
-      title="Titles"
+      height={titles.length * 45}
+      title={`Titles (${titles.length})`}
       columns={columns || []}
-      data={props.data}
+      data={titles}
       renderTopRow={(props, tableState) => (
         <Box inline width="100%" justifyContent="flex-end" alignItems="center">
           <AddTitleModal />
