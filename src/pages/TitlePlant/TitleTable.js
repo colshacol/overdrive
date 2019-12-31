@@ -156,9 +156,9 @@ export const TitleTable = (props) => {
       },
       Cell: (props, columns) => {
         return props.cell.value && props.cell.value !== "null" ? (
-          <Link href={props.cell.value}>
+          <a target="_blank" href={props.cell.value}>
             <File size={24} />
-          </Link>
+          </a>
         ) : null
       },
     },
@@ -174,9 +174,9 @@ export const TitleTable = (props) => {
       },
       Cell: (props, columns) => {
         return props.cell.value && props.cell.value !== "null" ? (
-          <Link href={props.cell.value}>
+          <a target="_blank" href={props.cell.value}>
             <Map size={24} />
-          </Link>
+          </a>
         ) : null
       },
     },
