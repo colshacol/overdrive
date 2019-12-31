@@ -34,7 +34,7 @@ const DataText = (props) => {
 }
 
 export const TitleDetails = (props) => {
-  const title = useTitle(props.params.titleID)
+  const title = useTitle(props.titleID)
 
   return (
     <>

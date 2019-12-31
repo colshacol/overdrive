@@ -9,18 +9,29 @@ import { Spacer } from "./Spacer"
 
 const StyledOptions = styled.div``
 const StyledIcons = styled.div`
+  position: relative;
+
   .downArrow {
     cursor: pointer;
     color: var(--grayscale6);
+    position: absolute;
+    top: -10px;
+    right: 35px;
+    z-index: 500;
   }
 
-  .downArrow:hover {
+  .downArrow:hover,
+  .clearIcon:hover {
     color: var(--brandDarkPurple);
   }
 
   .clearIcon {
     cursor: pointer;
+    z-index: 500;
     color: var(--grayscale6);
+    position: absolute;
+    bottom: -13px;
+    right: 0;
   }
 
   .clearIcon:hover {
@@ -42,7 +53,7 @@ const StyledOption = styled.div`
 
 export const SelectInput = (props) => {
   const [isOpen, setIsOpen] = React.useState(false)
-  const { onSelection, selectOptions, ...otherProps } = props
+  const { onClear, onSelection, selectOptions, ...otherProps } = props
 
   return (
     <Popup
@@ -69,7 +80,8 @@ export const SelectInput = (props) => {
                 className="clearIcon"
                 size="24px"
                 onClick={() => {
-                  onSelection({ text: "" })
+                  isOpen && setIsOpen(false)
+                  onClear()
                 }}
               />
             </StyledIcons>

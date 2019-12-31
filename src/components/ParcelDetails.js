@@ -20,7 +20,7 @@ export const ParcelDetails = (props) => {
     <>
       <Box justifyContent="space-between" alignItems="center">
         <h1>
-          Parcel <MutedText>ID: {props.params.parcelID}</MutedText>
+          Parcel <MutedText>ID: {props.parcelID}</MutedText>
         </h1>
         <a href="#" onClick={() => setIsDataOpen(!isDataOpen)}>
           Show Parcel Information
@@ -28,7 +28,7 @@ export const ParcelDetails = (props) => {
       </Box>
       <Spacer size="32px" />
       {parcel.ParcelID && isDataOpen && <ParcelData parcel={parcel} />}
-      <TitleTable parcelID={props.params.parcelID} />
+      <TitleTable parcelID={props.parcelID} />
     </>
   )
 }

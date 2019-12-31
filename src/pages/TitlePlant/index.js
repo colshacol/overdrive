@@ -23,11 +23,11 @@ export const TitlePlant = (props) => {
       <Switch>
         <Route path="/titlePlant" component={TitlePlantHomeView} />
         <Route
-          path="/titlePlant/parcel/:parcelID"
+          path="/titlePlant/parcels/:parcelID"
           component={TitlePlantParcelView}
         />
         <Route
-          path="/titlePlant/parcel/:parcelID/titles/:titleID"
+          path="/titlePlant/parcels/:parcelID/titles/:titleID"
           component={TitlePlantTitleView}
         />
       </Switch>
@@ -46,7 +46,7 @@ const TitlePlantHomeView = (props) => {
     setCountyValue("")
     setSelectedCounty()
     setSelectedState(state)
-    setStateValue(state.text)
+    setStateValue(state ? state.text : "")
   }
 
   const setCounty = (county) => {
@@ -76,6 +76,7 @@ const TitlePlantHomeView = (props) => {
           onChange={(event) => setStateValue(event.target.value)}
           isSelectable
           onSelection={setState}
+          onClear={() => setState()}
         />
         {selectedState && (
           <>
