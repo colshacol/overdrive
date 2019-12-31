@@ -217,7 +217,6 @@ const useAvailableHeight = (uid, rowCount) => {
 export const Table = (props) => {
   const uid = useUID()
 
-  console.log("data", props.data)
   const tableState = useTable(
     {
       columns: props.columns,

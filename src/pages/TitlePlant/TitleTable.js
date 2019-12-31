@@ -13,6 +13,8 @@ import { Grid, Cell } from "styled-css-grid"
 import truncate from "truncate"
 import { Modal } from "../../components/Modal"
 import { useTitles } from "../../hooks/useTitles"
+import { EmptyNullCell } from "../../components/EmptyNullCell"
+import { ShortDateCell } from "../../components/ShortDateCell"
 
 // Use props.columnOverrides to use default columns
 // with unique properties.
@@ -55,6 +57,8 @@ export const TitleTable = (props) => {
       width: 24,
       maxWidth: 200,
       collapse: true,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.TitleID
         setLocation(`${location}/titles/${id}`)
@@ -66,6 +70,8 @@ export const TitleTable = (props) => {
       width: 120,
       maxWidth: 200,
       collapse: true,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.TitleID
         setLocation(`${location}/titles/${id}`)
@@ -77,6 +83,8 @@ export const TitleTable = (props) => {
       width: 230,
       maxWidth: 300,
       collapse: true,
+      Cell: EmptyNullCell,
+      nullContent: "",
       Cell: ({ cell: { value } }) => truncate(value, 23),
       onClick: (cell) => {
         const id = cell.row.values.TitleID
@@ -90,6 +98,8 @@ export const TitleTable = (props) => {
       width: 200,
       maxWidth: 250,
       collapse: true,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.TitleID
         setLocation(`${location}/titles/${id}`)
@@ -101,6 +111,8 @@ export const TitleTable = (props) => {
       width: 200,
       maxWidth: 250,
       collapse: true,
+      Cell: ShortDateCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.TitleID
         setLocation(`${location}/titles/${id}`)
@@ -112,6 +124,8 @@ export const TitleTable = (props) => {
       width: 200,
       maxWidth: 250,
       collapse: true,
+      Cell: ShortDateCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.TitleID
         setLocation(`${location}/titles/${id}`)
@@ -123,6 +137,8 @@ export const TitleTable = (props) => {
       width: 200,
       maxWidth: 250,
       collapse: true,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.TitleID
         setLocation(`${location}/titles/${id}`)

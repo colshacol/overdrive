@@ -1,5 +1,5 @@
-import * as React from "react";
-import styled from "styled-components";
+import * as React from "react"
+import styled from "styled-components"
 
 const Card = styled.div`
   position: relative;
@@ -25,6 +25,6 @@ const Card = styled.div`
     /* box-shadow: 0px 2px 8px -2px var(--brandLightPurple); */
     box-shadow: 0px 8px 16px -6px var(--darkPurple2);
   }
-`;
+`
 
-export default Card;
+export default Card

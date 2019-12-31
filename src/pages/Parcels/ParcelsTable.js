@@ -11,6 +11,8 @@ import { TextInput } from "../../components/TextInput"
 import { Spacer } from "../../components/Spacer"
 import { Grid, Cell } from "styled-css-grid"
 import { Modal } from "../../components/Modal"
+import { EmptyNullCell } from "../../components/EmptyNullCell"
+import { ShortDateCell } from "../../components/ShortDateCell"
 
 export const ParcelsTable = (props) => {
   const [location, setLocation] = useLocation()
@@ -21,6 +23,8 @@ export const ParcelsTable = (props) => {
       Header: " ",
       accessor: "ParcelID",
       width: 24,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
         setLocation(`${location}/parcels/${id}`)
@@ -32,6 +36,8 @@ export const ParcelsTable = (props) => {
       Header: "Parcel Number",
       accessor: "ParcelNumber",
       width: 320,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
         setLocation(`${location}/parcels/${id}`)
@@ -43,6 +49,8 @@ export const ParcelsTable = (props) => {
       Header: "APN",
       accessor: "APN",
       width: 200,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
         setLocation(`${location}/parcels/${id}`)
@@ -54,6 +62,8 @@ export const ParcelsTable = (props) => {
       Header: "Acres",
       accessor: "Acres",
       width: 100,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
         setLocation(`${location}/parcels/${id}`)
@@ -65,6 +75,8 @@ export const ParcelsTable = (props) => {
       Header: "Assigned To",
       accessor: "AssignedTo",
       width: 180,
+      Cell: EmptyNullCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
         setLocation(`${location}/parcels/${id}`)
@@ -78,6 +90,8 @@ export const ParcelsTable = (props) => {
       // key: "dateAssigned",
       // isSortable: true,
       width: 160,
+      Cell: ShortDateCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
         setLocation(`${location}/parcels/${id}`)
@@ -87,6 +101,8 @@ export const ParcelsTable = (props) => {
       Header: "Date Completed",
       accessor: "DateCompleted",
       width: 160,
+      Cell: ShortDateCell,
+      nullContent: "",
       onClick: (cell) => {
         const id = cell.row.values.ParcelID
         setLocation(`${location}/parcels/${id}`)
