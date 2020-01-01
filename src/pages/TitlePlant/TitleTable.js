@@ -145,6 +145,24 @@ export const TitleTable = (props) => {
       },
     },
     {
+      Header: "Map Path",
+      accessor: "MapPath",
+      width: 100,
+      maxWidth: 100,
+      collapse: true,
+      onClick: (cell) => {
+        const id = cell.row.values.TitleID
+        setLocation(`${location}/titles/${id}`)
+      },
+      Cell: (props, columns) => {
+        return props.cell.value && props.cell.value !== "null" ? (
+          <a target="_blank" href={props.cell.value}>
+            <Map size={24} />
+          </a>
+        ) : null
+      },
+    },
+    {
       Header: "Instrument Path",
       accessor: "InstrumentPath",
       width: 150,
@@ -158,24 +176,6 @@ export const TitleTable = (props) => {
         return props.cell.value && props.cell.value !== "null" ? (
           <a target="_blank" href={props.cell.value}>
             <File size={24} />
-          </a>
-        ) : null
-      },
-    },
-    {
-      Header: "Map Path",
-      accessor: "MapPath",
-      width: 150,
-      maxWidth: 150,
-      collapse: true,
-      onClick: (cell) => {
-        const id = cell.row.values.TitleID
-        setLocation(`${location}/titles/${id}`)
-      },
-      Cell: (props, columns) => {
-        return props.cell.value && props.cell.value !== "null" ? (
-          <a target="_blank" href={props.cell.value}>
-            <Map size={24} />
           </a>
         ) : null
       },

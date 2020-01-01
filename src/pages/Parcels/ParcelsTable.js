@@ -48,7 +48,7 @@ export const ParcelsTable = (props) => {
     {
       Header: "APN",
       accessor: "APN",
-      width: 200,
+      width: 250,
       Cell: EmptyNullCell,
       nullContent: "",
       onClick: (cell) => {
@@ -74,7 +74,7 @@ export const ParcelsTable = (props) => {
     {
       Header: "Assigned To",
       accessor: "AssignedTo",
-      width: 180,
+      width: 178,
       Cell: EmptyNullCell,
       nullContent: "",
       onClick: (cell) => {
@@ -89,7 +89,7 @@ export const ParcelsTable = (props) => {
       accessor: "DateAssigned",
       // key: "dateAssigned",
       // isSortable: true,
-      width: 160,
+      width: 180,
       Cell: ShortDateCell,
       nullContent: "",
       onClick: (cell) => {
@@ -100,7 +100,7 @@ export const ParcelsTable = (props) => {
     {
       Header: "Date Completed",
       accessor: "DateCompleted",
-      width: 160,
+      width: 180,
       Cell: ShortDateCell,
       nullContent: "",
       onClick: (cell) => {

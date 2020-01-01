@@ -61,7 +61,7 @@ const StyledTHead = styled.div`
   width: ${(props) => props.width}px;
   padding: 24px 0 24px;
   border-bottom: 1px solid var(--grayscale2);
-  box-shadow: 0px -2px 8px 0px var(--lightPurple2);
+  box-shadow: 0px 8px 8px 0px var(--lightPurple2);
   border-top: 1px solid var(--grayscale2);
 
   .th:first-of-type {
@@ -76,9 +76,6 @@ const StyledTH = styled.div`
 `
 
 const StyledTable = styled.div`
-  width: fit-content;
-  width: 100%;
-
   .tr {
     padding: 8px 0;
     width: 100%;
@@ -146,6 +143,7 @@ const TableBody = styled.div`
   }
 
   > div {
+    padding-bottom: 20px;
     overflow-x: hidden !important;
   }
 `
@@ -173,8 +171,7 @@ const SortIcons = (props) => {
 const StyledTableWrapper = styled.div`
   display: block;
   max-width: 100%;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  width: ${(props) => props.width}px;
 `
 
 const TOPBAR_HEIGHT = 68
@@ -274,8 +271,12 @@ export const Table = (props) => {
         <StyledTableTitle>{props.title}</StyledTableTitle>
         {props.renderTopRow && props.renderTopRow(props, tableState)}
       </StyledTopRow>
-      <StyledTableWrapper>
-        <StyledTable {...tableState.getTableProps()} className="table">
+      <StyledTableWrapper width={gridWidth}>
+        <StyledTable
+          {...tableState.getTableProps()}
+          className="table"
+          width={gridWidth}
+        >
           <StyledTHead className="thead" width={gridWidth}>
             {tableState.headerGroups.map((headerGroup) => (
               <div {...headerGroup.getHeaderGroupProps()} className="tr">
