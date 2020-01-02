@@ -38,7 +38,7 @@ const StoreWrapper = (props) => {
 const AuthWrapper = (props) => {
   const user = useUser()
 
-  return user.isAuthenticated ? <App /> : <UnauthenticatedRouter />
+  return user.EmployeeID ? <App /> : <UnauthenticatedRouter />
 }
 
 const App = (props) => {

@@ -1,3 +1,4 @@
+import store from "store"
 import * as React from "react"
 import wretch from "wretch"
 import createContextStore from "../utilities/createContextStore"
@@ -9,26 +10,25 @@ const INITIAL_USER_STATE = {
 }
 
 const [UserProvider, useUser] = createContextStore(() => {
-  const [user, setUser] = React.useState(INITIAL_USER_STATE)
+  const initialState = store.get("user") || INITIAL_USER_STATE
+  const [user, setUser] = React.useState(initialState)
 
-  const register = React.useCallback((userData) => {
-    setUser((user) => {
-      return {
-        ...user,
-        isAuthenticated: true,
-        ...userData,
-      }
-    })
-  }, [])
-
-  const unregister = React.useCallback(() => {
+  const deauthenticate = React.useCallback(() => {
+    store.remove("user")
     setUser(INITIAL_USER_STATE)
   }, [])
 
   const authenticate = React.useCallback((emailAddress, password) => {
     apiV0.authenticate(emailAddress, password).then((response) => {
       if (response.isSuccess) {
-        register(response.user)
+        store.set("user", response.user)
+        setUser((user) => {
+          return {
+            ...user,
+            ...response.user,
+            isAuthenticated: true,
+          }
+        })
       }
     })
   }, [])
@@ -38,8 +38,7 @@ const [UserProvider, useUser] = createContextStore(() => {
   return {
     ...user,
     FullName,
-    register,
-    unregister,
+    deauthenticate,
     authenticate,
   }
 })

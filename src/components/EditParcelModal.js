@@ -1,3 +1,5 @@
+import store from "store"
+
 import * as React from "react"
 import styled from "styled-components"
 import { Grid, Cell } from "styled-css-grid"
@@ -8,6 +10,17 @@ import { Plus } from "react-feather"
 import { TextInput, SelectInput } from "./TextInput"
 import { useAllStates } from "../hooks/useAllStates"
 import { useStateCounties } from "../hooks/usseStateCounties"
+import { insertParcel } from "../services/api/v0"
+import { useUser } from "../stores/userStore"
+
+const getProjectID = () => {
+  const match = window.location.pathname.match(/project\/\d/)
+  return Array.isArray(match) ? match[0].split("/")[1] : "0"
+}
+
+const getEmployeeID = () => {
+  return store.get("user").EmployeeID
+}
 
 const StyledForm = styled.div`
   display: flex;
@@ -17,16 +30,19 @@ const StyledForm = styled.div`
 `
 
 export const EditParcelModal = (props) => {
+  const parcel = props.parcel || {}
+  const user = useUser()
+
   const [state, setState] = React.useState({
     selectedState: undefined,
     selectedCounty: undefined,
-    StateCode: "",
-    County: "",
-    TownshipName: "",
-    Acres: "",
-    ParcelNumber: "",
-    APN: "",
-    AssignedTo: "",
+    StateCode: parcel.StateCode || "",
+    County: parcel.County || "",
+    TownshipName: parcel.TownshipName || "",
+    Acres: parcel.Acres || "",
+    ParcelNumber: parcel.ParcelNumber || "",
+    APN: parcel.APN || "",
+    AssignedTo: parcel.AssignedTo || "",
   })
 
   const states = useAllStates()
@@ -61,7 +77,32 @@ export const EditParcelModal = (props) => {
     [state]
   )
 
-  console.log("state", state)
+  const setIsSubmitting = (bool) => {
+    setState((state) => ({
+      ...state,
+      isSubmitting: bool,
+    }))
+  }
+
+  const submit = () => {
+    setIsSubmitting(true)
+    const options = {
+      stateCode: state.selectedState.StateCode,
+      county: state.CountyName,
+      acres: state.Acres,
+      parcelNumber: state.ParcelNumber,
+      apn: state.APN,
+      statusID: 1,
+      assignedTo: state.AssignedTo,
+      projectID: getProjectID(),
+      employeeID: user.EmployeeID,
+    }
+
+    insertParcel(options).then((response) => {
+      console.log({ response })
+      setIsSubmitting(false)
+    })
+  }
 
   return (
     <Modal
@@ -73,9 +114,7 @@ export const EditParcelModal = (props) => {
           Add Parcel
         </Button>
       }
-      actions={(modalState) => (
-        <Button onClick={modalState.close}>Submit</Button>
-      )}
+      actions={(modalState) => <Button onClick={submit}>Submit</Button>}
     >
       <StyledForm>
         <input type="hidden" value="something" />
@@ -103,7 +142,7 @@ export const EditParcelModal = (props) => {
               }
             />
           </Cell>
-          <Cell width={2}>
+          <Cell width={4}>
             <SelectInput
               autoComplete={"please-no"}
               label={"County"}
