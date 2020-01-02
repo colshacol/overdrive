@@ -7,7 +7,10 @@ import { ChevronDown, X } from "react-feather"
 import { Box } from "./Box"
 import { Spacer } from "./Spacer"
 
-const StyledOptions = styled.div``
+const StyledOptions = styled.div`
+  z-index: 100;
+`
+
 const StyledIcons = styled.div`
   position: relative;
 
@@ -17,7 +20,7 @@ const StyledIcons = styled.div`
     position: absolute;
     top: -10px;
     right: 35px;
-    z-index: 500;
+    z-index: 50;
   }
 
   .downArrow:hover,
@@ -27,7 +30,7 @@ const StyledIcons = styled.div`
 
   .clearIcon {
     cursor: pointer;
-    z-index: 500;
+    z-index: 50;
     color: var(--grayscale6);
     position: absolute;
     bottom: -13px;
@@ -51,9 +54,23 @@ const StyledOption = styled.div`
   }
 `
 
+const applyInputFilter = (target, input, field) => {
+  return target.filter((item) => {
+    return (item[field] || "").toLowerCase().includes(input.toLowerCase())
+  })
+}
+
 export const SelectInput = (props) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const { onClear, onSelection, selectOptions, ...otherProps } = props
+
+  const options = selectOptions.filter((item) => {
+    return (item.text || "")
+      .toLowerCase()
+      .includes(otherProps.value.toLowerCase())
+  })
+
+  console.log(otherProps)
 
   return (
     <Popup
@@ -93,16 +110,15 @@ export const SelectInput = (props) => {
           onInputBlur={(e) => {
             props.onBlur(e)
           }}
-          {...otherProps}
         />
       }
     >
       <StyledOptions>
-        {selectOptions.map((option) => (
+        {options.map((option) => (
           <StyledOption
             onClick={() => {
+              props.onChange({ target: { value: option.text } })
               onSelection(option)
-              console.log("clickedddd")
               setIsOpen(false)
             }}
           >
@@ -117,6 +133,9 @@ export const SelectInput = (props) => {
 SelectInput.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
+  onSelection: () => {},
+  selectOptions: [],
+  value: "",
 }
 
 const useRequiredModifiers = (props) => {
@@ -153,7 +172,7 @@ export const TextInput = (props) => {
     >
       {props.label && (
         <>
-          <label htmlFor={props.id}>
+          <label>
             {props.label}
             {requiredLabelIndicator}
           </label>
@@ -170,6 +189,7 @@ export const TextInput = (props) => {
         type={props.type}
         onFocus={props.onInputFocus}
         onBlur={props.onInputBlur}
+        autoComplete={props.autoComplete || "off"}
       />
       {props.icon && (
         <Box
@@ -188,7 +208,6 @@ export const TextInput = (props) => {
 }
 
 TextInput.defaultProps = {
-  isSelectable: undefined,
   isRequired: false,
 }
 

@@ -91,8 +91,8 @@ const StyledTopRow = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 24px 32px;
-  position: relative;
-  z-index: 50;
+  height: 82px;
+  z-index: 10;
   background: #fff;
   width: 100%;
 `
@@ -267,7 +267,7 @@ export const Table = (props) => {
 
   return (
     <Styles data-common-component="Table" data-uid={uid}>
-      <StyledTopRow>
+      <StyledTopRow width={gridWidth}>
         <StyledTableTitle>{props.title}</StyledTableTitle>
         {props.renderTopRow && props.renderTopRow(props, tableState)}
       </StyledTopRow>

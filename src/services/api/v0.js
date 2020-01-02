@@ -102,6 +102,60 @@ export const getParcelsForProject = (employeeID, projectID) => {
     })
 }
 
+export const getAllStates = () => {
+  return wretch(window.__env.serverUrl + "/api/v0/getAllStates")
+    .post({})
+    .json((response) => {
+      if (response.isSuccess) {
+        console.log("getAllStates: ", response)
+        return response.states
+      }
+
+      return response
+    })
+}
+
+export const associateParcelWithProject = (options) => {
+  return wretch(window.__env.serverUrl + "/api/v0/associateParcelWithProject")
+    .post(options)
+    .json((response) => {
+      if (response.isSuccess) {
+        console.log("associateParcelWithProject: ", response)
+        return response
+      }
+
+      return response
+    })
+}
+
+export const insertParcel = (options) => {
+  return wretch(window.__env.serverUrl + "/api/v0/insertParcel")
+    .post(options)
+    .json((response) => {
+      if (response.isSuccess) {
+        console.log("insertParcel: ", response)
+        return associateParcelWithProject(options).then((res) => {
+          return response
+        })
+      }
+
+      return response
+    })
+}
+
+export const getStateCounties = (stateID) => {
+  return wretch(window.__env.serverUrl + "/api/v0/getStateCounties")
+    .post({ stateID })
+    .json((response) => {
+      if (response.isSuccess) {
+        console.log("getStateCounties: ", response)
+        return response.counties
+      }
+
+      return response
+    })
+}
+
 export const getStatesWithParcels = () => {
   return wretch(window.__env.serverUrl + "/api/v0/getStatesWithParcels")
     .post({})

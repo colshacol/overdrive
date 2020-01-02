@@ -62,7 +62,6 @@ const createProcedures = (sql, pool) => {
     return titles
   }
 
-  // TODO: This shit.
   const getTitlesForParcel = (parameters) => {
     return pool
       .request()
@@ -70,9 +69,53 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.TitleDetailForParcelSEL")
   }
 
+  const insertParcel = (parameters) => {
+    return pool
+      .request()
+      .input("ParcelID", sql.VarChar(50), parameters.parcelID)
+      .input("EmployeeID", sql.VarChar(50), parameters.employeeID)
+      .input("StatusID", sql.VarChar(50), parameters.statusID)
+      .input("DateAssigned", sql.VarChar(50), parameters.dateAssigned)
+      .input("DateCompleted", sql.VarChar(50), parameters.dateCompleted)
+      .input("Region", sql.VarChar(50), parameters.region)
+      .input("Meridian", sql.VarChar(50), parameters.meridian)
+      .input("legalDescription", sql.VarChar(50), parameters.legalDescription)
+      .input("APN", sql.VarChar(50), parameters.apn)
+      .input("Range", sql.VarChar(50), parameters.range)
+      .input("TownshipName", sql.VarChar(50), parameters.townshipName)
+      .input("Section", sql.VarChar(50), parameters.section)
+      .input("County", sql.VarChar(50), parameters.county)
+      .input("StateCode", sql.VarChar(50), parameters.stateCode)
+      .input("Acres", sql.VarChar(50), parameters.acres)
+      .execute("dbo.ParcelINS")
+  }
+
+  const associateParcelWithProject = (parameters) => {
+    return pool
+      .request()
+      .input("ParcelID", sql.VarChar(50), parameters.parcelID)
+      .input("ProjectID", sql.VarChar(50), parameters.projectID)
+      .input("EmployeeID", sql.VarChar(50), parameters.employeeID)
+      .input("StatusID", sql.VarChar(50), parameters.statusID)
+      .input("DateAssigned", sql.VarChar(50), parameters.dateAssigned)
+      .input("DateCompleted", sql.VarChar(50), parameters.dateCompleted)
+      .execute("dbo.ProjectParcelAssociationUPD")
+  }
+
+  const getStateCounties = (parameters) => {
+    return pool
+      .request()
+      .input("StateID", sql.VarChar(50), parameters.stateID)
+      .execute("dbo.CountySEL")
+  }
+
   // "ParcelStatesSEL"
   const getStatesWithParcels = (parameters) => {
     return pool.request().execute("dbo.ParcelStatesSEL")
+  }
+
+  const getAllStates = (parameters) => {
+    return pool.request().execute("dbo.USStateSEL")
   }
 
   // "ParcelCountiesForStateSEL" @StateCode = "DE"
@@ -94,6 +137,10 @@ const createProcedures = (sql, pool) => {
     getTitlesForParcel,
     getStatesWithParcels,
     getStateCountiesWithParcels,
+    getAllStates,
+    getStateCounties,
+    insertParcel,
+    associateParcelWithProject,
   }
 }
 
