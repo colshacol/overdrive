@@ -22,9 +22,15 @@ export const ParcelDetails = (props) => {
         <h1>
           Parcel <MutedText>ID: {props.parcelID}</MutedText>
         </h1>
-        <a href="#" onClick={() => setIsDataOpen(!isDataOpen)}>
-          Show Parcel Information
-        </a>
+        <Box marginLeft="auto">
+          <a href="#" onClick={() => setIsDataOpen(!isDataOpen)}>
+            Edit Parcel
+          </a>
+          <Spacer size="24px" />
+          <a href="#" onClick={() => setIsDataOpen(!isDataOpen)}>
+            Show Parcel Information
+          </a>
+        </Box>
       </Box>
       <Spacer size="32px" />
       {parcel.ParcelID && isDataOpen && <ParcelData parcel={parcel} />}

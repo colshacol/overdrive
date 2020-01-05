@@ -95,7 +95,11 @@ const TitlePlantHomeView = (props) => {
       </Box>
       <Spacer size="24px" />
       {selectedState && selectedCounty && (
-        <ParcelsTable data={parcels} isLoading={!parcels.length} />
+        <ParcelsTable
+          data={parcels}
+          isLoading={!parcels.length}
+          projectID={props.params.projectID}
+        />
       )}
     </>
   )

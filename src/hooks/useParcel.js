@@ -6,9 +6,11 @@ export const useParcel = (parcelID) => {
   const [parcel, setParcel] = React.useState({})
 
   React.useEffect(() => {
-    apiV0.getParcel(parcelID).then((parcel) => {
-      setParcel(parcel)
-    })
+    if (parcelID) {
+      apiV0.getParcel({ parcelID }).then((parcel) => {
+        setParcel(parcel)
+      })
+    }
   }, [parcelID])
 
   return parcel

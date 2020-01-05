@@ -8,9 +8,15 @@ export const useProjectsForUser = () => {
   const user = useUser()
 
   React.useEffect(() => {
-    apiV0.getProjectsForEmployee(user.EmployeeID).then((projects) => {
-      setProjects(projects)
-    })
+    apiV0
+      .invokeProcedure({
+        procedureName: "ProjectsForEmployeeIDSEL",
+        dataPath: "recordset",
+        input: [["EmployeeID", "VarChar", user.EmployeeID]],
+      })
+      .then((projects) => {
+        setProjects(projects)
+      })
   }, [user.EmployeeID])
 
   return projects

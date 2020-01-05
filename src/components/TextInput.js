@@ -65,9 +65,10 @@ export const SelectInput = (props) => {
   const { onClear, onSelection, selectOptions, ...otherProps } = props
 
   const options = selectOptions.filter((item) => {
+    console.log({ v: otherProps.value }, { item })
     return (item.text || "")
       .toLowerCase()
-      .includes(otherProps.value.toLowerCase())
+      .includes((otherProps.value || "").toLowerCase())
   })
 
   console.log(otherProps)

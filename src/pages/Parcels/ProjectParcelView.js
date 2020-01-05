@@ -70,6 +70,7 @@ export const ProjectParcelView = (props) => {
   const [isDataOpen, setIsDataOpen] = React.useState(false)
   const parcel = useParcel(Number(props.params.parcelID))
 
+  console.log(parcel)
   return (
     <>
       <Breadcrumbs.Crumb
@@ -80,9 +81,15 @@ export const ProjectParcelView = (props) => {
         <h1>
           Parcel <MutedText>ID: {props.params.parcelID}</MutedText>
         </h1>
-        <a href="#" onClick={() => setIsDataOpen(!isDataOpen)}>
-          Show Parcel Information
-        </a>
+        <Box marginLeft="auto">
+          <Button onClick={() => setIsDataOpen(!isDataOpen)}>
+            Edit Parcel
+          </Button>
+          <Spacer size="24px" />
+          <Button onClick={() => setIsDataOpen(!isDataOpen)}>
+            Show Parcel Information
+          </Button>
+        </Box>
       </Box>
       <Spacer size="32px" />
       {parcel.ParcelID && isDataOpen && <ParcelData parcel={parcel} />}

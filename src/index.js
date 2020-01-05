@@ -5,6 +5,7 @@ import ReactDOM from "react-dom"
 import "@servicetitan/anvil-fonts/dist/css/anvil-fonts.css"
 import "@servicetitan/design-system/dist/system.min.css"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import "filepond/dist/filepond.min.css"
 
 import "./styles/variables.css"
 import "./styles/fonts.css"
@@ -15,13 +16,14 @@ import * as ProjectsStore from "./projects.store"
 
 import * as Breadcrumbs from "./components/Breadcrumbs"
 
-import { Link, Route, useLocation, useRouter } from "wouter"
+import { useLocation } from "wouter"
 import { BreadcrumbsProvider } from "./hooks/useBreadcrumbs"
 
 import { Box } from "./components/Box"
 import { SceneHeader } from "./SceneHeader"
 import { AuthenticatedRouter, UnauthenticatedRouter } from "./Router"
 import { UserProvider, useUser } from "./stores/userStore"
+import wretch from "wretch"
 
 const StoreWrapper = (props) => {
   return (

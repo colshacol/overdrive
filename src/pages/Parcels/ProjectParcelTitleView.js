@@ -1,3 +1,4 @@
+import ReactFileReader from "react-file-reader"
 import * as React from "react"
 import { Grid, Cell } from "styled-css-grid"
 import { UploadCloud, Link } from "react-feather"
@@ -49,6 +50,11 @@ const DataText = (props) => {
 export const ProjectParcelTitleView = (props) => {
   const title = useTitle(props.params.titleID)
 
+  const handleFileUpload = (which) => (files) => {
+    const file = files[0]
+    console.log({ which, file })
+  }
+
   return (
     <>
       <Breadcrumbs.Crumb
@@ -59,7 +65,35 @@ export const ProjectParcelTitleView = (props) => {
         path={`/project/${props.params.projectID}/parcels/${props.params.parcelID}/titles/${props.params.titleID}`}
         text={`Title`}
       />
-      <h1>Title</h1>
+      <Box alignItems="center" justifyContent="space-between">
+        <h1>Title</h1>
+        <Box justifyContent="flex-end">
+          <Button>
+            <Link size="21px" style={{ marginRight: 12 }} />
+            Edit Title
+          </Button>
+          <Spacer size="24px" />
+          <ReactFileReader
+            handleFiles={handleFileUpload("gis")}
+            fileTypes={[".pdf"]}
+          >
+            <Button>
+              <Link size="21px" style={{ marginRight: 12 }} />
+              Upload GIS
+            </Button>
+          </ReactFileReader>
+          <Spacer size="24px" />
+          <ReactFileReader
+            handleFiles={handleFileUpload("doc")}
+            fileTypes={[".pdf"]}
+          >
+            <Button>
+              <Link size="21px" style={{ marginRight: 12 }} />
+              Upload Document
+            </Button>
+          </ReactFileReader>
+        </Box>
+      </Box>
       <Spacer size="12px" />
       <Box
         width="100%"
@@ -91,22 +125,6 @@ export const ProjectParcelTitleView = (props) => {
         <DataText longText label="Grantee" value={title.Grantee || "N/A"} />
         <DataText longText label="Grantor" value={title.Grantor || "N/A"} />
         <DataText longText label="Comments" value={title.Comments || "N/A"} />
-      </Box>
-      <Box width="100%" padding="24px" justifyContent="flex-end">
-        <Button>
-          <Link size="21px" style={{ marginRight: 12 }} />
-          Edit
-        </Button>
-        <Spacer size="24px" />
-        <Button>
-          <Link size="21px" style={{ marginRight: 12 }} />
-          Link to GIS
-        </Button>
-        <Spacer size="24px" />
-        <Button>
-          <UploadCloud size="21px" style={{ marginRight: 12 }} />
-          Upload Document
-        </Button>
       </Box>
     </>
   )

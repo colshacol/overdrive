@@ -6,7 +6,7 @@ export default async (app) => {
     const invokeProcedure = procedures.insertParcel(request.body)
 
     const handleSuccess = (data) => {
-      return response.send({ isSuccess: true, data })
+      return response.send({ isSuccess: true, parcel: data.recordset[0] })
     }
 
     const handleError = (error) => {

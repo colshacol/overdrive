@@ -112,14 +112,14 @@ export const ParcelsTable = (props) => {
         columns={columns.current}
         data={props.data}
         height={400}
-        renderTopRow={(props, tableState) => (
+        renderTopRow={(p, tableState) => (
           <Box
             inline
             width="100%"
             justifyContent="flex-end"
             alignItems="center"
           >
-            <EditParcelModal />
+            <EditParcelModal projectID={props.projectID} />
           </Box>
         )}
       />

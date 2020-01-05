@@ -1,5 +1,3 @@
-import store from "store"
-
 import * as React from "react"
 import styled from "styled-components"
 import { Grid, Cell } from "styled-css-grid"
@@ -10,17 +8,12 @@ import { Plus } from "react-feather"
 import { TextInput, SelectInput } from "./TextInput"
 import { useAllStates } from "../hooks/useAllStates"
 import { useStateCounties } from "../hooks/usseStateCounties"
-import { insertParcel } from "../services/api/v0"
+import { insertParcel, updateParcel } from "../services/api/v0"
 import { useUser } from "../stores/userStore"
-
-const getProjectID = () => {
-  const match = window.location.pathname.match(/project\/\d/)
-  return Array.isArray(match) ? match[0].split("/")[1] : "0"
-}
-
-const getEmployeeID = () => {
-  return store.get("user").EmployeeID
-}
+import { useEmployeesForProject } from "../hooks/useEmployeesForProject"
+import { useEmployeesAssignedToParcel } from "../hooks/useEmployeesAssignedToParcel"
+import { Dropdown } from "./Dropdown"
+import { useParcelDetails } from "../hooks/useParcelDetails"
 
 const StyledForm = styled.div`
   display: flex;
@@ -29,74 +22,173 @@ const StyledForm = styled.div`
   padding: 24px;
 `
 
+const getStateID = ({ selectedOption = {} }) => {
+  return selectedOption.StateID
+}
+
+const useCounty = (props, parcel, state = {}) => {
+  const stateID = getStateID(state)
+  const options = useStateCounties(stateID)
+  const [selectedOption, setSelectedOption] = React.useState()
+  const [selectedIndex, setSelectedIndex] = React.useState()
+
+  const setSelected = React.useCallback((option, index) => {
+    setSelectedOption(option)
+    setSelectedIndex(index)
+  }, [])
+
+  const clear = React.useCallback(() => {
+    setSelectedOption()
+    setSelectedIndex()
+  }, [])
+
+  React.useEffect(clear, [stateID])
+
+  React.useEffect(() => {
+    if (parcel.County && options.length) {
+      const _county = options.find((county) => {
+        return county.CountyName === parcel.County
+      })
+
+      const _index = options.indexOf(_county)
+      setSelected(_county, _index)
+    }
+  }, [options.length, parcel.County])
+
+  return {
+    options,
+    selectedOption,
+    selectedIndex,
+    setSelected,
+    clear,
+  }
+}
+
+const useEmployee = (props, parcel) => {
+  // const assignedEmployees = useEmployeesAssignedToParcel(props.parcel.ParcelID)
+  const options = useEmployeesForProject({ projectID: props.projectID })
+  const [selectedOption, setSelectedOption] = React.useState()
+  const [selectedIndex, setSelectedIndex] = React.useState()
+
+  const setSelected = React.useCallback((option, index) => {
+    setSelectedOption(option)
+    setSelectedIndex(index)
+  }, [])
+
+  const clear = React.useCallback(() => {
+    setSelectedOption()
+    setSelectedIndex()
+  }, [])
+
+  React.useEffect(() => {
+    if (parcel.AssignedTo && options.length) {
+      const _state = options.find((state) => {
+        return state.AssignedTo === parcel.AssignedTo
+      })
+
+      const _index = options.indexOf(_state)
+      setSelected(_state, _index)
+    }
+  }, [options.length, parcel.AssignedTo])
+
+  return {
+    options,
+    selectedOption,
+    selectedIndex,
+    setSelected,
+    clear,
+  }
+}
+
+const useState = (props, parcel) => {
+  const options = useAllStates()
+  const [selectedOption, setSelectedOption] = React.useState()
+  const [selectedIndex, setSelectedIndex] = React.useState()
+
+  const setSelected = React.useCallback((option, index) => {
+    setSelectedOption(option)
+    setSelectedIndex(index)
+  }, [])
+
+  React.useEffect(() => {
+    if (parcel.StateCode && options.length) {
+      const _state = options.find((state) => {
+        return state.StateCode === parcel.StateCode
+      })
+
+      const _index = options.indexOf(_state)
+      setSelected(_state, _index)
+    }
+  }, [options.length, parcel.StateCode])
+
+  const clear = React.useCallback(() => {
+    setSelectedOption()
+    setSelectedIndex()
+  }, [])
+
+  return {
+    options,
+    selectedOption,
+    selectedIndex,
+    setSelected,
+    clear,
+  }
+}
+
 export const EditParcelModal = (props) => {
-  const parcel = props.parcel || {}
   const user = useUser()
 
-  const [state, setState] = React.useState({
-    selectedState: undefined,
-    selectedCounty: undefined,
-    StateCode: parcel.StateCode || "",
-    County: parcel.County || "",
-    TownshipName: parcel.TownshipName || "",
-    Acres: parcel.Acres || "",
-    ParcelNumber: parcel.ParcelNumber || "",
-    APN: parcel.APN || "",
-    AssignedTo: parcel.AssignedTo || "",
+  const parcel = useParcelDetails({
+    parcelID: props.parcel.ParcelID,
+    projectID: props.projectID,
   })
 
-  const states = useAllStates()
-  const counties = useStateCounties(
-    state.selectedState && state.selectedState.StateID
-  )
+  const state = useState(props, parcel) || {}
+  const employees = useEmployee(props, parcel)
+  const county = useCounty(props, parcel, state)
 
-  const stateOptions = React.useMemo(() => {
-    return states.map((state) => {
-      return { ...state, text: state.StateCode }
-    })
-  }, [states.length])
+  const [projectID, setProjectID] = React.useState(parcel.projectID)
+  const [townshipName, setTownshipName] = React.useState(parcel.TownshipName)
+  const [parcelNumber, setParcelNumber] = React.useState(parcel.ParcelNumber)
+  const [acres, setAcres] = React.useState(parcel.Acres)
+  const [apn, setApn] = React.useState(parcel.APN)
 
-  const countyOptions = React.useMemo(() => {
-    if (!counties.length) {
-      return []
-    }
+  React.useEffect(() => {
+    setProjectID(parcel.ProjectID)
+    setTownshipName(parcel.TownshipName)
+    setParcelNumber(parcel.ParcelNumber)
+    setAcres(parcel.Acres)
+    setApn(parcel.APN)
 
-    return counties.map((county) => {
-      return { ...county, text: county.CountyName }
-    })
-  }, [counties.length])
+    employees.setSelected(parcel.AssignedTo)
+    console.log(parcel.Acres)
+  }, [parcel])
 
-  const onChange = React.useCallback(
-    (key) => (event) => {
-      const { value } = event.target
-      console.warn({ key, value })
-      setState((state) => {
-        return { ...state, [key]: value }
-      })
-    },
-    [state]
-  )
-
-  const setIsSubmitting = (bool) => {
-    setState((state) => ({
-      ...state,
-      isSubmitting: bool,
-    }))
-  }
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   const submit = () => {
     setIsSubmitting(true)
+
     const options = {
-      stateCode: state.selectedState.StateCode,
-      county: state.CountyName,
-      acres: state.Acres,
-      parcelNumber: state.ParcelNumber,
-      apn: state.APN,
-      statusID: 1,
-      assignedTo: state.AssignedTo,
-      projectID: getProjectID(),
-      employeeID: user.EmployeeID,
+      stateCode: state.selectedOption.StateCode,
+      county: county.selectedOption.CountyName,
+      employeeID: employees.selectedOption.EmployeeID,
+      townshipName,
+      parcelNumber,
+      projectID,
+      acres,
+      apn,
     }
+
+    if (props.parcel.ParcelID) {
+      options.parcelID = parcel.ParcelID
+
+      return updateParcel(options).then((response) => {
+        setIsSubmitting(false)
+      })
+    }
+
+    options.projectID = Number(props.projectID)
 
     insertParcel(options).then((response) => {
       console.log({ response })
@@ -107,71 +199,62 @@ export const EditParcelModal = (props) => {
   return (
     <Modal
       title="Add Parcel"
-      text="Create a parcel."
+      description="Create a parcel."
       triggerElement={
         <Button small>
           <Plus size="18px" style={{ marginRight: 6 }} />
           Add Parcel
         </Button>
       }
-      actions={(modalState) => <Button onClick={submit}>Submit</Button>}
+      actions={(modalState) => (
+        <Button
+          onClick={() => {
+            submit()
+            modalState.close()
+          }}
+        >
+          Submit
+        </Button>
+      )}
     >
       <StyledForm>
-        <input type="hidden" value="something" />
         <Grid columns={6} gap="24px" style={{ width: "100%" }}>
           <Cell width={2}>
-            <SelectInput
+            <Dropdown
+              id="editParcelSstate"
               label={"Name of State"}
               width="100%"
-              value={state.StateCode}
-              onChange={onChange("StateCode")}
-              type={"text"}
               isRequired={true}
-              selectOptions={stateOptions}
-              onSelection={(selectedState) =>
-                setState((state) => ({ ...state, selectedState }))
-              }
+              selectedIndex={state.selectedIndex}
+              options={state.options}
+              onSelect={state.setSelected}
               defaultValue={""}
-              autoComplete={"false"}
-              onClear={() =>
-                setState((state) => ({
-                  ...state,
-                  selectedState: undefined,
-                  StateName: "",
-                }))
-              }
+              onClear={state.clear}
+              displayValueKey="StateName"
             />
           </Cell>
           <Cell width={4}>
-            <SelectInput
-              autoComplete={"please-no"}
+            <Dropdown
+              id="editParcelCounty"
               label={"County"}
               width="100%"
-              value={state.County}
-              onChange={onChange("County")}
-              type={"text"}
+              value={county.inputValue}
               isRequired={true}
-              selectOptions={countyOptions}
-              onSelection={(selectedCounty) =>
-                setState((state) => ({ ...state, selectedCounty }))
-              }
+              selectedIndex={county.selectedIndex}
+              options={county.options}
+              onSelect={county.setSelected}
               defaultValue={""}
-              onClear={() =>
-                setState((state) => ({
-                  ...state,
-                  selectedCounty: undefined,
-                  County: "",
-                }))
-              }
+              onClear={county.clear}
+              displayValueKey="CountyName"
             />
           </Cell>
           <Cell width={3}>
             <TextInput
               autoComplete={"please-no"}
-              value={state.TownshipName}
+              value={townshipName || ""}
               label={"Township Name"}
               width="100%"
-              onChange={onChange("TownshipName")}
+              onChange={(e) => setTownshipName(e.target.value)}
               type={"text"}
               isRequired={true}
               defaultValue={""}
@@ -182,8 +265,8 @@ export const EditParcelModal = (props) => {
               autoComplete={"please-no"}
               label={"Acres"}
               width="100%"
-              onChange={onChange("Acres")}
-              value={state.Acres}
+              onChange={(e) => setAcres(e.target.value)}
+              value={String(acres) || ""}
               type={"number"}
               isRequired={true}
               defaultValue={""}
@@ -194,8 +277,8 @@ export const EditParcelModal = (props) => {
               autoComplete={"please-no"}
               label={"Parcel Number"}
               width="100%"
-              onChange={onChange("ParcelNumber")}
-              value={state.ParcelNumber}
+              onChange={(e) => setParcelNumber(e.target.value)}
+              value={parcelNumber || ""}
               type={"number"}
               isRequired={true}
               defaultValue={""}
@@ -206,27 +289,33 @@ export const EditParcelModal = (props) => {
               autoComplete={"please-no"}
               label={"APN"}
               width="100%"
-              onChange={onChange("APN")}
-              value={state.APN}
+              onChange={(e) => setApn(e.target.value)}
+              value={apn || ""}
               type={"text"}
               isRequired={true}
               defaultValue={""}
             />
           </Cell>
           <Cell width={6}>
-            <TextInput
-              autoComplete={"please-no"}
+            <Dropdown
+              id="editParcelEmployees"
               label={"Assigned To"}
               width="100%"
-              onChange={onChange("AssignedTo")}
-              value={state.AssignedTo}
-              type={"text"}
               isRequired={true}
+              selectedIndex={employees.selectedIndex}
+              options={employees.options}
+              onSelect={employees.setSelected}
               defaultValue={""}
+              onClear={employees.clear}
+              displayValueKey="EmployeeName"
             />
           </Cell>
         </Grid>
       </StyledForm>
     </Modal>
   )
+}
+
+EditParcelModal.defaultProps = {
+  parcel: {},
 }

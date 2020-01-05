@@ -6,6 +6,7 @@ import path from "path"
 import session from "express-session"
 import memorystore from "memorystore"
 import morgan from "morgan"
+import procRoute from "./procRoute"
 
 import api from "./api"
 
@@ -39,6 +40,7 @@ app.get("/ping", (req, res) => {
 })
 
 api(app)
+procRoute(app)
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(cwd, "build/index.html"))

@@ -18,6 +18,14 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.ProjectSEL")
   }
 
+  const getEmployeesForProject = (parameters) => {
+    console.log({ parameters })
+    return pool
+      .request()
+      .input("ProjectID", sql.VarChar(50), parameters.projectID)
+      .execute("dbo.ProjectTeamInfoSEL")
+  }
+
   // "ParcelSEL" @ParcelID = 1
   const getParcel = (parameters) => {
     return pool
@@ -70,16 +78,16 @@ const createProcedures = (sql, pool) => {
   }
 
   const insertParcel = (parameters) => {
+    console.log(parameters)
     return pool
       .request()
-      .input("ParcelID", sql.VarChar(50), parameters.parcelID)
-      .input("Acres", sql.VarChar(50), parameters.acres)
+      .input("ParcelID", sql.Int, parameters.parcelID)
+      .input("Acres", sql.Float, parameters.acres)
       .input("StateCode", sql.VarChar(50), parameters.stateCode)
       .input("County", sql.VarChar(50), parameters.county)
       .input("Section", sql.VarChar(50), parameters.section)
       .input("TownshipName", sql.VarChar(50), parameters.townshipName)
       .input("Range", sql.VarChar(50), parameters.range)
-      .input("StatusID", sql.Int, parameters.statusID)
       .input("APN", sql.VarChar(50), parameters.apn)
       .input("LegalDescription", sql.VarChar(50), parameters.legalDescription)
       .input("Meridian", sql.VarChar(50), parameters.meridian)
@@ -87,15 +95,41 @@ const createProcedures = (sql, pool) => {
       .execute("dbo.ParcelINS")
   }
 
-  const associateParcelWithProject = (parameters) => {
+  const updateParcel = (parameters) => {
+    console.log(parameters)
+    return pool
+      .request()
+      .input("ParcelID", sql.Int, parameters.parcelID)
+      .input("Acres", sql.Float, parameters.acres)
+      .input("StateCode", sql.VarChar(50), parameters.stateCode)
+      .input("County", sql.VarChar(50), parameters.county)
+      .input("Section", sql.VarChar(50), parameters.section)
+      .input("TownshipName", sql.VarChar(50), parameters.townshipName)
+      .input("Range", sql.VarChar(50), parameters.range)
+      .input("APN", sql.VarChar(50), parameters.apn)
+      .input("LegalDescription", sql.VarChar(50), parameters.legalDescription)
+      .input("Meridian", sql.VarChar(50), parameters.meridian)
+      .input("Region", sql.VarChar(50), parameters.region)
+      .execute("dbo.ParcelUPD")
+  }
+
+  const getParcelDetails = (parameters) => {
     return pool
       .request()
       .input("ParcelID", sql.VarChar(50), parameters.parcelID)
       .input("ProjectID", sql.VarChar(50), parameters.projectID)
-      .input("StatusID", sql.VarChar(50), parameters.statusID)
-      .input("EmployeeID", sql.VarChar(50), parameters.employeeID)
-      .input("DateAssigned", sql.VarChar(50), parameters.dateAssigned)
-      .input("DateCompleted", sql.VarChar(50), parameters.dateCompleted)
+      .execute("dbo.ParcelDetailSEL")
+  }
+
+  const associateParcelWithProject = (parameters) => {
+    console.log(parameters)
+    return pool
+      .request()
+      .input("ProjectID", sql.Int, parameters.projectID)
+      .input("ParcelID", sql.Int, parameters.parcelID)
+      .input("EmployeeID", sql.Int, parameters.employeeID)
+      .input("DateAssigned", sql.DateTime, parameters.dateAssigned)
+      .input("DateCompleted", sql.DateTime, parameters.dateCompleted)
       .execute("dbo.ProjectParcelAssociationUPD")
   }
 
@@ -124,6 +158,8 @@ const createProcedures = (sql, pool) => {
   }
 
   return {
+    updateParcel,
+    getEmployeesForProject,
     getProject,
     getParcel,
     getTitle,
@@ -138,6 +174,7 @@ const createProcedures = (sql, pool) => {
     getStateCounties,
     insertParcel,
     associateParcelWithProject,
+    getParcelDetails,
   }
 }
 

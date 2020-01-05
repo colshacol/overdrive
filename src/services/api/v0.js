@@ -1,5 +1,30 @@
 import wretch from "wretch"
 
+type ProcedureOptionsT = {
+  procedureName: string,
+  dataPath: string,
+  input: [][],
+}
+
+export const invokeProcedure = (options: ProcedureOptionsT) => {
+  return wretch(window.__env.serverUrl + "/api/v0/procRoute")
+    .post(options)
+    .json((response) => {
+      console.log(options.procedureName, response[options.dataPath])
+      return response.data
+    })
+}
+
+const makeRequest = (pathName, options) => {
+  return wretch(window.__env.serverUrl + "/api/v0/" + pathName)
+    .post(options)
+    .json((response) => {
+      const logMethod = response.isSuccess ? console.log : console.error
+      logMethod(`${pathName}: `, response)
+      return response
+    })
+}
+
 export const authenticate = (emailAddress, password) => {
   return wretch(window.__env.serverUrl + "/api/v0/authenticateUser")
     .post({
@@ -9,6 +34,26 @@ export const authenticate = (emailAddress, password) => {
     .json((response) => {
       return response
     })
+}
+
+export const updateParcel = (options) => {
+  return makeRequest("updateParcel", options).then((response) => {
+    return response
+  })
+}
+
+export const getEmployeesForProject = (options) => {
+  return makeRequest("getEmployeesForProject", options).then((response) => {
+    return response.employees
+  })
+}
+
+export const getEmployeesAssignedToParcel = (options) => {
+  return makeRequest("getEmployeesAssignedToParcel", options).then(
+    (response) => {
+      return response.employees
+    }
+  )
 }
 
 export const getProjectsForEmployee = (employeeID) => {
@@ -26,19 +71,16 @@ export const getProjectsForEmployee = (employeeID) => {
     })
 }
 
-export const getParcel = (parcelID) => {
-  return wretch(window.__env.serverUrl + "/api/v0/getParcel")
-    .post({
-      parcelID: Number(parcelID),
-    })
-    .json((response) => {
-      if (response.isSuccess) {
-        console.log("getParcel: ", response)
-        return response.parcel
-      }
+export const getParcelDetails = (options) => {
+  return makeRequest("getParcelDetails", options).then((response) => {
+    return response.parcel
+  })
+}
 
-      return response
-    })
+export const getParcel = (options) => {
+  return makeRequest("getParcel", options).then((response) => {
+    return response.parcel
+  })
 }
 
 export const getProject = (projectID) => {
@@ -134,8 +176,23 @@ export const insertParcel = (options) => {
     .json((response) => {
       if (response.isSuccess) {
         console.log("insertParcel: ", response)
-        return associateParcelWithProject(options).then((res) => {
-          return response
+
+        return new Promise((resolve) => {
+          const doIt = () =>
+            setTimeout(() => {
+              return associateParcelWithProject({
+                ...options,
+                parcelID: response.parcel.ParcelID,
+              }).then((res) => {
+                if (res.isSuccess) {
+                  return resolve(response)
+                } else {
+                  doIt()
+                }
+              })
+            }, 1000)
+
+          doIt()
         })
       }
 
