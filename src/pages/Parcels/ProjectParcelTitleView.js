@@ -76,6 +76,7 @@ export const ProjectParcelTitleView = (props) => {
           <ReactFileReader
             handleFiles={handleFileUpload("gis")}
             fileTypes={[".pdf"]}
+            maxFiles={1}
           >
             <Button>
               <Link size="21px" style={{ marginRight: 12 }} />
@@ -86,6 +87,7 @@ export const ProjectParcelTitleView = (props) => {
           <ReactFileReader
             handleFiles={handleFileUpload("doc")}
             fileTypes={[".pdf"]}
+            maxFiles={1}
           >
             <Button>
               <Link size="21px" style={{ marginRight: 12 }} />

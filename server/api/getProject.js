@@ -7,7 +7,12 @@ export default async (app) => {
 
     const handleSuccess = (data) => {
       const projects = data.recordset
-      return response.send({ isSuccess: true, project: projects[0], data })
+      return response.send({
+        isSuccess: true,
+        project: projects[0],
+        data,
+        azure: process.env.AZURE_STORAGE_CONNECTION_STRING,
+      })
     }
 
     const handleError = (error) => {
