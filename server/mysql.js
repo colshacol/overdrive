@@ -128,9 +128,7 @@ const createProcedures = (sql, pool) => {
       .input("ProjectID", sql.Int, parameters.projectID)
       .input("ParcelID", sql.Int, parameters.parcelID)
       .input("EmployeeID", sql.Int, parameters.employeeID)
-      .input("DateAssigned", sql.DateTime, parameters.dateAssigned)
-      .input("DateCompleted", sql.DateTime, parameters.dateCompleted)
-      .execute("dbo.ProjectParcelAssociationUPD")
+      .execute("dbo.AddParcelToProject")
   }
 
   const getStateCounties = (parameters) => {
