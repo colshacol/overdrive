@@ -14,8 +14,8 @@ import insertParcel from "./insertParcel"
 import createRoute from "./createRoute"
 
 const authenticateUser = createRoute({
-  path: "/api/v0/associateParcelWithProject",
-  procedure: "associateParcelWithProject",
+  path: "/api/v0/authenticateUser",
+  procedure: "authenticateUser",
   handleData: (data) => {
     return { user: data.recordset[0] }
   },
