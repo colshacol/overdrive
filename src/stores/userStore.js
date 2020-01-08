@@ -6,7 +6,10 @@ import createContextStore from "../utilities/createContextStore"
 import * as apiV0 from "../services/api/v0"
 
 const INITIAL_USER_STATE = {
-  isAuthenticated: false,
+  FirstName: "Doug",
+  LastName: "Smith",
+  EmployeeID: 1,
+  isAuthenticated: true,
 }
 
 const [UserProvider, useUser] = createContextStore(() => {
